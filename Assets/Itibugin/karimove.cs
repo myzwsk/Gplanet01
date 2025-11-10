@@ -16,8 +16,8 @@ public class karimove : MonoBehaviour
     void Update()
     {
         // 1. 入力の取得
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        float moveZ = Input.GetAxis("Horizontal");
+        float moveX = Input.GetAxis("Vertical");
 
         // 2. 移動方向の計算（ローカル座標系: プレイヤーが向いている方向基準）
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
