@@ -6,6 +6,7 @@ TagManager:
   tags:
   - player
   - Elevator
+  - Bubble
   layers:
   - Default
   - TransparentFX

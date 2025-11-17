@@ -141,4 +141,13 @@ public class Player : MonoBehaviour
         // 3. ‚’¼•ûŒü‚ÌˆÚ“®‚ğ“K—p
         controller.Move(velocity * Time.deltaTime);
     }
+
+    //‹{àVÊ•Pƒoƒuƒ‹score
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bubble"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }

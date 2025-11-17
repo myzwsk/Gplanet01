@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
+    public int Score;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Score = 0;
     }
 
     // Update is called once per frame
@@ -14,11 +15,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            Destroy(this.gameObject);
+            
         }
     }
 }
