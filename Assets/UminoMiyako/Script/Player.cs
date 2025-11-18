@@ -62,18 +62,26 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        // 1. 水平方向の速度を計算（力をシミュレート）
+        // カメラの参照を取得（メインカメラを使用）
+        Transform cam = Camera.main.transform;
 
-        // 目標の移動方向ベクトル
-        Vector3 targetDirection = new Vector3(moveInput.x, 0, moveInput.y);
+        // カメラの forward と right を水平成分だけにする
+        Vector3 camForward = cam.forward;
+        camForward.y = 0;
+        camForward.Normalize();
+
+        Vector3 camRight = cam.right;
+        camRight.y = 0;
+        camRight.Normalize();
+
+        // 入力をカメラ基準に変換
+        Vector3 targetDirection = camForward * moveInput.y + camRight * moveInput.x;
 
         // 現在の水平方向の速度ベクトル（Y成分を無視）
         Vector3 currentHorizontalVelocity = new Vector3(velocity.x, 0, velocity.z);
 
         if (targetDirection.magnitude > 0.1f) // キーが押されている場合（加速）
         {
-            // 加速（力を加える）
-            // 加速力 * 時間 = 速度の変化
             if (controller.isGrounded)
             {
                 currentHorizontalVelocity += targetDirection.normalized * acceleration * Time.deltaTime;
@@ -82,67 +90,55 @@ public class Player : MonoBehaviour
             {
                 currentHorizontalVelocity += targetDirection.normalized * acceleration * Time.deltaTime * movelock;
             }
-            // 最大速度で制限
-            if(controller.isGrounded)
+
+            if (controller.isGrounded)
             {
-                currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, maxSpeed-(1f * hand.catchObjectFlag));
+                currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, maxSpeed - (1f * hand.catchObjectFlag));
             }
             else
             {
-                currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, maxSpeed*0.6f);
+                currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, maxSpeed * 0.6f);
             }
 
-            // キャラクターの向きを移動方向へ回転させる（お好みで）
-            if (targetDirection != Vector3.zero && !GetComponent<PlayerHand>().isGrabbing)
+            // キャラクターの向きを移動方向へ回転させる
+            if (targetDirection != Vector3.zero && !hand.isGrabbing)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15f);
             }
         }
-        else // キーが離されている場合（減速/摩擦）
+        else
         {
-            // 減速（摩擦力をシミュレート）
             if (controller.isGrounded)
             {
                 currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, Vector3.zero, deceleration * Time.deltaTime);
             }
-            
         }
 
-        // 2. 重力処理とジャンプの上昇制御
-
-        // 地面にいるかどうかの判定と速度リセット
+        // --- 以下はジャンプと重力処理はそのまま ---
         if (controller.isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // 地面スレスレに保つための微小な負の値
-            isJumping = false; // 地面についたらジャンプ中ではない
+            velocity.y = -2f;
+            isJumping = false;
         }
 
-        // ジャンプの上昇制御
         if (isJumping && velocity.y > 0)
         {
-            // ボタンを離しておらず、かつ上昇中 (velocity.y > 0) の場合、重力を弱くする (より長く上昇)
             velocity.y += gravity * Time.deltaTime * (1f / gravityMultiplier);
         }
         else
         {
-            // ボタンを離した、または下降中の場合、通常の重力を適用
             velocity.y += gravity * Time.deltaTime;
         }
 
-        // ボタンを離した際の最高速度の制限（短押しジャンプの実現）
-        // maxJumpVelocityよりもvelocity.yが大きい場合、maxJumpVelocityに制限する
-        // ただし、下降中は制限しない
         if (!isJumping && velocity.y > maxJumpVelocity)
         {
             velocity.y = maxJumpVelocity;
         }
-        // 3. 最終的な速度を統合し、CharacterController.Move()で適用
 
-        // velocity変数に水平方向の新しい速度を再代入
         velocity.x = currentHorizontalVelocity.x;
         velocity.z = currentHorizontalVelocity.z;
-        // 3. 垂直方向の移動を適用
+
         controller.Move(velocity * Time.deltaTime);
     }
 
