@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
             }
 
             // キャラクターの向きを移動方向へ回転させる（お好みで）
-            if (targetDirection != Vector3.zero)
+            if (targetDirection != Vector3.zero && !GetComponent<PlayerHand>().isGrabbing)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15f);
