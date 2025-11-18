@@ -1,22 +1,22 @@
-using UnityEngine;
+ï»¿using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
-    public GameObject score_object = null; // TextƒIƒuƒWƒFƒNƒg
+    public Text ScoreText;
     static public int Score = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Score = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ƒIƒuƒWƒFƒNƒg‚©‚çTextƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
-        Text score_text = score_object.GetComponent<Text>();
-        // ƒeƒLƒXƒg‚Ì•\¦‚ğ“ü‚ê‘Ö‚¦‚é
-        score_text.text = Score.ToString();
-        Debug.Log(score_text.text);
+
+        // ãƒ†ã‚­ã‚¹ãƒˆã®è¡¨ç¤ºã‚’å…¥ã‚Œæ›¿ãˆã‚‹
+        ScoreText.text = Score.ToString();
+        Debug.Log(ScoreText.text);
     }
 }

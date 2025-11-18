@@ -1,26 +1,29 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerHand : MonoBehaviour
 {
-    public Transform handPoint;
+    public float catchObjectFlag = 0;
     public float grabRange = 3f;
+    public float moveSpeed = 5f;
     public bool isGrabbing = false;
+    public Transform handPoint;
     public KeyCode grabKey = KeyCode.F;
-
+    
     private Rigidbody grabbedObject;
-    public float moveSpeed = 5f; // �����ŋ߂Â��鑬�x
-
-    void Update()
+    public void OnCatch(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(grabKey))
+        if (context.started)
         {
             TryGrab();
         }
-        else if (Input.GetKeyUp(grabKey))
+        else if (context.canceled)
         {
             Release();
         }
-
+    }
+    void Update()
+    {
         if (handPoint)
         {
             handPoint.position = transform.position + transform.forward * 0.8f;
@@ -45,6 +48,22 @@ public class PlayerHand : MonoBehaviour
                 grabbedObject = hit.rigidbody;
                 isGrabbing = true;
                 grabbedObject.linearVelocity = Vector3.zero;
+
+                // タグを取得
+                string grabbedTag = hit.collider.tag;
+                Debug.Log("Grabbed object tag: " + grabbedTag);
+                switch (grabbedTag)
+                {
+                    case "Object01":
+                        catchObjectFlag = 1f;
+                        break;
+                    case "Object02":
+                        catchObjectFlag = 2f;
+                        break;
+                    case "Object03":
+                        catchObjectFlag = 3f;
+                        break;
+                }
             }
         }
     }
@@ -52,6 +71,7 @@ public class PlayerHand : MonoBehaviour
     void Release()
     {
         isGrabbing = false;
+        catchObjectFlag = 0;
         grabbedObject = null;
     }
 }
