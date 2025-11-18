@@ -1,0 +1,6 @@
+root = true
+
+[*cs]
+
+#UTF-8変換
+charset = utf-8-bom
