@@ -2,7 +2,7 @@
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
-    public int GetScore=0;
+    public int GetScore=100;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

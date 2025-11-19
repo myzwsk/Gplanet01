@@ -10,6 +10,7 @@ TagManager:
   - Object01
   - Object02
   - Object03
+  - DeathZone
   layers:
   - Default
   - TransparentFX
