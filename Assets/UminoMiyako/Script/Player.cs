@@ -127,7 +127,34 @@ public class Player : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
     }
+    public void ExitSlopeTop(float groundY)
+    {
+        isClimbing = false;
+        // 足元を床の高さに合わせる
+        Vector3 pos = transform.position;
+        pos.y = groundY;
+        transform.position = pos;
+        velocity.y = -2f; // 着地扱い
+    }
 
+    public void ExitSlopeBottom(float groundY)
+    {
+        isClimbing = false;
+        // 足元を地面の高さに合わせる
+        Vector3 pos = transform.position;
+        pos.y = groundY;
+        transform.position = pos;
+        velocity.y = -2f;
+    }
+    public void Slope()
+    {
+        isClimbing = true;
+        velocity = Vector3.zero; // 入った瞬間にリセット
+    }
+    public void ExitSlope()
+    {
+        isClimbing = false;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bubble")) // バブル取得時
@@ -135,31 +162,8 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if (other.CompareTag("Slope")) // 梯子接触時
-        {
-            isClimbing = true;
-            velocity = Vector3.zero; // 入った瞬間にリセット
-        }
-        // 上端に到達したら通常モードへ
-        if (other.CompareTag("SlopeTop"))
-        {
-            isClimbing = false;
-            velocity.y = -2f; // 地面に立つ扱い
-        }
-
-        // 下端に到達したら通常モードへ
-        if (other.CompareTag("SlopeBottom"))
-        {
-            isClimbing = false;
-            velocity.y = -2f; // 着地扱い
-        }
+        
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Slope")) // 梯子と離れたとき
-        {
-            isClimbing = false;
-        }
-    }
+    
 }
