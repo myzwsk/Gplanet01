@@ -1360,8 +1360,9 @@ GameObject:
   - component: {fileID: 553318956}
   - component: {fileID: 553318955}
   - component: {fileID: 553318954}
+  - component: {fileID: 553318958}
   m_Layer: 0
-  m_Name: AnderBed
+  m_Name: AnderBeds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1456,6 +1457,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &553318958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553318953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b49a18ae7ce2e47a106cc49fb3115d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraFollowScript: {fileID: 380838109}
+  newOffset: {x: 5, y: 3, z: 0}
 --- !u!1001 &570594330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5052,6 +5067,10 @@ PrefabInstance:
     - target: {fileID: 4707867229350571489, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_Name
       value: BearOK
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707867229350571489, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
+      propertyPath: m_TagString
+      value: player
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalPosition.x
