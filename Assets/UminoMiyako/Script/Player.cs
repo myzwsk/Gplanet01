@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
@@ -6,70 +6,82 @@ public class Player : MonoBehaviour
 {
     public float speed = 5f;
     public float gravity = -9.81f;
-    public float initialJumpVelocity = 2f; // Å‰‚ÌƒWƒƒƒ“ƒv‚Ì¨‚¢
-    public float gravityMultiplier = 1f; // ƒWƒƒƒ“ƒvã¸’†‚Ìd—Í—}§—p
+    public float initialJumpVelocity = 2f; // æœ€åˆã®ã‚¸ãƒ£ãƒ³ãƒ—ã®å‹¢ã„
+    public float gravityMultiplier = 1f; // ã‚¸ãƒ£ãƒ³ãƒ—ä¸Šæ˜‡ä¸­ã®é‡åŠ›æŠ‘åˆ¶ç”¨
     public float movelock = 0.5f;
-    public float maxSpeed = 5f;          // Å‘å‘¬“x
-    public float acceleration = 25f;     // ‰Á‘¬‚Ì‹­‚³i—Í‚ğƒVƒ~ƒ…ƒŒ[ƒgj
-    public float deceleration = 30f;     // Œ¸‘¬‚Ì‹­‚³iƒL[‚ğ—£‚µ‚½‚Ì–€C‚ğƒVƒ~ƒ…ƒŒ[ƒgj
+    public float maxSpeed = 5f;          // æœ€å¤§é€Ÿåº¦
+    public float acceleration = 25f;     // åŠ é€Ÿã®å¼·ã•ï¼ˆåŠ›ã‚’ã‚·ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆï¼‰
+    public float deceleration = 30f;     // æ¸›é€Ÿã®å¼·ã•ï¼ˆã‚­ãƒ¼ã‚’é›¢ã—ãŸæ™‚ã®æ‘©æ“¦ã‚’ã‚·ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆï¼‰
 
+    private PlayerHand hand;
     private CharacterController controller;
     private Vector2 moveInput;
-    private Vector3 velocity
-        ;
+    private Vector3 velocity;
     private bool isJumping = false;
-    private float maxJumpVelocity = 0f; // ƒ{ƒ^ƒ“‚ğ—£‚µ‚½“_‚Å‚ÌÅ‚‘¬“x‚ğ§ŒÀ‚·‚é’l
+    private float maxJumpVelocity = 0f; // ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸæ™‚ç‚¹ã§ã®æœ€é«˜é€Ÿåº¦ã‚’åˆ¶é™ã™ã‚‹å€¤
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        hand = GetComponent<PlayerHand>();
     }
 
-    // Move ƒAƒNƒVƒ‡ƒ“‚É•R•t‚¯‚é
+    // Move ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã«ç´ä»˜ã‘ã‚‹
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
 
-    // Jump ƒAƒNƒVƒ‡ƒ“‚É•R•t‚¯‚é
+    // Jump ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã«ç´ä»˜ã‘ã‚‹
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            // ’n–Ê‚É‚¢‚éê‡‚Ì‚İƒWƒƒƒ“ƒv‚ğŠJn
+            // åœ°é¢ã«ã„ã‚‹å ´åˆã®ã¿ã‚¸ãƒ£ãƒ³ãƒ—ã‚’é–‹å§‹
             if (controller.isGrounded)
             {
-                // ‰ŠúƒWƒƒƒ“ƒv‘¬“x‚ğİ’è
-                velocity.y = initialJumpVelocity;
-                isJumping = true; // ƒWƒƒƒ“ƒv’†ƒtƒ‰ƒO‚ğ—§‚Ä‚é
-                maxJumpVelocity = initialJumpVelocity; // ‰Šú’l‚Æ‚µ‚ÄÅ‘åƒWƒƒƒ“ƒv‘¬“x‚ğİ’è
+                if (!hand.isGrabbing)   //ã‚‚ã®ã‚’æŒã£ã¦ã„ã‚‹é–“ã¯ã‚¸ãƒ£ãƒ³ãƒ—ã§ããªã„
+                {
+                    // åˆæœŸã‚¸ãƒ£ãƒ³ãƒ—é€Ÿåº¦ã‚’è¨­å®š
+                    velocity.y = initialJumpVelocity;
+                    isJumping = true; // ã‚¸ãƒ£ãƒ³ãƒ—ä¸­ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
+                    maxJumpVelocity = initialJumpVelocity; // åˆæœŸå€¤ã¨ã—ã¦æœ€å¤§ã‚¸ãƒ£ãƒ³ãƒ—é€Ÿåº¦ã‚’è¨­å®š
+                }
+                
             }
         }
         else if (context.canceled)
         {
-            // ƒ{ƒ^ƒ“‚ğ—£‚µ‚½uŠÔ
+            // ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸç¬é–“
 
-            // Œ»İ‚ÌY²‚Ì‘¬“x‚ÆA‰Šú‘¬“x‚Ì‚¤‚¿¬‚³‚¢•û‚ğÅ‘å‘¬“x‚Æ‚µ‚Äİ’è
-            // ‚±‚ê‚É‚æ‚èA’Z‚­‰Ÿ‚·‚Ù‚Çvelocity.y‚ª‘‚­0‚É‹ß‚Ã‚«AƒWƒƒƒ“ƒv‚ª’Z‚­‚È‚è‚Ü‚·B
+            // ç¾åœ¨ã®Yè»¸ã®é€Ÿåº¦ã¨ã€åˆæœŸé€Ÿåº¦ã®ã†ã¡å°ã•ã„æ–¹ã‚’æœ€å¤§é€Ÿåº¦ã¨ã—ã¦è¨­å®š
+            // ã“ã‚Œã«ã‚ˆã‚Šã€çŸ­ãæŠ¼ã™ã»ã©velocity.yãŒæ—©ã0ã«è¿‘ã¥ãã€ã‚¸ãƒ£ãƒ³ãƒ—ãŒçŸ­ããªã‚Šã¾ã™ã€‚
             maxJumpVelocity = Mathf.Min(velocity.y, initialJumpVelocity);
-            isJumping = false; // ƒWƒƒƒ“ƒv’†ƒtƒ‰ƒO‚ğ‰º‚ë‚·
+            isJumping = false; // ã‚¸ãƒ£ãƒ³ãƒ—ä¸­ãƒ•ãƒ©ã‚°ã‚’ä¸‹ã‚ã™
         }
     }
-
     void Update()
     {
-        // 1. …•½•ûŒü‚Ì‘¬“x‚ğŒvZi—Í‚ğƒVƒ~ƒ…ƒŒ[ƒgj
+        // ã‚«ãƒ¡ãƒ©ã®å‚ç…§ã‚’å–å¾—ï¼ˆãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©ã‚’ä½¿ç”¨ï¼‰
+        Transform cam = Camera.main.transform;
 
-        // –Ú•W‚ÌˆÚ“®•ûŒüƒxƒNƒgƒ‹
-        Vector3 targetDirection = new Vector3(moveInput.x, 0, moveInput.y);
+        // ã‚«ãƒ¡ãƒ©ã® forward ã¨ right ã‚’æ°´å¹³æˆåˆ†ã ã‘ã«ã™ã‚‹
+        Vector3 camForward = cam.forward;
+        camForward.y = 0;
+        camForward.Normalize();
 
-        // Œ»İ‚Ì…•½•ûŒü‚Ì‘¬“xƒxƒNƒgƒ‹iY¬•ª‚ğ–³‹j
+        Vector3 camRight = cam.right;
+        camRight.y = 0;
+        camRight.Normalize();
+
+        // å…¥åŠ›ã‚’ã‚«ãƒ¡ãƒ©åŸºæº–ã«å¤‰æ›
+        Vector3 targetDirection = camForward * moveInput.y + camRight * moveInput.x;
+
+        // ç¾åœ¨ã®æ°´å¹³æ–¹å‘ã®é€Ÿåº¦ãƒ™ã‚¯ãƒˆãƒ«ï¼ˆYæˆåˆ†ã‚’ç„¡è¦–ï¼‰
         Vector3 currentHorizontalVelocity = new Vector3(velocity.x, 0, velocity.z);
 
-        if (targetDirection.magnitude > 0.1f) // ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚éê‡i‰Á‘¬j
+        if (targetDirection.magnitude > 0.1f) // ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹å ´åˆï¼ˆåŠ é€Ÿï¼‰
         {
-            // ‰Á‘¬i—Í‚ğ‰Á‚¦‚éj
-            // ‰Á‘¬—Í * ŠÔ = ‘¬“x‚Ì•Ï‰»
             if (controller.isGrounded)
             {
                 currentHorizontalVelocity += targetDirection.normalized * acceleration * Time.deltaTime;
@@ -78,71 +90,59 @@ public class Player : MonoBehaviour
             {
                 currentHorizontalVelocity += targetDirection.normalized * acceleration * Time.deltaTime * movelock;
             }
-            // Å‘å‘¬“x‚Å§ŒÀ
-            if(controller.isGrounded)
+
+            if (controller.isGrounded)
             {
-                currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, maxSpeed);
+                currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, maxSpeed - (1f * hand.catchObjectFlag));
             }
             else
             {
-                currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, maxSpeed*0.6f);
+                currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, maxSpeed * 0.6f);
             }
 
-            // ƒLƒƒƒ‰ƒNƒ^[‚ÌŒü‚«‚ğˆÚ“®•ûŒü‚Ö‰ñ“]‚³‚¹‚éi‚¨D‚İ‚Åj
-            if (targetDirection != Vector3.zero)
+            // ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®å‘ãã‚’ç§»å‹•æ–¹å‘ã¸å›è»¢ã•ã›ã‚‹
+            if (targetDirection != Vector3.zero && !hand.isGrabbing)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15f);
             }
         }
-        else // ƒL[‚ª—£‚³‚ê‚Ä‚¢‚éê‡iŒ¸‘¬/–€Cj
+        else
         {
-            // Œ¸‘¬i–€C—Í‚ğƒVƒ~ƒ…ƒŒ[ƒgj
             if (controller.isGrounded)
             {
                 currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, Vector3.zero, deceleration * Time.deltaTime);
             }
-            
         }
 
-        // 2. d—Íˆ—‚ÆƒWƒƒƒ“ƒv‚Ìã¸§Œä
-
-        // ’n–Ê‚É‚¢‚é‚©‚Ç‚¤‚©‚Ì”»’è‚Æ‘¬“xƒŠƒZƒbƒg
+        // --- ä»¥ä¸‹ã¯ã‚¸ãƒ£ãƒ³ãƒ—ã¨é‡åŠ›å‡¦ç†ã¯ãã®ã¾ã¾ ---
         if (controller.isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // ’n–ÊƒXƒŒƒXƒŒ‚É•Û‚Â‚½‚ß‚Ì”÷¬‚È•‰‚Ì’l
-            isJumping = false; // ’n–Ê‚É‚Â‚¢‚½‚çƒWƒƒƒ“ƒv’†‚Å‚Í‚È‚¢
+            velocity.y = -2f;
+            isJumping = false;
         }
 
-        // ƒWƒƒƒ“ƒv‚Ìã¸§Œä
         if (isJumping && velocity.y > 0)
         {
-            // ƒ{ƒ^ƒ“‚ğ—£‚µ‚Ä‚¨‚ç‚¸A‚©‚Âã¸’† (velocity.y > 0) ‚Ìê‡Ad—Í‚ğã‚­‚·‚é (‚æ‚è’·‚­ã¸)
             velocity.y += gravity * Time.deltaTime * (1f / gravityMultiplier);
         }
         else
         {
-            // ƒ{ƒ^ƒ“‚ğ—£‚µ‚½A‚Ü‚½‚Í‰º~’†‚Ìê‡A’Êí‚Ìd—Í‚ğ“K—p
             velocity.y += gravity * Time.deltaTime;
         }
 
-        // ƒ{ƒ^ƒ“‚ğ—£‚µ‚½Û‚ÌÅ‚‘¬“x‚Ì§ŒÀi’Z‰Ÿ‚µƒWƒƒƒ“ƒv‚ÌÀŒ»j
-        // maxJumpVelocity‚æ‚è‚àvelocity.y‚ª‘å‚«‚¢ê‡AmaxJumpVelocity‚É§ŒÀ‚·‚é
-        // ‚½‚¾‚µA‰º~’†‚Í§ŒÀ‚µ‚È‚¢
         if (!isJumping && velocity.y > maxJumpVelocity)
         {
             velocity.y = maxJumpVelocity;
         }
-        // 3. ÅI“I‚È‘¬“x‚ğ“‡‚µACharacterController.Move()‚Å“K—p
 
-        // velocity•Ï”‚É…•½•ûŒü‚ÌV‚µ‚¢‘¬“x‚ğÄ‘ã“ü
         velocity.x = currentHorizontalVelocity.x;
         velocity.z = currentHorizontalVelocity.z;
-        // 3. ‚’¼•ûŒü‚ÌˆÚ“®‚ğ“K—p
+
         controller.Move(velocity * Time.deltaTime);
     }
 
-    //‹{àVÊ•Pƒoƒuƒ‹score
+    //å®®æ¾¤å½©å§«ãƒãƒ–ãƒ«score
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bubble"))
