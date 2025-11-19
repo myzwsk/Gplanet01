@@ -124,9 +124,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 58208fcfd6a868b47ba544372b120f29, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3981151869079280663}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 58208fcfd6a868b47ba544372b120f29, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7496115000967651634}
   m_SourcePrefab: {fileID: 100100000, guid: 58208fcfd6a868b47ba544372b120f29, type: 3}
 --- !u!1 &4707867229350571489 stripped
 GameObject:
@@ -170,7 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d0536f2ed740945b1d540922830a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   gravity: -9.81
   initialJumpVelocity: 5
   gravityMultiplier: 1
@@ -178,6 +174,7 @@ MonoBehaviour:
   maxSpeed: 5
   acceleration: 25
   deceleration: 30
+  climbSpeed: 3
 --- !u!114 &7067380458723167470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,29 +335,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!136 &7496115000967651634
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4707867229350571489}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.48139316
-  m_Height: 4.5654855
-  m_Direction: 1
-  m_Center: {x: 0, y: 2.2104328, z: -0.018606842}
 --- !u!4 &5340817128416409435 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 58208fcfd6a868b47ba544372b120f29, type: 3}
