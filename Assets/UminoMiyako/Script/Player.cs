@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
     public float gravity = -9.81f; // 重力計算用
-    public float initialJumpVelocity = 2f; // 最初のジャンプの勢い
+    public float initialJumpVelocity = 5f; // 最初のジャンプの勢い
     public float gravityMultiplier = 1f; // ジャンプ上昇中の重力抑制用
     public float movelock = 0.5f; // 空中時の移動速度制限用
     public float maxSpeed = 5f; // 最大速度
@@ -44,13 +45,13 @@ public class Player : MonoBehaviour
                 {
                     velocity.y = initialJumpVelocity;
                     isJumping = true;
-                    maxJumpVelocity = initialJumpVelocity;
+                    maxJumpVelocity = velocity.y;
                 }
             }
         }
         else if (context.canceled) // ジャンプボタンを離したとき
         {
-            maxJumpVelocity = Mathf.Min(velocity.y, initialJumpVelocity);
+            maxJumpVelocity = velocity.y;
             isJumping = false;
         }
     }
@@ -98,20 +99,30 @@ public class Player : MonoBehaviour
                     currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, Vector3.zero, deceleration * Time.deltaTime);
             }
 
-            // 重力とジャンプ処理
             if (controller.isGrounded && velocity.y < 0)
             {
                 velocity.y = -2f;
                 isJumping = false;
             }
 
+            // ジャンプ中は重力を弱める
             if (isJumping && velocity.y > 0)
-                velocity.y += gravity * Time.deltaTime * (1f / gravityMultiplier);
+            {
+                // 押している間は重力を弱める → 高く飛べる
+                velocity.y += gravity * Time.deltaTime * gravityMultiplier;
+            }
             else
+            {
+                // 通常の重力
                 velocity.y += gravity * Time.deltaTime;
+            }
 
+            // ボタンを離した後は最高速度を制限
             if (!isJumping && velocity.y > maxJumpVelocity)
+            {
                 velocity.y = maxJumpVelocity;
+            }
+
         }
         else // 梯子移動
         {
@@ -130,11 +141,25 @@ public class Player : MonoBehaviour
     public void ExitSlopeTop(float groundY)
     {
         isClimbing = false;
+
         // 足元を床の高さに合わせる
+        controller.enabled = false;
         Vector3 pos = transform.position;
         pos.y = groundY;
         transform.position = pos;
-        velocity.y = -2f; // 着地扱い
+        controller.enabled = true;
+
+        // 一時的に重力を無効化して前に押し出す
+        StartCoroutine(DisableGravityAndPush());
+    }
+
+    private IEnumerator DisableGravityAndPush()
+    {
+        // 前方向へ少し押し出す
+        controller.Move(transform.forward * 0.5f);
+
+        // 0.2秒だけ重力無効化
+        yield return new WaitForSeconds(0.2f);
     }
 
     public void ExitSlopeBottom(float groundY)
