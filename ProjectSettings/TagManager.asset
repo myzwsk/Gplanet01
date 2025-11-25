@@ -11,6 +11,10 @@ TagManager:
   - Object02
   - Object03
   - DeathZone
+  - SlopeBottom
+  - SlopeTop
+  - Slope
+  - Field
   layers:
   - Default
   - TransparentFX

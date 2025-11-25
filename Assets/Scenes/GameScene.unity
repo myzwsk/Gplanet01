@@ -763,11 +763,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3123482101571928803, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_StepOffset
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4707867229350571489, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_Name
       value: BearOK
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707867229350571489, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalPosition.x
