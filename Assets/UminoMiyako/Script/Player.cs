@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     public float gravity = -9.81f; // 重力計算用
     public float initialJumpVelocity = 5f; // 最初のジャンプの勢い
-    public float gravityMultiplier = 1f; // ジャンプ上昇中の重力抑制用
+    public float gravityMultiplier = 0.7f; // ジャンプ上昇中の重力抑制用
     public float movelock = 0.5f; // 空中時の移動速度制限用
     public float maxSpeed = 5f; // 最大速度
     public float acceleration = 25f; // 加速の強さ
