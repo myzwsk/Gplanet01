@@ -11,21 +11,13 @@ public class BossField : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (false)
-        {
-            ObjectFalse();
-        }
-        else if (false)
-        {
-            ObjectTrue();
-        }
     }
-    void ObjectTrue()
+    public void ObjectTrue()
     {
         GetComponent<Collider>().enabled = true;
         GetComponent<Renderer>().enabled = true;
     }
-    void ObjectFalse()
+    public void ObjectFalse()
     {
         GetComponent<Collider>().enabled = false;
         GetComponent<Renderer>().enabled = false;

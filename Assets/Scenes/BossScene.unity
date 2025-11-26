@@ -1865,9 +1865,26 @@ MonoBehaviour:
   AOE8Field: {fileID: 8935056046330460226, guid: f3611b8e15cefec4ca3218498ffd2a8a, type: 3}
   AOECircle: {fileID: 5871946227932424150, guid: a897b3a3ad630254eb5765013a39d27d, type: 3}
   AOEThin: {fileID: 8652941978574177043, guid: fe97dc9353cc85647bbdb50d63671c3e, type: 3}
+  Field:
+  - {fileID: 196515980}
+  - {fileID: 839652531}
+  - {fileID: 647938556}
+  - {fileID: 376309956}
+  - {fileID: 1796679776}
+  - {fileID: 1887211339}
+  - {fileID: 1864100718}
+  - {fileID: 587973119}
+  - {fileID: 1182511485}
+  - {fileID: 708225495}
+  - {fileID: 256402050}
+  - {fileID: 108817696}
+  - {fileID: 1908649024}
+  - {fileID: 370571693}
+  - {fileID: 1466686159}
+  - {fileID: 1689415503}
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!1 &1127665373
 GameObject:
   m_ObjectHideFlags: 0

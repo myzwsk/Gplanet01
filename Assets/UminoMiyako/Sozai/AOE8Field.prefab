@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8574325764255794026}
   - component: {fileID: 3928032653405431135}
   - component: {fileID: -3105002770279723122}
+  - component: {fileID: 3483375839701799444}
   m_Layer: 0
   m_Name: AOE8Field
   m_TagString: Untagged
@@ -107,8 +108,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 169.31383, z: 1}
-  m_Center: {x: 0, y: 84.156906, z: 0}
+  m_Size: {x: 1, y: 10564.935, z: 1}
+  m_Center: {x: 0, y: 1399.8906, z: 0}
 --- !u!54 &-3105002770279723122
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -136,3 +137,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3483375839701799444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8935056046330460226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945673ecd49361b4ab3abc00a3c8ad50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
