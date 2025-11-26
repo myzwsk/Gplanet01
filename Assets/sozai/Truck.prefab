@@ -528,7 +528,6 @@ GameObject:
   - component: {fileID: 1550470146919357302}
   - component: {fileID: 2617488465090207563}
   - component: {fileID: 8630557946411026129}
-  - component: {fileID: 9192152124732204101}
   m_Layer: 0
   m_Name: Truck
   m_TagString: Untagged
@@ -623,25 +622,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09980d3076d92eb4487e6991d8155aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 30
---- !u!65 &9192152124732204101
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9189002782948893723}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.0382428, y: 2.7723653, z: 7.676113}
-  m_Center: {x: -0.0000019669533, y: 1.7138358, z: -1.1384104}
+  moveSpeed: 50
