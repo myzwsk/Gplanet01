@@ -4,6 +4,9 @@ public class RespawnBox : MonoBehaviour
 {
     public GameObject playerPrefab; // 出現させるプレイヤーのプレハブをここに設定
 
+    // ポッドのアニメーション時間などに応じて、この時間を調整
+    public float emergeDelay = 1.5f;
+
     private GameObject playerInstance; // 生成されたプレイヤーインスタンス
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,11 +17,23 @@ public class RespawnBox : MonoBehaviour
         // LBPでは新しいサックボーイがポッドから出てくるため、
         // プレイヤーの新しいインスタンスを生成する方式がより近いです。
 
-        // ★今回は「既存のプレイヤーを動かす」方式でシンプルに実装します。
         playerInstance = playerRef;
+        // プレイヤーの物理挙動を完全に停止させる（重要）
+        Rigidbody rb = playerInstance.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;      // 速度リセット
+            rb.angularVelocity = Vector3.zero; // 角速度（回転の勢い）リセット
+        }
+
+        // 🌟【修正点 1】位置と回転を CheckPointManager の情報でリセット
+        // プレイヤーをチェックポイントの「手前」の座標に配置
+        playerInstance.transform.position = CheckPointManager.lastCheckpointPosition;
+        // プレイヤーをチェックポイントの「正しい向き」に設定
+        playerInstance.transform.rotation = CheckPointManager.lastCheckpointRotation;
 
         // プレイヤーをポッドの位置に配置し、非表示にしておく
-        playerInstance.transform.position = transform.position;
+        //playerInstance.transform.position = transform.position;
         playerInstance.SetActive(false);
 
         // ここで扉が開く、ポッドが割れるなどのアニメーションを開始（Animatorで設定）
@@ -37,6 +52,7 @@ public class RespawnBox : MonoBehaviour
         Rigidbody rb = playerInstance.GetComponent<Rigidbody>();
         if (rb != null)
         {
+            // Rigidbody の速度設定には linearVelocity ではなく velocity を使用するのが一般的です
             rb.linearVelocity = Vector3.up * 5f;
         }
 
