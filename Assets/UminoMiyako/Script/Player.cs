@@ -21,11 +21,13 @@ public class Player : MonoBehaviour
     private bool isJumping = false;
     private bool isClimbing = false; // 梯子判定フラグ
     private float maxJumpVelocity = 0f; // ボタンを離した時点での最高速
+    private Animator animator;//アニメーター
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         hand = GetComponent<PlayerHand>();
+        animator = GetComponent<Animator>();
     }
 
     public void OnMove(InputAction.CallbackContext context) // Moveアクション
@@ -46,6 +48,10 @@ public class Player : MonoBehaviour
                     velocity.y = initialJumpVelocity;
                     isJumping = true;
                     maxJumpVelocity = velocity.y;
+                    if (animator != null)
+                    {
+                        animator.SetTrigger("Jump");
+                    }
                 }
             }
         }
@@ -71,6 +77,17 @@ public class Player : MonoBehaviour
         // 入力をカメラ基準に変換
         Vector3 targetDirection = camForward * moveInput.y + camRight * moveInput.x;
         Vector3 currentHorizontalVelocity = new Vector3(velocity.x, 0, velocity.z);
+        
+       
+        if (animator != null)
+        {
+            // Speedパラメーターの更新
+            float currentSpeed = currentHorizontalVelocity.magnitude;
+            animator.SetFloat("Speed", currentSpeed);
+            Debug.Log("Current Speed: " + currentSpeed);
+            // IsGroundedパラメーターの更新
+            animator.SetBool("IsGrounded", controller.isGrounded);
+        }
 
         if (!isClimbing) // 通常移動
         {
