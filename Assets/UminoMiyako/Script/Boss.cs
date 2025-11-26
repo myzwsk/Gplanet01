@@ -31,6 +31,127 @@ public class Boss : MonoBehaviour
         {
             StartCoroutine(Attack8Field());
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            AttackCircle();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            AttackVirtical();
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            AttackHrizon();
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            StartCoroutine(AttackOut());
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            StartCoroutine(AttackIn());
+        }
+    }
+    //横の1列以外に攻撃
+    private void AttackHrizon()
+    {
+        int rand = Random.Range(0, 8);
+        Vector3 startPos = new Vector3(0, 50f, -10.5f);
+        for (int i = 0; i < 8; i++)
+        {
+            if (rand != i)
+            {
+                Attack(startPos, AOEThin, 90);
+            }
+            startPos.z += 3;
+        }
+    }
+    //縦の1列以外に攻撃
+    private void AttackVirtical()
+    {
+        int rand = Random.Range(0, 8);
+        Vector3 startPos = new Vector3(-10.5f, 50f, 0);
+        for(int i = 0; i < 8; i++)
+        {
+            if (rand != i)
+            {
+                Attack(startPos, AOEThin, 0);
+            }
+            startPos.x += 3;
+        }
+    }
+    //外周破壊
+    private IEnumerator AttackOut()
+    {
+        Vector3 startPos = default;
+        int[] Out = { 1, 2, 3, 4, 5, 8, 9, 12, 13, 14, 15, 16 };
+        for(int i = 0; i < 12; i++)
+        {
+            startPos = Field[(Out[i]-1)].transform.position;
+            startPos.y = 50;
+            Attack(startPos, AOE1Field, 0);
+        }
+        yield return new WaitForSeconds(1f);
+        BossField[] FieldScript = { null, null, null, null, null, null, null, null , null , null , null , null };
+        for (int i = 0; i < 12; i++)
+        {
+            FieldScript[i] = Field[(Out[i] - 1)].GetComponent<BossField>();
+            if (FieldScript[i] != null)
+            {
+                FieldScript[i].ObjectFalse();
+            }
+        }
+        yield return new WaitForSeconds(5f);
+        if (FieldScript != null)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                FieldScript[i].ObjectTrue();
+            }
+        }
+    }
+    //内側破壊
+    private IEnumerator AttackIn()
+    {
+        Vector3 startPos = default;
+        int[] In = { 6,7,10,11 };
+        for (int i = 0; i < 4; i++)
+        {
+            startPos = Field[(In[i] - 1)].transform.position;
+            startPos.y = 50;
+            Attack(startPos, AOE1Field, 0);
+        }
+        yield return new WaitForSeconds(1f);
+        BossField[] FieldScript = { null, null, null, null, null, null, null, null, null, null, null, null };
+        for (int i = 0; i < 4; i++)
+        {
+            FieldScript[i] = Field[(In[i] - 1)].GetComponent<BossField>();
+            if (FieldScript[i] != null)
+            {
+                FieldScript[i].ObjectFalse();
+            }
+        }
+        yield return new WaitForSeconds(5f);
+        if (FieldScript != null)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                FieldScript[i].ObjectTrue();
+            }
+        }
+    }
+    //プレイヤー地点に攻撃
+    private void AttackCircle()
+    {
+        Vector3 startPos = new Vector3(0,0,0);
+        GameObject obj = GameObject.FindWithTag("Player");
+        if (obj == null) return;
+        else
+        {
+            startPos = obj.transform.position;
+        }
+        startPos.y = 50;
+        Attack(startPos, AOECircle, 0);
     }
     //外から内　内から外
     private IEnumerator AttackThin()

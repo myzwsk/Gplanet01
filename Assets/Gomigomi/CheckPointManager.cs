@@ -32,7 +32,7 @@ public class CheckPointManager : MonoBehaviour
             {
                 //プレイヤーがチェックポイントに到達した時点で速度と勢いをリセット
                 // これにより、死ぬ直前の移動や回転の影響をほぼ受けなくなります。
-                rb.velocity = Vector3.zero;      // 速度（移動の勢い）をリセット
+                rb.linearVelocity = Vector3.zero;      // 速度（移動の勢い）をリセット
                 rb.angularVelocity = Vector3.zero; // 角速度（回転の勢い）をリセット
             }
             SetCheckpoint(); // 位置と回転をまとめて設定
