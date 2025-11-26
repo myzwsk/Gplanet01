@@ -356,7 +356,6 @@ GameObject:
   - component: {fileID: 8080626210629279878}
   - component: {fileID: 4080312293609642034}
   - component: {fileID: 923989795497930549}
-  - component: {fileID: 1780980237193566631}
   m_Layer: 0
   m_Name: Hatchback
   m_TagString: Untagged
@@ -449,25 +448,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09980d3076d92eb4487e6991d8155aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 30
---- !u!65 &1780980237193566631
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7769690492283750692}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.2491, y: 1.446317, z: 3.7814965}
-  m_Center: {x: -0.000000834465, y: 0.95552886, z: 0.09951556}
+  moveSpeed: 50
