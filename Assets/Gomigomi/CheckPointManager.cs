@@ -5,7 +5,7 @@ public class CheckPointManager : MonoBehaviour
     // ★この static 変数が、全スクリプトから共有されるリスポーン座標です。
     public static Vector3 lastCheckpointPosition;
     //リスポーン位置のオフセット
-    public Vector3 respawnOffset = new Vector3(0f, 0.5f, -2.0f);
+    public Vector3 respawnOffset = new Vector3(0f, 0f, -2.0f);
     //リスポーン時の回転（向き）を保存する変数
     public static Quaternion lastCheckpointRotation;
 
@@ -25,6 +25,16 @@ public class CheckPointManager : MonoBehaviour
         // プレイヤーのタグ("Player")を持つオブジェクトが触れたら
         if (other.CompareTag("Player"))
         {
+            // プレイヤーのRigidbodyを取得
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+
+            if (rb != null)
+            {
+                //プレイヤーがチェックポイントに到達した時点で速度と勢いをリセット
+                // これにより、死ぬ直前の移動や回転の影響をほぼ受けなくなります。
+                rb.velocity = Vector3.zero;      // 速度（移動の勢い）をリセット
+                rb.angularVelocity = Vector3.zero; // 角速度（回転の勢い）をリセット
+            }
             SetCheckpoint(); // 位置と回転をまとめて設定
 
             Debug.Log("Checkpoint Reached! New Respawn Point: " + lastCheckpointPosition);

@@ -1032,7 +1032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4a7ca7f86cfdc4a8900dc2c2a93f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnOffset: {x: 0, y: 0, z: 0}
+  respawnOffset: {x: 0, y: 0, z: -2}
 --- !u!65 &478634441
 BoxCollider:
   m_ObjectHideFlags: 0
