@@ -15,6 +15,7 @@ TagManager:
   - SlopeTop
   - Slope
   - Field
+  - Stealth_Wall
   layers:
   - Default
   - TransparentFX
