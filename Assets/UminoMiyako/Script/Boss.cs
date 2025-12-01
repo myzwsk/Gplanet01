@@ -8,6 +8,7 @@ public class Boss : MonoBehaviour
     public GameObject AOE8Field;
     public GameObject AOECircle;
     public GameObject AOEThin;
+    public GameObject Nail;
     public GameObject[] Field;
     public LayerMask targetLayerMask;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,11 +38,11 @@ public class Boss : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            AttackVirtical();
+            StartCoroutine(AttackVirtical());
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            AttackHrizon();
+            StartCoroutine(AttackHrizon());
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -53,10 +54,22 @@ public class Boss : MonoBehaviour
         }
     }
     //横の1列以外に攻撃
-    private void AttackHrizon()
+    private IEnumerator AttackHrizon()
     {
         int rand = Random.Range(0, 8);
-        Vector3 startPos = new Vector3(0, 50f, -10.5f);
+        Vector3 startPos = new Vector3(15f, 3f, -10.5f);
+        Vector3 goPos=new Vector3(0,0,0);
+        GameObject[] nail= { null,null,null,null,null,null,null,null};
+        for (int i = 0; i < 8; i++)
+        {
+            if (rand != i)
+            {
+                goPos = new Vector3(startPos.x, startPos.y, startPos.z + (3 * i));
+                nail[i]=Instantiate(Nail, goPos, Quaternion.identity);
+            }
+        }
+        yield return new WaitForSeconds(5f);
+        startPos = new Vector3(0, 50f, -10.5f);
         for (int i = 0; i < 8; i++)
         {
             if (rand != i)
@@ -65,19 +78,45 @@ public class Boss : MonoBehaviour
             }
             startPos.z += 3;
         }
+        for(int i = 0; i < 8; i++)
+        {
+            if (rand != i)
+            {
+                Destroy(nail[i]);
+            }
+        }
     }
     //縦の1列以外に攻撃
-    private void AttackVirtical()
+    private IEnumerator AttackVirtical()
     {
         int rand = Random.Range(0, 8);
-        Vector3 startPos = new Vector3(-10.5f, 50f, 0);
-        for(int i = 0; i < 8; i++)
+        Vector3 startPos = new Vector3(-10.5f, 3f, 15f);
+        Vector3 goPos = new Vector3(0, 0, 0);
+        GameObject[] nail = { null, null, null, null, null, null, null, null };
+        for (int i = 0; i < 8; i++)
+        {
+            if (rand != i)
+            {
+                goPos = new Vector3(startPos.x + (3 * i), startPos.y, startPos.z);
+                nail[i] = Instantiate(Nail, goPos, Quaternion.identity);
+            }
+        }
+        yield return new WaitForSeconds(5f);
+        startPos = new Vector3(-10.5f, 50f, 0);
+        for (int i = 0; i < 8; i++)
         {
             if (rand != i)
             {
                 Attack(startPos, AOEThin, 0);
             }
             startPos.x += 3;
+        }
+        for (int i = 0; i < 8; i++)
+        {
+            if (rand != i)
+            {
+                Destroy(nail[i]);
+            }
         }
     }
     //外周破壊
