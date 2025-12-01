@@ -97,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 58208fcfd6a868b47ba544372b120f29, type: 3}
       propertyPath: m_Name
-      value: BearOK 1
+      value: BearOK(animation)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 58208fcfd6a868b47ba544372b120f29, type: 3}
       propertyPath: m_TagString
@@ -189,7 +189,7 @@ MonoBehaviour:
   initialJumpVelocity: 5
   gravityMultiplier: 1
   movelock: 0.5
-  maxSpeed: 15
+  maxSpeed: 5
   acceleration: 25
   deceleration: 30
   climbSpeed: 3
