@@ -4,11 +4,10 @@ using UnityEngine.InputSystem;
 public class PlayerHand : MonoBehaviour
 {
     public float catchObjectFlag = 0;
-    public float grabRange = 3f;
+    public float grabRange = 1.5f;
     public float moveSpeed = 5f;
     public bool isGrabbing = false;
     public Transform handPoint;
-    public KeyCode grabKey = KeyCode.F;
     
     private Rigidbody grabbedObject;
     public void OnCatch(InputAction.CallbackContext context)
@@ -31,9 +30,11 @@ public class PlayerHand : MonoBehaviour
         }
         if (isGrabbing && grabbedObject != null)
         {
-            Vector3 direction = (handPoint.position - grabbedObject.position).normalized;
-            grabbedObject.MovePosition(grabbedObject.position + direction * moveSpeed * Time.deltaTime);
-            
+            grabbedObject.position = Vector3.Lerp(
+                grabbedObject.position,
+                handPoint.position,
+                moveSpeed * Time.deltaTime
+            );
         }
     }
 
@@ -45,28 +46,38 @@ public class PlayerHand : MonoBehaviour
         {
             if (hit.rigidbody != null)
             {
-                grabbedObject = hit.rigidbody;
-                isGrabbing = true;
-                grabbedObject.linearVelocity = Vector3.zero;
-
                 // タグを取得
                 string grabbedTag = hit.collider.tag;
-                Debug.Log("Grabbed object tag: " + grabbedTag);
-                switch (grabbedTag)
+                Debug.Log("Ray hit object tag: " + grabbedTag);
+
+                // 掴めるタグを限定する
+                if (grabbedTag == "Object01" || grabbedTag == "Object02" || grabbedTag == "Object03")
                 {
-                    case "Object01":
-                        catchObjectFlag = 1f;
-                        break;
-                    case "Object02":
-                        catchObjectFlag = 2f;
-                        break;
-                    case "Object03":
-                        catchObjectFlag = 3f;
-                        break;
+                    grabbedObject = hit.rigidbody;
+                    isGrabbing = true;
+                    grabbedObject.linearVelocity = Vector3.zero;
+
+                    switch (grabbedTag)
+                    {
+                        case "Object01":
+                            catchObjectFlag = 1f;
+                            break;
+                        case "Object02":
+                            catchObjectFlag = 2f;
+                            break;
+                        case "Object03":
+                            catchObjectFlag = 3f;
+                            break;
+                    }
+                }
+                else
+                {
+                    Debug.Log("このタグのオブジェクトは掴めません: " + grabbedTag);
                 }
             }
         }
     }
+
 
     void Release()
     {
