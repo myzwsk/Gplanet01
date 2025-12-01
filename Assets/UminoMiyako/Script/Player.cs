@@ -199,9 +199,17 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        AudioSource hitAudio = other.GetComponent<AudioSource>();
         if (other.CompareTag("Bubble")) // バブル取得時
         {
-            Destroy(other.gameObject);
+            
+            hitAudio.Play();
+            // バブルの見た目を消す (MeshRendererとColliderを無効化)
+            other.GetComponent<MeshRenderer>().enabled = false;
+            other.GetComponent<Collider>().enabled = false;
+
+            // 4. 無音部分を含めたクリップの全体の長さだけ待ってから、オブジェクト破棄
+            Destroy(other.gameObject, hitAudio.clip.length);
         }
 
         

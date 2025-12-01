@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 
 public class RespawnBox : MonoBehaviour
 {
@@ -54,10 +55,11 @@ public class RespawnBox : MonoBehaviour
         {
             // Rigidbody の速度設定には linearVelocity ではなく velocity を使用するのが一般的です
             rb.linearVelocity = Vector3.up * 5f;
+            
         }
-
+        GetComponent<AudioSource>().Play();
         // ポッドは役目を終えたら破棄
-        Destroy(gameObject);
+        Destroy(gameObject, 5.0f);
     }
 
 }

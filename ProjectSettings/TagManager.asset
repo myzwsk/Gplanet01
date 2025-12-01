@@ -16,6 +16,8 @@ TagManager:
   - Slope
   - Field
   - Stealth_Wall
+  - Car
+  - signal
   layers:
   - Default
   - TransparentFX
