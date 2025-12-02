@@ -17,6 +17,6 @@ public class ScoreManager : MonoBehaviour
 
         // テキストの表示を入れ替える
         ScoreText.text = Score.ToString();
-        Debug.Log(ScoreText.text);
+        //Debug.Log(ScoreText.text);
     }
 }
