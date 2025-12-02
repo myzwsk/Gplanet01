@@ -2285,6 +2285,7 @@ MonoBehaviour:
   AOE8Field: {fileID: 8935056046330460226, guid: f3611b8e15cefec4ca3218498ffd2a8a, type: 3}
   AOECircle: {fileID: 5871946227932424150, guid: a897b3a3ad630254eb5765013a39d27d, type: 3}
   AOEThin: {fileID: 8652941978574177043, guid: fe97dc9353cc85647bbdb50d63671c3e, type: 3}
+  Nail: {fileID: 1209158394735692994, guid: abae1d2aac4770140854e4a9fb33e5ac, type: 3}
   Field:
   - {fileID: 495320176}
   - {fileID: 954610497}
