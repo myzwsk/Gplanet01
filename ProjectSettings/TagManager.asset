@@ -18,6 +18,7 @@ TagManager:
   - Stealth_Wall
   - Car
   - signal
+  - GaolArea
   layers:
   - Default
   - TransparentFX
