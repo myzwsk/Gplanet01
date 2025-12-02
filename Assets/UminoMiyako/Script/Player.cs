@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         // カメラの座標取得
+
         Transform cam = Camera.main.transform;
         // カメラの forward と right を水平成分だけにする
         Vector3 camForward = cam.forward;
