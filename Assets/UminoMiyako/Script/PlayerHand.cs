@@ -6,6 +6,7 @@ public class PlayerHand : MonoBehaviour
     public float catchObjectFlag = 0;
     public float grabRange = 1.5f;
     public float moveSpeed = 5f;
+    public float catchObjectMove = 1f;
     public bool isGrabbing = false;
     public Transform handPoint;
     
@@ -33,7 +34,7 @@ public class PlayerHand : MonoBehaviour
             grabbedObject.position = Vector3.Lerp(
                 grabbedObject.position,
                 handPoint.position,
-                moveSpeed * Time.deltaTime
+                moveSpeed * Time.deltaTime * catchObjectMove
             );
         }
     }
