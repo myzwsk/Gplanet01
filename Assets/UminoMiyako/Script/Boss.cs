@@ -7,8 +7,10 @@ public class Boss : MonoBehaviour
     public GameObject AOE1Field;
     public GameObject AOE8Field;
     public GameObject AOECircle;
+    public GameObject AOEBigCircle;
     public GameObject AOEThin;
     public GameObject Nail;
+    public GameObject[] Star;
     public GameObject[] Field;
     public LayerMask targetLayerMask;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,6 +54,39 @@ public class Boss : MonoBehaviour
         {
             StartCoroutine(AttackIn());
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            StartCoroutine(AttackStar());
+        }
+    }
+    //星が重なった場所から攻撃
+    private IEnumerator AttackStar()
+    {
+        int rand = Random.Range(0, 361);
+        float startAngleDegrees = rand;
+        GameObject[] StarMana = { null, null };
+        Star[] StarSc = {null,null};
+        Vector3 goPos = new Vector3(0, 0, 0);
+        for (int i = 0; i < 2; i++)
+        {
+            float angle = startAngleDegrees * Mathf.Deg2Rad;
+            Vector3 center = new Vector3(0, 5, 0);
+            float x = center.x + Mathf.Cos(angle) * 5;
+            float z = center.z + Mathf.Sin(angle) * 5;
+            goPos = new Vector3(x, center.y, z);
+            StarMana[i]= Instantiate(Star[i], goPos, Quaternion.identity);
+            StarSc[i]=StarMana[i].GetComponent<Star>();
+            StarSc[i].angle = angle;
+            if (startAngleDegrees > 180) startAngleDegrees -= 180;
+            else startAngleDegrees += 180;
+        }
+        yield return new WaitUntil(() =>
+            StarMana[0] != null && StarMana[1] != null &&
+                Vector3.Distance(StarMana[0].transform.position, StarMana[1].transform.position) < 0.1f);
+        goPos = StarMana[0].transform.position;
+        Destroy(StarMana[0]);
+        Destroy(StarMana[1]);
+        Attack(goPos, AOEBigCircle, 0);
     }
     //横の1列以外に攻撃
     private IEnumerator AttackHrizon()
