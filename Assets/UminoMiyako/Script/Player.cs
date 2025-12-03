@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
             // Speedパラメーターの更新
             float currentSpeed = currentHorizontalVelocity.magnitude;
             animator.SetFloat("Speed", currentSpeed);
-            Debug.Log("Current Speed: " + currentSpeed);
+            //Debug.Log("Current Speed: " + currentSpeed);
             // IsGroundedパラメーターの更新
             animator.SetBool("IsGrounded", controller.isGrounded);
         }
