@@ -216,5 +216,39 @@ public class Player : MonoBehaviour
         
     }
 
-    
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        // 1. 衝突相手からエレベーターのスクリプトを取得
+        elevator elevatorScript = hit.gameObject.GetComponent<elevator>();
+
+        // 衝突相手がエレベータータグを持っているか確認 (タグ設定が必須)
+        if (hit.gameObject.CompareTag("Elevator"))
+        {
+            // 衝突面が上向き（床に乗った）かを確認
+            if (hit.normal.y > 0.8f)
+            {
+                // ガクガク防止：プレイヤーをエレベーターの子要素にする
+                if (transform.parent != hit.transform)
+                {
+                    transform.SetParent(hit.transform);
+                }
+
+                // 動作開始：エレベーターの公開関数を呼び出す
+                if (elevatorScript != null) // スクリプトが付いているか最終確認
+                {
+                    elevatorScript.StartElevator(); // ★これがないと動きません！
+                }
+            }
+            else // 側面衝突などの場合
+            {
+                // 側面衝突でエレベーターの子要素になっていたら解除
+                if (transform.parent == hit.transform)
+                {
+                    transform.SetParent(null);
+                }
+            }
+        }
+    }
+
+
 }
