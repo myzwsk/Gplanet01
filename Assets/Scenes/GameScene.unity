@@ -635,6 +635,7 @@ MonoBehaviour:
   catchObjectFlag: 0
   grabRange: 3
   moveSpeed: 5
+  catchObjectMove: 1
   isGrabbing: 0
   handPoint: {fileID: 2016029226}
 --- !u!1001 &899981498
@@ -1981,7 +1982,7 @@ GameObject:
   - component: {fileID: 2133244923}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Object03
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
