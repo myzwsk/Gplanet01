@@ -13,13 +13,14 @@ public class Player : MonoBehaviour
     public float acceleration = 25f; // 加速の強さ
     public float deceleration = 30f; // 減速の強さ
     public float climbSpeed = 3f; // 梯子用の速度
+    public bool isClimbing = false; // 梯子判定フラグ
+
 
     private PlayerHand hand; // つかみ時オブジェクトの吸着位置
     private CharacterController controller;
     private Vector2 moveInput;
     private Vector3 velocity;
     private bool isJumping = false;
-    private bool isClimbing = false; // 梯子判定フラグ
     private float maxJumpVelocity = 0f; // ボタンを離した時点での最高速
     private Animator animator;//アニメーター
 
@@ -61,6 +62,8 @@ public class Player : MonoBehaviour
             isJumping = false;
         }
     }
+
+   
 
     void Update()
     {
