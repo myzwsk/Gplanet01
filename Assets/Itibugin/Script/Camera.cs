@@ -102,7 +102,7 @@ public class camera : MonoBehaviour
             transform.position = smoothedPosition;
 
             // Playerの方向を見る
-            transform.LookAt(target);
+            //transform.LookAt(target);
         }
     }
 
