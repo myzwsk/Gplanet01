@@ -1,9 +1,9 @@
 ﻿using System.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
-public class Player : MonoBehaviour
+public class playercopy : MonoBehaviour
 {
     public float gravity = -9.81f; // 重力計算用
     public float initialJumpVelocity = 5f; // 最初のジャンプの勢い
@@ -13,10 +13,11 @@ public class Player : MonoBehaviour
     public float acceleration = 25f; // 加速の強さ
     public float deceleration = 30f; // 減速の強さ
     public float climbSpeed = 3f; // 梯子用の速度
+    public bool isClimbing = false; // 梯子判定フラグ
+   
 
-
-    private bool isClimbing = false; // 梯子判定フラグ
-    private PlayerHand hand; // つかみ時オブジェクトの吸着位置
+    private playercatch currentTargetDetector;
+    private playerhandcopy hand; // つかみ時オブジェクトの吸着位置
     private CharacterController controller;
     private Vector2 moveInput;
     private Vector3 velocity;
@@ -27,8 +28,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        hand = GetComponent<PlayerHand>();
+        hand = GetComponent<playerhandcopy>();
         animator = GetComponent<Animator>();
+       
+       
     }
 
     public void OnMove(InputAction.CallbackContext context) // Moveアクション
@@ -63,7 +66,7 @@ public class Player : MonoBehaviour
         }
     }
 
-   
+
 
     void Update()
     {
@@ -81,8 +84,8 @@ public class Player : MonoBehaviour
         // 入力をカメラ基準に変換
         Vector3 targetDirection = camForward * moveInput.y + camRight * moveInput.x;
         Vector3 currentHorizontalVelocity = new Vector3(velocity.x, 0, velocity.z);
-        
-       
+
+        UpdateAnimation();
         if (animator != null)
         {
             // Speedパラメーターの更新
@@ -206,7 +209,7 @@ public class Player : MonoBehaviour
         AudioSource hitAudio = other.GetComponent<AudioSource>();
         if (other.CompareTag("Bubble")) // バブル取得時
         {
-            
+
             hitAudio.Play();
             // バブルの見た目を消す (MeshRendererとColliderを無効化)
             other.GetComponent<MeshRenderer>().enabled = false;
@@ -216,7 +219,23 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject, hitAudio.clip.length);
         }
 
-        
+        playercatch detector = other.GetComponent<playercatch>();
+        if (detector != null)
+        {
+            // 接触したオブジェクトのDetectorを一時的に保持
+            currentTargetDetector = detector;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+
+        // 離れたオブジェクトが現在掴んでいたオブジェクトと同じか確認し、参照を解除
+        if (currentTargetDetector != null && other.GetComponent<playercatch>() == currentTargetDetector)
+        {
+            currentTargetDetector = null;
+   
+        }
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -254,4 +273,48 @@ public class Player : MonoBehaviour
     }
 
 
+   void UpdateAnimation()
+    {
+        // 掴んでいる判定は PlayerHand.isGrabbing を使用
+        bool isGrabbing = hand.isGrabbing;
+
+        // 掴んでいるオブジェクトのDetectorを参照
+        playercatch detector = hand.currentDetector;
+        // 掴んでいて、かつ有効な検出器を参照できている場合のみ判定を実行
+        if (isGrabbing && detector == null)
+        {
+            Debug.LogError("🔴 アニメーション処理：掴んでいるが、Detectorが null のままです。");
+        }
+        if (isGrabbing && detector != null)
+        {
+            
+            if (detector.isPushing)
+            {
+                animator.SetBool("IsPushing", true);
+                animator.SetBool("IsPulling", false);
+                
+            }
+            else if (detector.isPulling)
+            {
+                animator.SetBool("IsPushing", false);
+                animator.SetBool("IsPulling", true);
+               Debug.Log("b");
+
+            }
+            else
+            {
+                // Stationary
+                animator.SetBool("IsPushing", false);
+                animator.SetBool("IsPulling", false);
+                //Debug.Log("b");
+            }
+        }
+        else // 掴んでいない、または掴んでいるオブジェクトにDetectorがない場合
+        {
+            // アニメーションを解除
+            animator.SetBool("IsPushing", false);
+            animator.SetBool("IsPulling", false);
+        }
+    }
 }
+
