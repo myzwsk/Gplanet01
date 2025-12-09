@@ -50,13 +50,14 @@ public class RespawnBox : MonoBehaviour
         playerInstance.SetActive(true);
 
         // プレイヤーに上向きの初速を与え、飛び出させる（任意）
-        Rigidbody rb = playerInstance.GetComponent<Rigidbody>();
-        if (rb != null)
+        //Rigidbody rb = playerInstance.GetComponent<Rigidbody>();
+        /*if (rb != null)
         {
             // Rigidbody の速度設定には linearVelocity ではなく velocity を使用するのが一般的です
             rb.linearVelocity = Vector3.up * 5f;
             
-        }
+        }*/
+        Debug.Log("aaa");
         GetComponent<AudioSource>().Play();
         // ポッドは役目を終えたら破棄
         Destroy(gameObject, 5.0f);
