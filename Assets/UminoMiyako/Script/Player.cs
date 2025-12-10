@@ -13,9 +13,9 @@ public class Player : MonoBehaviour
     public float acceleration = 25f; // 加速の強さ
     public float deceleration = 30f; // 減速の強さ
     public float climbSpeed = 3f; // 梯子用の速度
-    public bool isClimbing = false; // 梯子判定フラグ
 
 
+    private bool isClimbing = false; // 梯子判定フラグ
     private PlayerHand hand; // つかみ時オブジェクトの吸着位置
     private CharacterController controller;
     private Vector2 moveInput;

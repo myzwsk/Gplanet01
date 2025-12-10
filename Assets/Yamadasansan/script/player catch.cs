@@ -1,4 +1,5 @@
 ﻿
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playercatch : MonoBehaviour
@@ -8,7 +9,7 @@ public class playercatch : MonoBehaviour
 
     // プレイヤーのスクリプトコンポーネントを格納する変数
     // 🚨 ここを、実際のプレイヤーのスクリプト名に置き換えてください (例: private PlayerController playerScript;)
-    private Player playerScript;
+    private playerhandcopy playerHandScript;
 
     // ----------------------------------------------------
     // ユーザー要求のブール値 (外部参照可能、内部でのみ設定可能)
@@ -27,6 +28,14 @@ public class playercatch : MonoBehaviour
     private Vector3 previousObjectPosition;
     private const float MovementThreshold = 0.005f;
 
+    // 🔴 追加: 状態が安定したと見なすために必要な最短時間 (例: 0.05秒)
+    private const float StateStabilityTime = 0.05f;
+
+    // 🔴 追加: 現在の状態になった時間
+    private float timeEnteredCurrentState;
+
+
+
     void Start()
     {
         objectTransform = transform;
@@ -39,9 +48,9 @@ public class playercatch : MonoBehaviour
         }
 
         // プレイヤーのスクリプトコンポーネントを取得
-        playerScript = playerTransform.GetComponent<Player>();
+        playerHandScript = playerTransform.GetComponent<playerhandcopy>();
 
-        if (playerScript == null)
+        if (playerHandScript == null)
         {
             Debug.LogError("PlayerClimbController component not found on Player. Check the script name.");
             enabled = false;
@@ -60,7 +69,7 @@ public class playercatch : MonoBehaviour
         // ----------------------------------------------------
         // 1. プレイヤーがオブジェクトを掴んでいるか（isClimbing == trueか）をチェック
         // ----------------------------------------------------
-        if (!playerScript.isClimbing)
+        if (!playerHandScript.isGrabbing)
         {
             // 掴んでいない場合、状態を「静止」にして処理を終了
             SetBooleanStates(PushPullState.Stationary);
@@ -75,26 +84,33 @@ public class playercatch : MonoBehaviour
         // ----------------------------------------------------
 
         currentObjectPosition = objectTransform.position;
-        Vector3 movement = currentObjectPosition - previousObjectPosition;
 
+        // 🔴 追加: 次の状態を保持する変数を必ず初期化する
+        PushPullState nextState = PushPullState.Stationary;
+
+        Vector3 movement = currentObjectPosition - previousObjectPosition;
+        Debug.Log($"[{gameObject.name} Detector]: Movement Magnitude: {movement.magnitude}");
         // オブジェクトが静止しているか判定
         if (movement.magnitude < MovementThreshold)
         {
             SetBooleanStates(PushPullState.Stationary);
+            Debug.Log($"[{gameObject.name} Detector]: State is Stationary (Too slow).");
         }
         else
         {
+            Debug.Log($"[{gameObject.name} Detector]: Moving! Analyzing X/Z axis.");
             // X軸とZ軸の移動量を比較し、主軸を決定
             float absMovementX = Mathf.Abs(movement.x);
             float absMovementZ = Mathf.Abs(movement.z);
 
             if (absMovementX > absMovementZ)
             {
-                HandleXAxisMovement(movement.x);
+                nextState = HandleXAxisMovement(movement.x);
+
             }
             else
             {
-                HandleZAxisMovement(movement.z);
+                nextState = HandleZAxisMovement(movement.z);
             }
         }
 
@@ -103,12 +119,28 @@ public class playercatch : MonoBehaviour
 
         // 最後にブール値を現在のcurrentStateに基づいて設定
         SetBooleanStates(currentState);
+
+        // 🔴 SetBooleanStatesに計算された次の状態を渡し、遅延判定をさせる
+        SetBooleanStates(nextState);
     }
 
     // --- 状態に基づいてブール値を設定するヘルパー関数 ---
     private void SetBooleanStates(PushPullState state)
     {
-        currentState = state;
+        if (state != currentState)
+        {
+            // 🔴 新しい状態への切り替えを遅延させる判定
+            // 以前の状態になってから、十分な時間が経過しているかチェック
+            if (Time.time < timeEnteredCurrentState + StateStabilityTime)
+            {
+                // まだ安定時間内にない場合は、状態の切り替えをスキップ（以前の状態を維持）
+                return;
+            }
+
+            // 安定時間が経過した場合、新しい状態に切り替える
+            currentState = state;
+            timeEnteredCurrentState = Time.time; // 状態が変更された時間を更新
+        }
 
         isPushing = (currentState == PushPullState.Pushing);
         isPulling = (currentState == PushPullState.Pulling);
@@ -119,41 +151,41 @@ public class playercatch : MonoBehaviour
 
     // --- X軸・Z軸判定ロジックは変更なし ---
 
-    private void HandleXAxisMovement(float moveX)
+    private PushPullState HandleXAxisMovement(float moveX)
     {
         // ... (省略: 判定ロジックは前述の通り)
         if (moveX < 0) // 左 (-)
         {
             if (objectTransform.position.x < playerTransform.position.x)
-            { currentState = PushPullState.Pushing; }
+            { return PushPullState.Pushing; }
             else
-            { currentState = PushPullState.Pulling; }
+            { return  PushPullState.Pulling; }
         }
         else // 右 (+)
         {
             if (objectTransform.position.x > playerTransform.position.x)
-            { currentState = PushPullState.Pushing; }
+            { return  PushPullState.Pushing; }
             else
-            { currentState = PushPullState.Pulling; }
+            { return PushPullState.Pulling; }
         }
     }
 
-    private void HandleZAxisMovement(float moveZ)
+    private PushPullState HandleZAxisMovement(float moveZ)
     {
         // ... (省略: 判定ロジックは前述の通り)
         if (moveZ < 0) // 奥 (-)
         {
             if (objectTransform.position.z < playerTransform.position.z)
-            { currentState = PushPullState.Pushing; }
+            { return  PushPullState.Pushing; }
             else
-            { currentState = PushPullState.Pulling; }
+            { return  PushPullState.Pulling; }
         }
         else // 手前 (+)
         {
             if (objectTransform.position.z > playerTransform.position.z)
-            { currentState = PushPullState.Pushing; }
+            { return PushPullState.Pushing; }
             else
-            { currentState = PushPullState.Pulling; }
+            { return PushPullState.Pulling; }
         }
     }
 }
