@@ -9,9 +9,11 @@ public class Boss : MonoBehaviour
     public GameObject AOECircle;
     public GameObject AOEBigCircle;
     public GameObject AOEThin;
+    public GameObject AOEThinHalf;
     public GameObject Nail;
     public GameObject[] Star;
     public GameObject[] Field;
+    public GameObject[] EffectField;
     public LayerMask targetLayerMask;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,6 +59,114 @@ public class Boss : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             StartCoroutine(AttackStar());
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            StartCoroutine(AttackSword());
+        }
+    }
+    //オブジェクトを落としてプレイヤーの移動を阻害
+    //外側のフィールドの予兆からの攻撃
+    private IEnumerator AttackSword()
+    {
+        Vector3 startPos = default;
+        int[] Out = { 1, 2, 3, 4, 5, 8, 9, 12, 13, 14, 15, 16 };
+        for (int i = 0; i < 12; i++)
+        {
+            startPos = Field[(Out[i] - 1)].transform.position;
+            startPos.y = 50;
+            Attack(startPos, AOE1Field, 0);
+        }
+        yield return new WaitForSeconds(1f);
+        BossField[] FieldScript = new BossField[12];
+        BossField[] EffectFieldScript = new BossField[16];
+        for (int i = 0; i < 12; i++)
+        {
+            FieldScript[i] = Field[(Out[i] - 1)].GetComponent<BossField>();
+            if (FieldScript[i] != null)
+            {
+                FieldScript[i].ObjectFalse();
+            }
+        }
+        for(int i = 0; i < 16; i++)
+        {
+            EffectFieldScript[i] = EffectField[i].GetComponent<BossField>();
+            if (EffectFieldScript[i] != null)
+            {
+                EffectFieldScript[i].ObjectTrue();
+            }
+        }
+        yield return new WaitForSeconds(2f);
+        int rand=Random.Range(0,8);
+        Vector3 goPos = Vector3.zero;
+        GameObject[] sword= new GameObject[2];
+        switch (rand % 4)
+        {
+            case 0:
+                goPos = new Vector3(-4.5f, 3f, 30f);
+                if (rand >= 4) goPos.x += 3f;
+                startPos = new Vector3(goPos.x, 50f, goPos.z - 6);
+                for(int i = 0; i < 2; i++)
+                {
+                    sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
+                    Attack(startPos, AOEThinHalf, 0);
+                    goPos.x += 6f;
+                    startPos.x += 6f;
+                }
+                break;
+            case 1:
+                goPos = new Vector3(30f, 3f, 4.5f);
+                if (rand >= 4) goPos.z += 3f;
+                startPos = new Vector3(goPos.x - 6, 50f, goPos.z);
+                for (int i = 0; i < 2; i++)
+                {
+                    sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
+                    Attack(startPos, AOEThinHalf, 0);
+                    goPos.z -= 6f;
+                    startPos.z -= 6f;
+                }
+                break;
+            case 2:
+                goPos = new Vector3(-30f, 3f, 4.5f);
+                if (rand >= 4) goPos.z += 3f;
+                startPos = new Vector3(goPos.x - 6, 50f, goPos.z );
+                for (int i = 0; i < 2; i++)
+                {
+                    sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
+                    Attack(startPos, AOEThinHalf, 0);
+                    goPos.z -= 6f;
+                    startPos.z -= 6f;
+                }
+                break;
+            case 4:
+                goPos = new Vector3(-4.5f, 3f, -30f);
+                if (rand >= 4) goPos.z += 3f;
+                startPos = new Vector3(goPos.x, 50f, goPos.z-6);
+                for (int i = 0; i < 2; i++)
+                {
+                    sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
+                    Attack(startPos, AOEThinHalf, 0);
+                    goPos.x -= 6f;
+                    startPos.x -= 6f;
+                }
+                break;
+        }
+
+        //外周エリア再出現
+        yield return new WaitForSeconds(5f);
+        if (FieldScript != null)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                FieldScript[i].ObjectTrue();
+            }
+        }
+        if (EffectFieldScript != null)
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                EffectFieldScript[i].ObjectFalse();
+            }
         }
     }
     //星が重なった場所から攻撃
