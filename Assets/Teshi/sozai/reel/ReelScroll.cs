@@ -11,7 +11,7 @@ public class ReelScroll : MonoBehaviour
     void Start()
     {
         // Quad の Material を取得（Unity が自動生成したやつ）
-        mat = GetComponent<Renderer>().material;
+        //mat = GetComponent<Renderer>().material;
     }
 
     // Update is called once per frame
