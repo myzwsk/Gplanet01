@@ -320,15 +320,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7078b9c8272efa64bab7f16c9de2e8b1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 648.09
+      value: 667.52
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7078b9c8272efa64bab7f16c9de2e8b1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 357.99634
+      value: 358.04
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7078b9c8272efa64bab7f16c9de2e8b1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 318.48
+      value: 318.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7078b9c8272efa64bab7f16c9de2e8b1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -364,7 +364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7078b9c8272efa64bab7f16c9de2e8b1, type: 3}
       propertyPath: m_TagString
-      value: Object01
+      value: Object03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1924,15 +1924,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 657.909
+      value: 656.68
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 358.474
+      value: 357.51
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 318.164
+      value: 318.73
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3571,7 +3571,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 124
+  m_Constraints: 118
   m_CollisionDetection: 0
 --- !u!65 &411835592
 BoxCollider:
@@ -8892,7 +8892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f0db42915535bb940bc6d29d55876120, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.138794
+      value: 5.74
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f0db42915535bb940bc6d29d55876120, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12748,7 +12748,7 @@ MonoBehaviour:
   catchObjectFlag: 0
   grabRange: 1.5
   moveSpeed: 5
-  catchObjectMove: 1
+  catchObjectMove: 0.6
   isGrabbing: 0
   handPoint: {fileID: 1836350378}
   currentDetector: {fileID: 0}
@@ -13659,7 +13659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7078b9c8272efa64bab7f16c9de2e8b1, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Object03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15586,7 +15586,7 @@ MonoBehaviour:
   smoothSpeed: 0.125
   fixedOffset: {x: 0, y: 5, z: -10}
   rotationSpeed: 3
-  targetBoxTag: Object01
+  targetBoxTag: Object03
   detectionRadius: 1.5
 --- !u!1 &2142340252 stripped
 GameObject:
@@ -15711,7 +15711,6 @@ SceneRoots:
   - {fileID: 1926888010}
   - {fileID: 1109781312}
   - {fileID: 445163147}
-  - {fileID: 1072031157}
   - {fileID: 2132662251}
   - {fileID: 555860564}
   - {fileID: 613050685}
@@ -15728,3 +15727,4 @@ SceneRoots:
   - {fileID: 462463217}
   - {fileID: 1802382705}
   - {fileID: 148302394}
+  - {fileID: 1072031157}
