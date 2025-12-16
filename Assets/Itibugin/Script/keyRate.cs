@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-
+using System.Collections;
 public class keyRate : MonoBehaviour
 {
     // 公開変数として回転速度を定義します。
     // Unityエディター上から値を変更できます。
     public float rotationSpeed = 50f;
-
+    public ParticleSystem destructionParticle;
     // Update関数は毎フレーム呼び出されます
     void Update()
     {
@@ -15,5 +15,20 @@ public class keyRate : MonoBehaviour
 
         transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f, Space.Self);
     }
+    // 物理的な衝突が発生したときに一度だけ呼ばれる関数
+    private void OnCollisionEnter(Collision collision)
+    {
+        // 衝突してきたオブジェクトのタグが「Player」であるかを確認
+        // collision引数には、衝突に関する詳細情報が含まれています。
+        if (collision.gameObject.CompareTag("player"))
+        {
+            // Playerとの衝突が確認された場合
+
+            // このGameObject（オブジェクト自体）を破壊してシーンから消去
+            Destroy(gameObject);
+            Destroy(destructionParticle);
+        }
+    }
+    
 }
 
