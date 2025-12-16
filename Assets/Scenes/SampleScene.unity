@@ -770,6 +770,10 @@ MonoBehaviour:
   target: {fileID: 1932087150}
   offset: {x: 15, y: 5, z: 0}
   smoothSpeed: 0.125
+  fixedOffset: {x: 0, y: 5, z: -10}
+  rotationSpeed: 3
+  targetBoxTag: TargetBoxTag
+  detectionRadius: 1.5
 --- !u!1001 &355891735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1997,7 +2001,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5125526821047281746, guid: 13a74824f5716b54bb99568349b7c565, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.48
+      value: 40.74
       objectReference: {fileID: 0}
     - target: {fileID: 5125526821047281746, guid: 13a74824f5716b54bb99568349b7c565, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2005,7 +2009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5125526821047281746, guid: 13a74824f5716b54bb99568349b7c565, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.96
+      value: 5.34
       objectReference: {fileID: 0}
     - target: {fileID: 5125526821047281746, guid: 13a74824f5716b54bb99568349b7c565, type: 3}
       propertyPath: m_LocalRotation.w
