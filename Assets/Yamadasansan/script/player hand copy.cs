@@ -9,10 +9,19 @@ public class playerhandcopy : MonoBehaviour
     public float catchObjectMove = 1f;
     public bool isGrabbing = false;
     public Transform handPoint;
-
+    private const float SnapStrength = 10f;
     private Rigidbody grabbedObject;
+    private bool hasReleasedObject = false;
+    public const float ForceGain = 20f; // ゲイン値を調整
+    private Quaternion frozenRotation;
+    
 
 
+    // 🔴 追加: オブジェクトを離した瞬間の正確な座標を保持
+    private Vector3 frozenPosition;
+
+    // 🔴 追加: オブジェクトが現在完全にフリーズロックされているかを示すフラグ
+    private bool isPositionLocked = false;
     [HideInInspector] public playercatch currentDetector;
     public void OnCatch(InputAction.CallbackContext context)
     {
@@ -27,19 +36,83 @@ public class playerhandcopy : MonoBehaviour
     }
     void FixedUpdate()
     {
+        // 1. handPoint の位置更新 (これはそのままでOK)
         if (handPoint)
         {
+            // プレイヤーのTransform + プレイヤーの前方 * 0.8f の位置に設定
             handPoint.position = transform.position + transform.forward * 0.8f;
             handPoint.rotation = transform.rotation;
+            handPoint.position = transform.position + transform.forward * 0.8f;
+
         }
+
         if (isGrabbing && grabbedObject != null)
         {
-            grabbedObject.position = Vector3.Lerp(
-                grabbedObject.position,
-                handPoint.position,
-                moveSpeed * Time.deltaTime * catchObjectMove
-            );
+            grabbedObject.isKinematic = false;
+
+            if (handPoint != null)
+            {
+                Vector3 positionError = handPoint.position - grabbedObject.position;
+
+                // 1. 誤差に基づいて目標速度を計算 (P制御)
+                Vector3 targetVelocity = positionError * SnapStrength; // SnapStrengthを流用
+
+                // 2. 現在の速度と目標速度の差 (速度エラー)
+                Vector3 velocityError = targetVelocity - grabbedObject.linearVelocity;
+
+                // 3. 速度エラーを解消するために必要な力 (AddForce) を加える
+                // Rigidbodyの質量で割ることで、質量によらず同じ追従特性を得る
+                Vector3 force = velocityError * ForceGain * grabbedObject.mass;
+
+                grabbedObject.AddForce(force);
+
+                // 慣性を完全に打ち消すために、角速度はゼロにしておく
+                grabbedObject.angularVelocity = Vector3.zero;
+                grabbedObject.rotation = handPoint.rotation;
+            }
         }
+        else // 掴んでいない時 (isGrabbing == false)
+        {
+            // 🚨 修正: ここでは参照クリアのみを行う
+            if (grabbedObject != null && grabbedObject.isKinematic)
+            {
+                // FixedUpdateでフリーズが確認できたら、参照をクリア
+                grabbedObject = null;
+            }
+        }
+    }
+
+    void Update()
+    {
+        // ----------------------------------------------------
+        // 🔴 座標ロックの強制実行 (フリーズ中のオブジェクトが動くのを完全に防ぐ)
+        // ----------------------------------------------------
+        if (isPositionLocked && grabbedObject != null && grabbedObject.isKinematic)
+        {
+            // 🔴 位置のロック
+            grabbedObject.position = frozenPosition;
+
+            // 🔴 回転のロック
+            grabbedObject.rotation = frozenRotation;
+        }
+
+        // 🔴 オブジェクトを掴み始めたら、位置ロックを解除
+        if (isGrabbing)
+        {
+            isPositionLocked = false;
+
+            // 掴み始めたら、念のため Sleep 状態から起こす
+            if (grabbedObject != null && grabbedObject.IsSleeping())
+            {
+                grabbedObject.WakeUp();
+            }
+        }
+
+        // ----------------------------------------------------
+        // 🚨 削除: Update()内の Shiftキー入力判定は不要
+        // ----------------------------------------------------
+        // OnCatch(InputAction.CallbackContext context) が isGrabbing を制御しているため、
+        // Update()内で ShiftキーをチェックするロジックはコメントアウトしたままでOKです。
     }
 
     void TryGrab()
@@ -94,9 +167,47 @@ public class playerhandcopy : MonoBehaviour
 
     void Release()
     {
+        // 1. 掴みフラグをオフ
         isGrabbing = false;
         catchObjectFlag = 0;
-        grabbedObject = null;
         currentDetector = null;
+
+        // 2. 🔴 NEW: オブジェクトへの参照が残っていれば、即座にフリーズ処理を実行
+        if (grabbedObject != null)
+        {
+            ForceFreezeAndLock();
+        }
+    }
+
+    private void ForceFreezeAndLock()
+    {
+        if (grabbedObject == null || grabbedObject.isKinematic) return;
+
+        // 1. 速度を完全にリセット
+        grabbedObject.linearVelocity = Vector3.zero;
+        grabbedObject.angularVelocity = Vector3.zero;
+
+        // 2. KinematicをONにして物理演算を遮断
+        grabbedObject.isKinematic = true;
+
+        // 3. 手の目標位置・回転に強制的にテレポートさせる (傾きとズレの同時解消)
+        if (handPoint != null)
+        {
+            // 🔴 位置の強制補正
+            grabbedObject.position = handPoint.position;
+
+            // 🔴 回転の強制補正 (斜めになるのを防ぐ)
+            grabbedObject.rotation = handPoint.rotation;
+            // もしワールド軸と平行にしたい場合は、grabbedObject.rotation = Quaternion.identity; を使用
+        }
+
+        // 4. Update() でのロックのために座標と回転を記憶
+        frozenPosition = grabbedObject.position;
+        // 🔴 回転も記憶
+        frozenRotation = grabbedObject.rotation;
+        isPositionLocked = true;
+
+        // 5. 物理エンジンを休止させる
+        grabbedObject.Sleep();
     }
 }
