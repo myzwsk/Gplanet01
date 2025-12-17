@@ -1708,6 +1708,7 @@ MonoBehaviour:
   AOEBigCircle: {fileID: 5871946227932424150, guid: e8dac30605be6af4bbea653995b7b347, type: 3}
   AOEThin: {fileID: 8652941978574177043, guid: fe97dc9353cc85647bbdb50d63671c3e, type: 3}
   AOEThinHalf: {fileID: 8652941978574177043, guid: 83000d43b7ff18f41a396646af418ca6, type: 3}
+  AOEPush: {fileID: 5871946227932424150, guid: c6d1dee8891033d438a3e299c682e831, type: 3}
   Nail: {fileID: 1209158394735692994, guid: abae1d2aac4770140854e4a9fb33e5ac, type: 3}
   Star:
   - {fileID: 1703699778589090699, guid: 9a832082b06223c4299b531842fde077, type: 3}
@@ -3348,7 +3349,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
