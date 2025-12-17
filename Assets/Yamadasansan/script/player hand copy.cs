@@ -14,7 +14,9 @@ public class playerhandcopy : MonoBehaviour
     private bool hasReleasedObject = false;
     public const float ForceGain = 20f; // ゲイン値を調整
     private Quaternion frozenRotation;
-    
+    private float pressTimer = 0f;
+    private const float HoldThreshold = 0.2f; // 0.2秒以上押し続けたら「掴み」とみなす
+    private bool isPressing = false; // ボタンが押されているかどうかのフラグ
 
 
     // 🔴 追加: オブジェクトを離した瞬間の正確な座標を保持
@@ -27,11 +29,17 @@ public class playerhandcopy : MonoBehaviour
     {
         if (context.started)
         {
-            TryGrab();
+            isPressing = true;
+            pressTimer = 0f; // タイマーリセット
         }
         else if (context.canceled)
         {
-            Release();
+            isPressing = false;
+            // 離したときに、もし掴んでいたなら「離す」処理を実行
+            if (isGrabbing)
+            {
+                Release();
+            }
         }
     }
     void FixedUpdate()
@@ -84,35 +92,27 @@ public class playerhandcopy : MonoBehaviour
 
     void Update()
     {
-        // ----------------------------------------------------
-        // 🔴 座標ロックの強制実行 (フリーズ中のオブジェクトが動くのを完全に防ぐ)
-        // ----------------------------------------------------
-        if (isPositionLocked && grabbedObject != null && grabbedObject.isKinematic)
+        // 🔴 長押し判定のロジック
+        if (isPressing && !isGrabbing)
         {
-            // 🔴 位置のロック
-            grabbedObject.position = frozenPosition;
-
-            // 🔴 回転のロック
-            grabbedObject.rotation = frozenRotation;
-        }
-
-        // 🔴 オブジェクトを掴み始めたら、位置ロックを解除
-        if (isGrabbing)
-        {
-            isPositionLocked = false;
-
-            // 掴み始めたら、念のため Sleep 状態から起こす
-            if (grabbedObject != null && grabbedObject.IsSleeping())
+            pressTimer += Time.deltaTime;
+            if (pressTimer >= HoldThreshold)
             {
-                grabbedObject.WakeUp();
+                TryGrab(); // 一定時間経ったら掴みに行く
             }
         }
 
-        // ----------------------------------------------------
-        // 🚨 削除: Update()内の Shiftキー入力判定は不要
-        // ----------------------------------------------------
-        // OnCatch(InputAction.CallbackContext context) が isGrabbing を制御しているため、
-        // Update()内で ShiftキーをチェックするロジックはコメントアウトしたままでOKです。
+        // 🔴 既存の座標・回転ロック処理
+        if (isPositionLocked && grabbedObject != null && grabbedObject.isKinematic)
+        {
+            grabbedObject.position = frozenPosition;
+            grabbedObject.rotation = frozenRotation;
+        }
+
+        if (isGrabbing)
+        {
+            isPositionLocked = false;
+        }
     }
 
     void TryGrab()
