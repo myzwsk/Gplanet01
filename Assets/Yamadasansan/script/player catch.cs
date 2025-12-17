@@ -12,6 +12,8 @@ public class playercatch : MonoBehaviour
     // プレイヤーのスクリプトコンポーネントを格納する変数
     // 🚨 ここを、実際のプレイヤーのスクリプト名に置き換えてください (例: private PlayerController playerScript;)
     private playerhandcopy playerHandScript;
+    private const float MinDistance = 0.8f; // これ以上近づけない距離
+
 
     // ----------------------------------------------------
     // ユーザー要求のブール値 (外部参照可能、内部でのみ設定可能)
@@ -142,61 +144,10 @@ public class playercatch : MonoBehaviour
         ProcessStateChange(nextState);
 
         UpdateInternalBooleans();
+
+
     }
 
-    // --- 状態に基づいてブール値を設定するヘルパー関数 ---
-
-    /*private void SetBooleanStates(PushPullState newState)
-    {
-        if (newState == currentState)
-        {
-            // 状態が変わっていなくても、ブール値は毎フレーム更新しておく
-            isPushing = (currentState == PushPullState.Pushing);
-            isPulling = (currentState == PushPullState.Pulling);
-            isStationary = (currentState == PushPullState.Stationary);
-            return;
-        }
-
-        bool shouldApplyDelay = true;
-
-        // 🔴 [例外ルール] Stationaryから他の状態への切り替えは即時実行する (アニメーション開始時の遅延を防ぐ)
-        if (currentState == PushPullState.Stationary)
-        {
-            shouldApplyDelay = false;
-        }
-
-        // 🔴 [例外ルール] Stationaryへの切り替えは即時実行する (アニメーション終了時の遅延を防ぐ)
-        if (newState == PushPullState.Stationary)
-        {
-            shouldApplyDelay = false;
-        }
-
-        if (shouldApplyDelay)
-        {
-            // Pushing <-> Pulling 間の切り替えの場合：ディレイチェック
-            if (Time.time < timeEnteredCurrentState + StateStabilityTime)
-            {
-                // ディレイ時間内のため、切り替えをスキップ（古い状態を維持し、戻る）
-                isPushing = (currentState == PushPullState.Pushing);
-                isPulling = (currentState == PushPullState.Pulling);
-                isStationary = (currentState == PushPullState.Stationary);
-                return;
-            }
-        }
-
-        // 4. 状態を更新
-
-        // ディレイチェックをパスしたか、または例外ルール（即時実行）が適用された場合
-        currentState = newState;
-        timeEnteredCurrentState = Time.time; // 状態が変更された時間を更新
-
-        // 5. ブール値を設定
-        isPushing = (currentState == PushPullState.Pushing);
-        isPulling = (currentState == PushPullState.Pulling);
-        isStationary = (currentState == PushPullState.Stationary);
-    }*/
-
-    // --- X軸・Z軸判定ロジックは変更なし ---
 
     private void ProcessStateChange(PushPullState newState)
     {

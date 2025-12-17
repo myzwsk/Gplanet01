@@ -1884,7 +1884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4707867229350571489, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_TagString
-      value: player
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5185208400847170049, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3079,9 +3079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cfba7feb3f4f3459b2c69d6891c1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadePanel: {fileID: 1489464001}
-  fadeDuration: 2
-  nextSceneName: KariScene
 --- !u!65 &372209119
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3571,7 +3568,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 118
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &411835592
 BoxCollider:
@@ -11908,7 +11905,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529fcc6ec89304f4684bebb735f66175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPodPrefab: {fileID: 8651656}
 --- !u!1 &1714418073 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 31a1c694da4ebc84982b91ef2e34b4a2, type: 3}
@@ -13474,7 +13470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d951df8ab7b07439c103abdf942662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreText: {fileID: 928699194}
 --- !u!1 &1916317154
 GameObject:
   m_ObjectHideFlags: 0

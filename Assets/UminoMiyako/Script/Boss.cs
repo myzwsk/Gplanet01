@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using Unity.VisualScripting;
 
 public class Boss : MonoBehaviour
 {
@@ -64,9 +65,329 @@ public class Boss : MonoBehaviour
         {
             StartCoroutine(AttackSword());
         }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            StartCoroutine(AttackSword2());
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            StartCoroutine(AttackSword3());
+        }
     }
-    //オブジェクトを落としてプレイヤーの移動を阻害
-    //外側のフィールドの予兆からの攻撃
+    //オブジェクトを落としてプレイヤーの移動を阻害--------------------------------------------------------------------------------------------------
+    //外側のフィールドの予兆からの攻撃3--------------------------------------------------------------------------------------------------
+    private IEnumerator AttackSword3()
+    {
+        //外周削除
+        Vector3 startPos = default;
+        int[] Out = { 1, 2, 3, 4, 5, 8, 9, 12, 13, 14, 15, 16 };
+        int[] In = new int[2];
+        int rand= Random.Range(0, 2);
+        if (rand == 0) In =new int[]{ 6, 11};
+        else In = new int[] { 7, 10 };
+        for (int i = 0; i < 12; i++)
+        {
+            startPos = Field[(Out[i] - 1)].transform.position;
+            startPos.y = 50;
+            Attack(startPos, AOE1Field, 0);
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            startPos = Field[(In[i] - 1)].transform.position;
+            startPos.y = 50;
+            Attack(startPos, AOE1Field, 0);
+        }
+        yield return new WaitForSeconds(1f);
+        BossField[] OutFieldScript = new BossField[12];
+        BossField[] InFieldScript = new BossField[2];
+        BossField[] EffectFieldScript = new BossField[16];
+        for (int i = 0; i < 12; i++)
+        {
+            OutFieldScript[i] = Field[(Out[i] - 1)].GetComponent<BossField>();
+            if (OutFieldScript[i] != null)
+            {
+                OutFieldScript[i].ObjectFalse();
+            }
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            InFieldScript[i] = Field[(In[i] - 1)].GetComponent<BossField>();
+            if (InFieldScript[i] != null)
+            {
+                InFieldScript[i].ObjectFalse();
+            }
+        }
+        for (int i = 0; i < 16; i++)
+        {
+            EffectFieldScript[i] = EffectField[i].GetComponent<BossField>();
+            if (EffectFieldScript[i] != null)
+            {
+                EffectFieldScript[i].ObjectTrue();
+            }
+        }
+        yield return new WaitForSeconds(2f);
+        rand = Random.Range(0, 8);
+        int[] rota = new int[2];
+        Vector3 goPos = Vector3.zero;
+        GameObject[] sword = new GameObject[4];
+        Vector3[] attackPos = new Vector3[4];
+        Vector3[] attackPos2 = new Vector3[4];
+        for (int j = 0; j < 2; j++)
+        {
+            switch (rand % 4)
+            {
+                case 0:
+                    goPos = new Vector3(-4.5f, 3f, 30f);
+                    if (rand >= 4) goPos.x += 3f;
+                    startPos = new Vector3(goPos.x, 50f, goPos.z - 6);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
+                        attackPos[i + (j * 2)] = startPos;
+                        attackPos2[i + (j * 2)] = new Vector3(startPos.x, startPos.y, 0);
+                        goPos.x += 6f;
+                        startPos.x += 6f;
+                    }
+                    rota[j] = 0;
+                    break;
+                case 1:
+                    goPos = new Vector3(30f, 3f, 4.5f);
+                    if (rand >= 4) goPos.z -= 3f;
+                    startPos = new Vector3(goPos.x - 6, 50f, goPos.z);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
+                        attackPos[i + (j * 2)] = startPos;
+                        attackPos2[i + (j * 2)] = new Vector3(0, startPos.y, startPos.z);
+                        goPos.z -= 6f;
+                        startPos.z -= 6f;
+                    }
+                    rota[j] = 90;
+                    break;
+                case 2:
+                    goPos = new Vector3(-30f, 3f, 4.5f);
+                    if (rand >= 4) goPos.z -= 3f;
+                    startPos = new Vector3(goPos.x + 6, 50f, goPos.z);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
+                        attackPos[i + (j * 2)] = startPos;
+                        attackPos2[i + (j * 2)] = new Vector3(0, startPos.y, startPos.z);
+                        goPos.z -= 6f;
+                        startPos.z -= 6f;
+                    }
+                    rota[j] = 90;
+                    break;
+                case 3:
+                    goPos = new Vector3(-4.5f, 3f, -30f);
+                    if (rand >= 4) goPos.x += 3f;
+                    startPos = new Vector3(goPos.x, 50f, goPos.z + 6);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
+                        attackPos[i + (j * 2)] = startPos;
+                        attackPos2[i + (j * 2)] = new Vector3(startPos.x, startPos.y, 0);
+                        goPos.x += 6f;
+                        startPos.x += 6f;
+                    }
+                    rota[j] = 0;
+                    break;
+            }
+            if (rand % 4 == 0 || rand % 4 == 3)
+            {
+                int[] next = { 1, 2, 5, 6 };
+                rand = next[Random.Range(0, 4)];
+            }
+            else
+            {
+                int[] next = { 0, 3, 4, 7 };
+                rand = next[Random.Range(0, 4)];
+            }
+        }
+
+        yield return new WaitForSeconds(5f);
+        for (int j = 0; j < 2; j++)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j]);
+                Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j]);
+            }
+        }
+
+        //外周エリア再出現
+        yield return new WaitForSeconds(1f);
+
+        for (int i = 0; i < 4; i++)
+        {
+            Destroy(sword[i]);
+        }
+        if (OutFieldScript != null)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                OutFieldScript[i].ObjectTrue();
+            }
+        }
+        if (InFieldScript != null)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                InFieldScript[i].ObjectTrue();
+            }
+        }
+        if (EffectFieldScript != null)
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                EffectFieldScript[i].ObjectFalse();
+            }
+        }
+    }
+    //外側のフィールドの予兆からの攻撃2--------------------------------------------------------------------------------------------------
+    private IEnumerator AttackSword2()
+    {
+        //外周削除
+        Vector3 startPos = default;
+        int[] Out = { 1, 2, 3, 4, 5, 8, 9, 12, 13, 14, 15, 16 };
+        for (int i = 0; i < 12; i++)
+        {
+            startPos = Field[(Out[i] - 1)].transform.position;
+            startPos.y = 50;
+            Attack(startPos, AOE1Field, 0);
+        }
+        yield return new WaitForSeconds(1f);
+        BossField[] FieldScript = new BossField[12];
+        BossField[] EffectFieldScript = new BossField[16];
+        for (int i = 0; i < 12; i++)
+        {
+            FieldScript[i] = Field[(Out[i] - 1)].GetComponent<BossField>();
+            if (FieldScript[i] != null)
+            {
+                FieldScript[i].ObjectFalse();
+            }
+        }
+        for (int i = 0; i < 16; i++)
+        {
+            EffectFieldScript[i] = EffectField[i].GetComponent<BossField>();
+            if (EffectFieldScript[i] != null)
+            {
+                EffectFieldScript[i].ObjectTrue();
+            }
+        }
+        yield return new WaitForSeconds(2f);
+        int rand = Random.Range(0, 8);
+        int[] rota = new int[2];
+        Vector3 goPos = Vector3.zero;
+        GameObject[] sword = new GameObject[4];
+        Vector3[] attackPos = new Vector3[4];
+        Vector3[] attackPos2 = new Vector3[4];
+        for (int j = 0; j < 2; j++)
+        {
+            switch (rand % 4)
+            {
+                case 0:
+                    goPos = new Vector3(-4.5f, 3f, 30f);
+                    if (rand >= 4) goPos.x += 3f;
+                    startPos = new Vector3(goPos.x, 50f, goPos.z - 6);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
+                        attackPos[i + (j * 2)] = startPos;
+                        attackPos2[i + (j * 2)] = new Vector3(startPos.x, startPos.y, 0);
+                        goPos.x += 6f;
+                        startPos.x += 6f;
+                    }
+                    rota[j] = 0;
+                    break;
+                case 1:
+                    goPos = new Vector3(30f, 3f, 4.5f);
+                    if (rand >= 4) goPos.z -= 3f;
+                    startPos = new Vector3(goPos.x - 6, 50f, goPos.z);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
+                        attackPos[i + (j * 2)] = startPos;
+                        attackPos2[i + (j * 2)] = new Vector3(0, startPos.y, startPos.z);
+                        goPos.z -= 6f;
+                        startPos.z -= 6f;
+                    }
+                    rota[j] = 90;
+                    break;
+                case 2:
+                    goPos = new Vector3(-30f, 3f, 4.5f);
+                    if (rand >= 4) goPos.z -= 3f;
+                    startPos = new Vector3(goPos.x + 6, 50f, goPos.z);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
+                        attackPos[i + (j * 2)] = startPos;
+                        attackPos2[i + (j * 2)] = new Vector3(0, startPos.y, startPos.z);
+                        goPos.z -= 6f;
+                        startPos.z -= 6f;
+                    }
+                    rota[j] = 90;
+                    break;
+                case 3:
+                    goPos = new Vector3(-4.5f, 3f, -30f);
+                    if (rand >= 4) goPos.x += 3f;
+                    startPos = new Vector3(goPos.x, 50f, goPos.z + 6);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
+                        attackPos[i + (j * 2)] = startPos;
+                        attackPos2[i + (j * 2)] = new Vector3(startPos.x, startPos.y, 0);
+                        goPos.x += 6f;
+                        startPos.x += 6f;
+                    }
+                    rota[j] = 0;
+                    break;
+            }
+            if (rand % 4 == 0 || rand % 4 == 3)
+            {
+                int[] next = { 1, 2, 5, 6 };
+                rand=next[Random.Range(0, 4)];
+            }
+            else
+            {
+                int[] next = { 0, 3, 4, 7 };
+                rand = next[Random.Range(0, 4)];
+            }
+        }
+        
+        yield return new WaitForSeconds(5f);
+        for(int j = 0; j < 2; j++)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j]);
+                Attack(attackPos2[i+(j*2)], AOEThinHalf, rota[j]);
+            }
+        }
+        
+        //外周エリア再出現
+        yield return new WaitForSeconds(1f);
+
+        for (int i = 0; i < 4; i++)
+        {
+            Destroy(sword[i]);
+        }
+        if (FieldScript != null)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                FieldScript[i].ObjectTrue();
+            }
+        }
+        if (EffectFieldScript != null)
+        {
+            for (int i = 0; i < 16; i++)
+            {
+                EffectFieldScript[i].ObjectFalse();
+            }
+        }
+    }
+    //外側のフィールドの予兆からの攻撃--------------------------------------------------------------------------------------------------
     private IEnumerator AttackSword()
     {
         Vector3 startPos = default;
@@ -88,7 +409,7 @@ public class Boss : MonoBehaviour
                 FieldScript[i].ObjectFalse();
             }
         }
-        for(int i = 0; i < 16; i++)
+        for (int i = 0; i < 16; i++)
         {
             EffectFieldScript[i] = EffectField[i].GetComponent<BossField>();
             if (EffectFieldScript[i] != null)
@@ -97,63 +418,82 @@ public class Boss : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(2f);
-        int rand=Random.Range(0,8);
+        int rand = Random.Range(0, 8);
+        int rota = default;
         Vector3 goPos = Vector3.zero;
-        GameObject[] sword= new GameObject[2];
+        GameObject[] sword = new GameObject[2];
+        Vector3[] attackPos=new Vector3[2];
         switch (rand % 4)
         {
             case 0:
                 goPos = new Vector3(-4.5f, 3f, 30f);
                 if (rand >= 4) goPos.x += 3f;
                 startPos = new Vector3(goPos.x, 50f, goPos.z - 6);
-                for(int i = 0; i < 2; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
                     Attack(startPos, AOEThinHalf, 0);
+                    attackPos[i] = new Vector3(startPos.x, startPos.y, 0);
                     goPos.x += 6f;
                     startPos.x += 6f;
                 }
+                rota = 0;
                 break;
             case 1:
                 goPos = new Vector3(30f, 3f, 4.5f);
-                if (rand >= 4) goPos.z += 3f;
+                if (rand >= 4) goPos.z -= 3f;
                 startPos = new Vector3(goPos.x - 6, 50f, goPos.z);
                 for (int i = 0; i < 2; i++)
                 {
                     sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
-                    Attack(startPos, AOEThinHalf, 0);
+                    Attack(startPos, AOEThinHalf, 90);
+                    attackPos[i]= new Vector3(0,startPos.y,startPos.z);
                     goPos.z -= 6f;
                     startPos.z -= 6f;
                 }
+                rota = 90;
                 break;
             case 2:
                 goPos = new Vector3(-30f, 3f, 4.5f);
-                if (rand >= 4) goPos.z += 3f;
-                startPos = new Vector3(goPos.x - 6, 50f, goPos.z );
+                if (rand >= 4) goPos.z -= 3f;
+                startPos = new Vector3(goPos.x + 6, 50f, goPos.z);
                 for (int i = 0; i < 2; i++)
                 {
                     sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
-                    Attack(startPos, AOEThinHalf, 0);
+                    Attack(startPos, AOEThinHalf, 90);
+                    attackPos[i] = new Vector3(0, startPos.y, startPos.z);
                     goPos.z -= 6f;
                     startPos.z -= 6f;
                 }
+                rota = 90;
                 break;
-            case 4:
+            case 3:
                 goPos = new Vector3(-4.5f, 3f, -30f);
                 if (rand >= 4) goPos.z += 3f;
-                startPos = new Vector3(goPos.x, 50f, goPos.z-6);
+                startPos = new Vector3(goPos.x, 50f, goPos.z + 6);
                 for (int i = 0; i < 2; i++)
                 {
                     sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
                     Attack(startPos, AOEThinHalf, 0);
-                    goPos.x -= 6f;
-                    startPos.x -= 6f;
+                    attackPos[i] = new Vector3(startPos.x, startPos.y, 0);
+                    goPos.x += 6f;
+                    startPos.x += 6f;
                 }
+                rota = 0;
                 break;
         }
-
+        yield return new WaitForSeconds(3f);
+        for(int i = 0; i < 2; i++)
+        {
+            Attack(attackPos[i], AOEThinHalf, rota);
+        }
         //外周エリア再出現
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
+
+        for (int i = 0; i < 2; i++)
+        {
+            Destroy(sword[i]);
+        }
         if (FieldScript != null)
         {
             for (int i = 0; i < 12; i++)
@@ -169,7 +509,7 @@ public class Boss : MonoBehaviour
             }
         }
     }
-    //星が重なった場所から攻撃
+    //星が重なった場所から攻撃--------------------------------------------------------------------------------------------------
     private IEnumerator AttackStar()
     {
         int rand = Random.Range(0, 361);
@@ -198,7 +538,7 @@ public class Boss : MonoBehaviour
         Destroy(StarMana[1]);
         Attack(goPos, AOEBigCircle, 0);
     }
-    //横の1列以外に攻撃
+    //横の1列以外に攻撃--------------------------------------------------------------------------------------------------
     private IEnumerator AttackHrizon()
     {
         int rand = Random.Range(0, 8);
@@ -231,7 +571,7 @@ public class Boss : MonoBehaviour
             }
         }
     }
-    //縦の1列以外に攻撃
+    //縦の1列以外に攻撃--------------------------------------------------------------------------------------------------
     private IEnumerator AttackVirtical()
     {
         int rand = Random.Range(0, 8);
@@ -264,7 +604,7 @@ public class Boss : MonoBehaviour
             }
         }
     }
-    //外周破壊
+    //外周破壊--------------------------------------------------------------------------------------------------
     private IEnumerator AttackOut()
     {
         Vector3 startPos = default;
@@ -294,7 +634,7 @@ public class Boss : MonoBehaviour
             }
         }
     }
-    //内側破壊
+    //内側破壊--------------------------------------------------------------------------------------------------
     private IEnumerator AttackIn()
     {
         Vector3 startPos = default;
@@ -324,7 +664,7 @@ public class Boss : MonoBehaviour
             }
         }
     }
-    //プレイヤー地点に攻撃
+    //プレイヤー地点に攻撃--------------------------------------------------------------------------------------------------
     private void AttackCircle()
     {
         Vector3 startPos = new Vector3(0,0,0);
@@ -337,7 +677,7 @@ public class Boss : MonoBehaviour
         startPos.y = 50;
         Attack(startPos, AOECircle, 0);
     }
-    //外から内　内から外
+    //外から内　内から外--------------------------------------------------------------------------------------------------
     private IEnumerator AttackThin()
     {
         Vector3 startPosU = new Vector3(0f, 50f, -10.5f);
@@ -359,7 +699,7 @@ public class Boss : MonoBehaviour
         }
         
     }
-    //１ブロック破壊
+    //１ブロック破壊--------------------------------------------------------------------------------------------------
     private IEnumerator Attack1Field()
     {
         int rand=Random.Range(1, 17);
@@ -378,7 +718,7 @@ public class Boss : MonoBehaviour
             FieldScript.ObjectTrue();
         }
     }
-    //半面攻撃
+    //半面攻撃--------------------------------------------------------------------------------------------------------------------
     private IEnumerator Attack8Field()
     {
         int rand = Random.Range(1, 5);
@@ -416,7 +756,7 @@ public class Boss : MonoBehaviour
             }
         }
     }
-    //AOE表示処理
+    //AOE表示処理---------------------------------------------------------------------------------------------------------
     private void Attack(Vector3 startPoint, GameObject prefab, float yRotationOffset)
     {
         Ray ray = new Ray(startPoint, Vector3.down);
