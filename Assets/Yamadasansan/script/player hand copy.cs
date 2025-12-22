@@ -47,11 +47,20 @@ public class playerhandcopy : MonoBehaviour
         // 1. handPoint の位置更新 (これはそのままでOK)
         if (handPoint)
         {
-            // プレイヤーのTransform + プレイヤーの前方 * 0.8f の位置に設定
-            handPoint.position = transform.position + transform.forward * 0.8f;
-            handPoint.rotation = transform.rotation;
-            handPoint.position = transform.position + transform.forward * 0.8f;
-
+            if(currentDetector != null)
+            {
+                // プレイヤーのTransform + プレイヤーの前方 * 0.8f の位置に設定
+                handPoint.position = transform.position + transform.forward * currentDetector.fromCenter;
+                handPoint.rotation = transform.rotation;
+                handPoint.position = transform.position + transform.forward * currentDetector.fromCenter;
+            }
+            else
+            {
+                // プレイヤーのTransform + プレイヤーの前方 * 0.8f の位置に設定
+                handPoint.position = transform.position + transform.forward * 0.8f;
+                handPoint.rotation = transform.rotation;
+                handPoint.position = transform.position + transform.forward * 0.8f;
+            }
         }
 
         if (isGrabbing && grabbedObject != null)
