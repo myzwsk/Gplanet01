@@ -18,21 +18,25 @@ public class Boss : MonoBehaviour
     public GameObject[] Field;
     public GameObject[] EffectField;
     public LayerMask targetLayerMask;
-    class field
+    private field[] fi = new field[16];
+    private field[] Effi = new field[16];
+    struct field
     {
-        public bool FieldOn;
-        public GameObject FieldPrefab;
-        public BossField FieldSc;
+        public bool fiOn;
+        public GameObject fiPre;
+        public BossField fiSc;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        field[] fi = new field[16];
         for(int i = 0; i < 16; i++)
         {
-            fi[i].FieldOn = true;
-            fi[i].FieldPrefab = Field[i];
-            fi[i].FieldSc = Field[i].GetComponent<BossField>();
+            fi[i].fiOn = true;
+            Effi[i].fiOn = false;
+            fi[i].fiPre = Field[i];
+            Effi[i].fiPre = EffectField[i];
+            fi[i].fiSc = Field[i].GetComponent<BossField>();
+            Effi[i].fiSc = EffectField[i].GetComponent<BossField>();
         }
     }
 
@@ -96,7 +100,10 @@ public class Boss : MonoBehaviour
             StartCoroutine(AttackPush());
         }
     }
-    
+    //プレイヤー向き（仮）
+    //ドーナツがた
+    //周囲マーク
+    //プレイヤー引き寄せ-------------------------------------------------------------------------------------------------------------------------------------------
 
     //プレイヤーを中心から吹き飛ばし---------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackPush()
@@ -162,31 +169,14 @@ public class Boss : MonoBehaviour
             Attack(startPos, AOE1Field, 0);
         }
         yield return new WaitForSeconds(1f);
-        BossField[] OutFieldScript = new BossField[12];
-        BossField[] InFieldScript = new BossField[2];
-        BossField[] EffectFieldScript = new BossField[16];
-        for (int i = 0; i < 12; i++)
-        {
-            OutFieldScript[i] = Field[(Out[i] - 1)].GetComponent<BossField>();
-            if (OutFieldScript[i] != null)
-            {
-                OutFieldScript[i].ObjectFalse();
-            }
-        }
-        for (int i = 0; i < 2; i++)
-        {
-            InFieldScript[i] = Field[(In[i] - 1)].GetComponent<BossField>();
-            if (InFieldScript[i] != null)
-            {
-                InFieldScript[i].ObjectFalse();
-            }
-        }
+        DestroyField(Out);
+        DestroyField(In);
         for (int i = 0; i < 16; i++)
         {
-            EffectFieldScript[i] = EffectField[i].GetComponent<BossField>();
-            if (EffectFieldScript[i] != null)
+            if (Effi[i].fiSc != null)
             {
-                EffectFieldScript[i].ObjectTrue();
+                Effi[i].fiSc.ObjectTrue();
+                Effi[i].fiOn = true;
             }
         }
         yield return new WaitForSeconds(2f);
@@ -286,26 +276,11 @@ public class Boss : MonoBehaviour
         {
             Destroy(sword[i]);
         }
-        if (OutFieldScript != null)
+        ReField();
+        for (int i = 0; i < 16; i++)
         {
-            for (int i = 0; i < 12; i++)
-            {
-                OutFieldScript[i].ObjectTrue();
-            }
-        }
-        if (InFieldScript != null)
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                InFieldScript[i].ObjectTrue();
-            }
-        }
-        if (EffectFieldScript != null)
-        {
-            for (int i = 0; i < 16; i++)
-            {
-                EffectFieldScript[i].ObjectFalse();
-            }
+            Effi[i].fiSc.ObjectFalse();
+            Effi[i].fiOn = false;
         }
     }
     //外側のフィールドの予兆からの攻撃2--------------------------------------------------------------------------------------------------
@@ -321,22 +296,13 @@ public class Boss : MonoBehaviour
             Attack(startPos, AOE1Field, 0);
         }
         yield return new WaitForSeconds(1f);
-        BossField[] FieldScript = new BossField[12];
-        BossField[] EffectFieldScript = new BossField[16];
-        for (int i = 0; i < 12; i++)
-        {
-            FieldScript[i] = Field[(Out[i] - 1)].GetComponent<BossField>();
-            if (FieldScript[i] != null)
-            {
-                FieldScript[i].ObjectFalse();
-            }
-        }
+        DestroyField(Out);
         for (int i = 0; i < 16; i++)
         {
-            EffectFieldScript[i] = EffectField[i].GetComponent<BossField>();
-            if (EffectFieldScript[i] != null)
+            if (Effi[i].fiSc != null)
             {
-                EffectFieldScript[i].ObjectTrue();
+                Effi[i].fiSc.ObjectTrue();
+                Effi[i].fiOn = true;
             }
         }
         yield return new WaitForSeconds(2f);
@@ -436,19 +402,11 @@ public class Boss : MonoBehaviour
         {
             Destroy(sword[i]);
         }
-        if (FieldScript != null)
+        ReField();
+        for (int i = 0; i < 16; i++)
         {
-            for (int i = 0; i < 12; i++)
-            {
-                FieldScript[i].ObjectTrue();
-            }
-        }
-        if (EffectFieldScript != null)
-        {
-            for (int i = 0; i < 16; i++)
-            {
-                EffectFieldScript[i].ObjectFalse();
-            }
+            Effi[i].fiSc.ObjectFalse();
+            Effi[i].fiOn = false;
         }
     }
     //外側のフィールドの予兆からの攻撃--------------------------------------------------------------------------------------------------
@@ -463,22 +421,13 @@ public class Boss : MonoBehaviour
             Attack(startPos, AOE1Field, 0);
         }
         yield return new WaitForSeconds(1f);
-        BossField[] FieldScript = new BossField[12];
-        BossField[] EffectFieldScript = new BossField[16];
-        for (int i = 0; i < 12; i++)
-        {
-            FieldScript[i] = Field[(Out[i] - 1)].GetComponent<BossField>();
-            if (FieldScript[i] != null)
-            {
-                FieldScript[i].ObjectFalse();
-            }
-        }
+        DestroyField(Out);
         for (int i = 0; i < 16; i++)
         {
-            EffectFieldScript[i] = EffectField[i].GetComponent<BossField>();
-            if (EffectFieldScript[i] != null)
+            if (Effi[i].fiSc != null)
             {
-                EffectFieldScript[i].ObjectTrue();
+                Effi[i].fiSc.ObjectTrue();
+                Effi[i].fiOn = true;
             }
         }
         yield return new WaitForSeconds(2f);
@@ -558,19 +507,11 @@ public class Boss : MonoBehaviour
         {
             Destroy(sword[i]);
         }
-        if (FieldScript != null)
+        ReField();
+        for (int i = 0; i < 16; i++)
         {
-            for (int i = 0; i < 12; i++)
-            {
-                FieldScript[i].ObjectTrue();
-            }
-        }
-        if (EffectFieldScript != null)
-        {
-            for (int i = 0; i < 16; i++)
-            {
-                EffectFieldScript[i].ObjectFalse();
-            }
+            Effi[i].fiSc.ObjectFalse();
+            Effi[i].fiOn = false;
         }
     }
     //星が重なった場所から攻撃2--------------------------------------------------------------------------------------------------
@@ -736,23 +677,9 @@ public class Boss : MonoBehaviour
             Attack(startPos, AOE1Field, 0);
         }
         yield return new WaitForSeconds(1f);
-        BossField[] FieldScript = { null, null, null, null, null, null, null, null , null , null , null , null };
-        for (int i = 0; i < 12; i++)
-        {
-            FieldScript[i] = Field[(Out[i] - 1)].GetComponent<BossField>();
-            if (FieldScript[i] != null)
-            {
-                FieldScript[i].ObjectFalse();
-            }
-        }
+        DestroyField(Out);
         yield return new WaitForSeconds(5f);
-        if (FieldScript != null)
-        {
-            for (int i = 0; i < 12; i++)
-            {
-                FieldScript[i].ObjectTrue();
-            }
-        }
+        ReField();
     }
     //内側破壊--------------------------------------------------------------------------------------------------
     private IEnumerator AttackIn()
@@ -766,23 +693,9 @@ public class Boss : MonoBehaviour
             Attack(startPos, AOE1Field, 0);
         }
         yield return new WaitForSeconds(1f);
-        BossField[] FieldScript = { null, null, null, null, null, null, null, null, null, null, null, null };
-        for (int i = 0; i < 4; i++)
-        {
-            FieldScript[i] = Field[(In[i] - 1)].GetComponent<BossField>();
-            if (FieldScript[i] != null)
-            {
-                FieldScript[i].ObjectFalse();
-            }
-        }
+        DestroyField (In);
         yield return new WaitForSeconds(5f);
-        if (FieldScript != null)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                FieldScript[i].ObjectTrue();
-            }
-        }
+        ReField();
     }
     //プレイヤー地点に攻撃--------------------------------------------------------------------------------------------------
     private void AttackCircle()
@@ -827,16 +740,13 @@ public class Boss : MonoBehaviour
         startPos.y = 50f;
         Attack(startPos, AOE1Field, 0);
         yield return new WaitForSeconds(1f);
-        BossField FieldScript = Field[rand-1].GetComponent<BossField>();
-        if (FieldScript != null)
+        if (fi[rand-1].fiSc != null)
         {
-            FieldScript.ObjectFalse();
+            fi[rand - 1].fiSc.ObjectFalse();
+            fi[rand - 1].fiOn = false;
         }
         yield return new WaitForSeconds(5f);
-        if (FieldScript != null)
-        {
-            FieldScript.ObjectTrue();
-        }
+        ReField();
     }
     //半面攻撃--------------------------------------------------------------------------------------------------------------------
     private IEnumerator Attack8Field()
@@ -858,23 +768,9 @@ public class Boss : MonoBehaviour
         }
         Attack(startPos, AOE8Field, rota);
         yield return new WaitForSeconds(1f);
-        BossField[] FieldScript= { null,null,null,null,null,null,null,null};
-        for (int i=0;i<8;i++)
-        {
-            FieldScript[i] = Field[(field[i]-1)].GetComponent<BossField>();
-            if (FieldScript[i] != null)
-            {
-                FieldScript[i].ObjectFalse();
-            }
-        }
+        DestroyField(field);
         yield return new WaitForSeconds(5f);
-        if (FieldScript != null)
-        {
-            for(int i = 0; i < 8; i++)
-            {
-                FieldScript[i].ObjectTrue();
-            }
-        }
+        ReField();
     }
     //AOE表示処理---------------------------------------------------------------------------------------------------------
     private void Attack(Vector3 startPoint, GameObject prefab, float yRotationOffset)
@@ -894,6 +790,30 @@ public class Boss : MonoBehaviour
             Quaternion finalRotation = baseRotation * extraRotation;
 
             Instantiate(prefab, hit.point, finalRotation);
+        }
+    }
+    //中央床破壊処理----------------------------------------------------------------------------------------------------------------------------
+    private void DestroyField(int[] value)
+    {
+        for(int i = 0; i < value.Length; i++)
+        {
+            if (fi[value[i] - 1].fiSc != null)
+            {
+                fi[value[i] - 1].fiSc.ObjectFalse();
+                fi[value[i] - 1].fiOn = false;
+            }
+        }
+    }
+    //中央床全表示-----------------------------------------------------------------------------------------------------------------------
+    private void ReField()
+    {
+        for(int i = 0; i < 16; i++)
+        {
+            if (fi[i].fiOn == false)
+            {
+                fi[i].fiSc.ObjectTrue();
+                fi[i].fiOn = true;
+            }
         }
     }
 }
