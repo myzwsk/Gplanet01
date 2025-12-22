@@ -3079,9 +3079,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cfba7feb3f4f3459b2c69d6891c1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadePanel: {fileID: 0}
+  fadePanel: {fileID: 1489464001}
   fadeDuration: 1
-  nextSceneName: NextLevelScene
+  nextSceneName: YneuraScene
 --- !u!65 &372209119
 BoxCollider:
   m_ObjectHideFlags: 0
