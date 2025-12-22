@@ -18,10 +18,22 @@ public class Boss : MonoBehaviour
     public GameObject[] Field;
     public GameObject[] EffectField;
     public LayerMask targetLayerMask;
+    class field
+    {
+        public bool FieldOn;
+        public GameObject FieldPrefab;
+        public BossField FieldSc;
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        field[] fi = new field[16];
+        for(int i = 0; i < 16; i++)
+        {
+            fi[i].FieldOn = true;
+            fi[i].FieldPrefab = Field[i];
+            fi[i].FieldSc = Field[i].GetComponent<BossField>();
+        }
     }
 
     // Update is called once per frame
@@ -84,7 +96,8 @@ public class Boss : MonoBehaviour
             StartCoroutine(AttackPush());
         }
     }
-    //オブジェクトを落としてプレイヤーの移動を阻害--------------------------------------------------------------------------------------------------
+    
+
     //プレイヤーを中心から吹き飛ばし---------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackPush()
     {
