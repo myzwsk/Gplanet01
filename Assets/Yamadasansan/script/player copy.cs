@@ -273,45 +273,51 @@ public class playercopy : MonoBehaviour
     }
 
 
-   void UpdateAnimation()
+    void UpdateAnimation()
     {
-        // 掴んでいる判定は PlayerHand.isGrabbing を使用
         bool isGrabbing = hand.isGrabbing;
-
-        // 掴んでいるオブジェクトのDetectorを参照
         playercatch detector = hand.currentDetector;
-        // 掴んでいて、かつ有効な検出器を参照できている場合のみ判定を実行
-        if (isGrabbing && detector == null)
-        {
-            Debug.LogError("🔴 アニメーション処理：掴んでいるが、Detectorが null のままです。");
-        }
+
+        // 現在の水平方向の速度を取得（currentHorizontalVelocity は Update 内で計算されている変数）
+        // もし変数がない場合は、new Vector3(velocity.x, 0, velocity.z).magnitude を使用
+        float moveSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
+
         if (isGrabbing && detector != null)
         {
-            
-            if (detector.isPushing)
+            // 🔴 掴み中の静止判定（速度が 0.1 以下の場合は「掴みアイドル」とする）
+            if (moveSpeed < 0.1f)
             {
-                animator.SetBool("IsPushing", true);
-                animator.SetBool("IsPulling", false);
-                
-            }
-            else if (detector.isPulling)
-            {
+                animator.SetBool("IsGrabbingIdle", true);
                 animator.SetBool("IsPushing", false);
-                animator.SetBool("IsPulling", true);
-               Debug.Log("b");
-
+                animator.SetBool("IsPulling", false);
             }
             else
             {
-                // Stationary
-                animator.SetBool("IsPushing", false);
-                animator.SetBool("IsPulling", false);
-                //Debug.Log("b");
+                animator.SetBool("IsGrabbingIdle", false);
+
+                // 移動している場合は、既存の押し引き判定を実行
+                if (detector.isPushing)
+                {
+                    animator.SetBool("IsPushing", true);
+                    animator.SetBool("IsPulling", false);
+                }
+                else if (detector.isPulling)
+                {
+                    animator.SetBool("IsPushing", false);
+                    animator.SetBool("IsPulling", true);
+                }
+                else
+                {
+                    // 移動はしているが押し引きが未確定な場合（Stationary）
+                    animator.SetBool("IsPushing", false);
+                    animator.SetBool("IsPulling", false);
+                }
             }
         }
-        else // 掴んでいない、または掴んでいるオブジェクトにDetectorがない場合
+        else
         {
-            // アニメーションを解除
+            // 掴んでいない時はすべてオフ
+            animator.SetBool("IsGrabbingIdle", false);
             animator.SetBool("IsPushing", false);
             animator.SetBool("IsPulling", false);
         }
