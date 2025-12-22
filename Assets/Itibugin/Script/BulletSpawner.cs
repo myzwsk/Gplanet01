@@ -19,9 +19,9 @@ public class BulletSpawner : MonoBehaviour
         }
         
     }
-
     void ShootSixDirections()
     {
+
         for (int i = 0; i < 6; i++)
         {
             // 1. 60度ずつの基本角度を計算
