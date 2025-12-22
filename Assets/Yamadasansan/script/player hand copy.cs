@@ -17,7 +17,7 @@ public class playerhandcopy : MonoBehaviour
     private float pressTimer = 0f;
     private const float HoldThreshold = 0.2f; // 0.2秒以上押し続けたら「掴み」とみなす
     private bool isPressing = false; // ボタンが押されているかどうかのフラグ
-
+    private Quaternion rotationOffset; // 掴んだ時の相対角度を保持
 
     // 🔴 追加: オブジェクトを離した瞬間の正確な座標を保持
     private Vector3 frozenPosition;
@@ -47,11 +47,20 @@ public class playerhandcopy : MonoBehaviour
         // 1. handPoint の位置更新 (これはそのままでOK)
         if (handPoint)
         {
-            // プレイヤーのTransform + プレイヤーの前方 * 0.8f の位置に設定
-            handPoint.position = transform.position + transform.forward * 0.8f;
-            handPoint.rotation = transform.rotation;
-            handPoint.position = transform.position + transform.forward * 0.8f;
-
+            if(currentDetector != null)
+            {
+                // プレイヤーのTransform + プレイヤーの前方 * 0.8f の位置に設定
+                handPoint.position = transform.position + transform.forward * currentDetector.fromCenter;
+                handPoint.rotation = transform.rotation;
+                handPoint.position = transform.position + transform.forward * currentDetector.fromCenter;
+            }
+            else
+            {
+                // プレイヤーのTransform + プレイヤーの前方 * 0.8f の位置に設定
+                handPoint.position = transform.position + transform.forward * 0.8f;
+                handPoint.rotation = transform.rotation;
+                handPoint.position = transform.position + transform.forward * 0.8f;
+            }
         }
 
         if (isGrabbing && grabbedObject != null)
@@ -197,7 +206,7 @@ public class playerhandcopy : MonoBehaviour
             grabbedObject.position = handPoint.position;
 
             // 🔴 回転の強制補正 (斜めになるのを防ぐ)
-            grabbedObject.rotation = handPoint.rotation;
+            //grabbedObject.rotation = handPoint.rotation;
             // もしワールド軸と平行にしたい場合は、grabbedObject.rotation = Quaternion.identity; を使用
         }
 
