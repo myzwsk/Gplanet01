@@ -9,6 +9,8 @@ public class playercatch : MonoBehaviour
     // プレイヤーのTransform
     public Transform playerTransform;
 
+    public float fromCenter = 0.8f;
+
     // プレイヤーのスクリプトコンポーネントを格納する変数
     // 🚨 ここを、実際のプレイヤーのスクリプト名に置き換えてください (例: private PlayerController playerScript;)
     private playerhandcopy playerHandScript;
