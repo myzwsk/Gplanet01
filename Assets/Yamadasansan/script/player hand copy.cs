@@ -206,7 +206,7 @@ public class playerhandcopy : MonoBehaviour
             grabbedObject.position = handPoint.position;
 
             // 🔴 回転の強制補正 (斜めになるのを防ぐ)
-            grabbedObject.rotation = handPoint.rotation;
+            //grabbedObject.rotation = handPoint.rotation;
             // もしワールド軸と平行にしたい場合は、grabbedObject.rotation = Quaternion.identity; を使用
         }
 
