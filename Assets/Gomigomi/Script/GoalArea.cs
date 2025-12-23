@@ -15,7 +15,7 @@ public class GoalArea : MonoBehaviour
     {
         // 接触したオブジェクトがプレイヤーかどうかをタグで判定
         // (プレイヤーオブジェクトに "Player" タグが設定されている前提)
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")|| other.CompareTag("player"))
         {
             // プレイヤーがゴールしたので、フェードアウト処理を開始
             StartCoroutine(FadeAndLoadScene());
