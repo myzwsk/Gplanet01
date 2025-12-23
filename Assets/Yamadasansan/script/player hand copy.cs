@@ -3,115 +3,56 @@ using UnityEngine.InputSystem;
 
 public class playerhandcopy : MonoBehaviour
 {
-    public float catchObjectFlag = 0;
+    [Header("Settings")]
     public float grabRange = 1.5f;
     public float moveSpeed = 5f;
-    public float catchObjectMove = 1f;
+    public float HoldThreshold = 0.2f; // 0.2秒以上で掴み
+    public const float ForceGain = 20f;
+    private const float SnapStrength = 10f;
+
+    [Header("State")]
+    public float catchObjectFlag = 0;
     public bool isGrabbing = false;
     public Transform handPoint;
-    private const float SnapStrength = 10f;
+
     private Rigidbody grabbedObject;
-    private bool hasReleasedObject = false;
-    public const float ForceGain = 20f; // ゲイン値を調整
-    private Quaternion frozenRotation;
-    private float pressTimer = 0f;
-    private const float HoldThreshold = 0.2f; // 0.2秒以上押し続けたら「掴み」とみなす
-    private bool isPressing = false; // ボタンが押されているかどうかのフラグ
-    private Quaternion rotationOffset; // 掴んだ時の相対角度を保持
-
-    // 🔴 追加: オブジェクトを離した瞬間の正確な座標を保持
     private Vector3 frozenPosition;
-
-    // 🔴 追加: オブジェクトが現在完全にフリーズロックされているかを示すフラグ
+    private Quaternion frozenRotation;
+    private Quaternion rotationOffset;
     private bool isPositionLocked = false;
+    private float pressTimer = 0f;
+    private bool isPressing = false;
+
     [HideInInspector] public playercatch currentDetector;
+
+    // --- Input System イベント ---
     public void OnCatch(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             isPressing = true;
-            pressTimer = 0f; // タイマーリセット
+            pressTimer = 0f;
         }
         else if (context.canceled)
         {
             isPressing = false;
-            // 離したときに、もし掴んでいたなら「離す」処理を実行
-            if (isGrabbing)
-            {
-                Release();
-            }
-        }
-    }
-    void FixedUpdate()
-    {
-        // 1. handPoint の位置更新 (これはそのままでOK)
-        if (handPoint)
-        {
-            if(currentDetector != null)
-            {
-                // プレイヤーのTransform + プレイヤーの前方 * 0.8f の位置に設定
-                handPoint.position = transform.position + transform.forward * currentDetector.fromCenter;
-                handPoint.rotation = transform.rotation;
-                handPoint.position = transform.position + transform.forward * currentDetector.fromCenter;
-            }
-            else
-            {
-                // プレイヤーのTransform + プレイヤーの前方 * 0.8f の位置に設定
-                handPoint.position = transform.position + transform.forward * 0.8f;
-                handPoint.rotation = transform.rotation;
-                handPoint.position = transform.position + transform.forward * 0.8f;
-            }
-        }
-
-        if (isGrabbing && grabbedObject != null)
-        {
-            grabbedObject.isKinematic = false;
-
-            if (handPoint != null)
-            {
-                Vector3 positionError = handPoint.position - grabbedObject.position;
-
-                // 1. 誤差に基づいて目標速度を計算 (P制御)
-                Vector3 targetVelocity = positionError * SnapStrength; // SnapStrengthを流用
-
-                // 2. 現在の速度と目標速度の差 (速度エラー)
-                Vector3 velocityError = targetVelocity - grabbedObject.linearVelocity;
-
-                // 3. 速度エラーを解消するために必要な力 (AddForce) を加える
-                // Rigidbodyの質量で割ることで、質量によらず同じ追従特性を得る
-                Vector3 force = velocityError * ForceGain * grabbedObject.mass;
-
-                grabbedObject.AddForce(force);
-
-                // 慣性を完全に打ち消すために、角速度はゼロにしておく
-                grabbedObject.angularVelocity = Vector3.zero;
-                grabbedObject.rotation = handPoint.rotation;
-            }
-        }
-        else // 掴んでいない時 (isGrabbing == false)
-        {
-            // 🚨 修正: ここでは参照クリアのみを行う
-            if (grabbedObject != null && grabbedObject.isKinematic)
-            {
-                // FixedUpdateでフリーズが確認できたら、参照をクリア
-                grabbedObject = null;
-            }
+            if (isGrabbing) Release();
         }
     }
 
     void Update()
     {
-        // 🔴 長押し判定のロジック
+        // 1. 長押し判定
         if (isPressing && !isGrabbing)
         {
             pressTimer += Time.deltaTime;
             if (pressTimer >= HoldThreshold)
             {
-                TryGrab(); // 一定時間経ったら掴みに行く
+                TryGrab();
             }
         }
 
-        // 🔴 既存の座標・回転ロック処理
+        // 2. 座標・回転のロック（ここを1つに統合しました）
         if (isPositionLocked && grabbedObject != null && grabbedObject.isKinematic)
         {
             grabbedObject.position = frozenPosition;
@@ -124,64 +65,80 @@ public class playerhandcopy : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        // 1. handPoint の位置更新（Detectorの距離設定を反映）
+        if (handPoint != null)
+        {
+            float distance = (currentDetector != null) ? currentDetector.fromCenter : 0.8f;
+            handPoint.position = transform.position + transform.forward * distance;
+            handPoint.rotation = transform.rotation;
+        }
+
+        // 2. 掴んでいる最中の物理挙動
+        if (isGrabbing && grabbedObject != null)
+        {
+            grabbedObject.isKinematic = false;
+
+            // 位置の追従計算
+            Vector3 positionError = handPoint.position - grabbedObject.position;
+            Vector3 targetVelocity = positionError * SnapStrength;
+            Vector3 velocityError = targetVelocity - grabbedObject.linearVelocity;
+            Vector3 force = velocityError * ForceGain * grabbedObject.mass;
+            grabbedObject.AddForce(force);
+
+            // 角度の維持（オフセットを適用）
+            grabbedObject.rotation = transform.rotation * rotationOffset;
+            grabbedObject.angularVelocity = Vector3.zero;
+        }
+        else
+        {
+            // 離した後の後始末：フリーズが完了していたら参照を外す
+            if (grabbedObject != null && grabbedObject.isKinematic)
+            {
+                grabbedObject = null;
+            }
+        }
+    }
+
     void TryGrab()
     {
         Ray ray = new Ray(transform.position, transform.forward);
-
         if (Physics.Raycast(ray, out RaycastHit hit, grabRange))
         {
             if (hit.rigidbody != null)
             {
-                // タグを取得
                 string grabbedTag = hit.collider.tag;
-                Debug.Log("Ray hit object tag: " + grabbedTag);
-
-                // 掴めるタグを限定する
                 if (grabbedTag == "Object01" || grabbedTag == "Object02" || grabbedTag == "Object03")
                 {
                     grabbedObject = hit.rigidbody;
                     isGrabbing = true;
+
+                    // 角度オフセットの保存（掴んだ瞬間の向きをキープ）
+                    rotationOffset = Quaternion.Inverse(transform.rotation) * grabbedObject.rotation;
                     grabbedObject.linearVelocity = Vector3.zero;
 
+                    // Detectorの取得
                     currentDetector = grabbedObject.GetComponent<playercatch>();
 
-
-                    if (currentDetector == null) // Detectorが見つからなかった場合
-                    {
-                        // ⚠️ この警告がコードに含まれていなければ、当然表示されません。
-                        Debug.LogWarning($"掴んだオブジェクト ({grabbedObject.name}) に PushPullDetector_Final がありません。");
-                    }
-
+                    // フラグ設定
                     switch (grabbedTag)
                     {
-                        case "Object01":
-                            catchObjectFlag = 1f;
-                            break;
-                        case "Object02":
-                            catchObjectFlag = 2f;
-                            break;
-                        case "Object03":
-                            catchObjectFlag = 3f;
-                            break;
+                        case "Object01": catchObjectFlag = 1f; break;
+                        case "Object02": catchObjectFlag = 2f; break;
+                        case "Object03": catchObjectFlag = 3f; break;
                     }
-                }
-                else
-                {
-                    Debug.Log("このタグのオブジェクトは掴めません: " + grabbedTag);
                 }
             }
         }
     }
 
-
     void Release()
     {
-        // 1. 掴みフラグをオフ
         isGrabbing = false;
         catchObjectFlag = 0;
         currentDetector = null;
 
-        // 2. 🔴 NEW: オブジェクトへの参照が残っていれば、即座にフリーズ処理を実行
         if (grabbedObject != null)
         {
             ForceFreezeAndLock();
@@ -192,31 +149,21 @@ public class playerhandcopy : MonoBehaviour
     {
         if (grabbedObject == null || grabbedObject.isKinematic) return;
 
-        // 1. 速度を完全にリセット
+        // 物理挙動を止める
         grabbedObject.linearVelocity = Vector3.zero;
         grabbedObject.angularVelocity = Vector3.zero;
-
-        // 2. KinematicをONにして物理演算を遮断
         grabbedObject.isKinematic = true;
 
-        // 3. 手の目標位置・回転に強制的にテレポートさせる (傾きとズレの同時解消)
+        // 手の位置に補正して記憶
         if (handPoint != null)
         {
-            // 🔴 位置の強制補正
             grabbedObject.position = handPoint.position;
-
-            // 🔴 回転の強制補正 (斜めになるのを防ぐ)
-            //grabbedObject.rotation = handPoint.rotation;
-            // もしワールド軸と平行にしたい場合は、grabbedObject.rotation = Quaternion.identity; を使用
         }
 
-        // 4. Update() でのロックのために座標と回転を記憶
         frozenPosition = grabbedObject.position;
-        // 🔴 回転も記憶
         frozenRotation = grabbedObject.rotation;
-        isPositionLocked = true;
 
-        // 5. 物理エンジンを休止させる
+        isPositionLocked = true;
         grabbedObject.Sleep();
     }
 }
