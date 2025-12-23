@@ -239,7 +239,7 @@ public class Player : MonoBehaviour
                 // 動作開始：エレベーターの公開関数を呼び出す
                 if (elevatorScript != null) // スクリプトが付いているか最終確認
                 {
-                    elevatorScript.StartElevator(); // ★これがないと動きません！
+                   // elevatorScript.StartElevator(); // ★これがないと動きません！
                 }
             }
             else // 側面衝突などの場合

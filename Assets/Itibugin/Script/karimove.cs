@@ -1,12 +1,12 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class karimove : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float gravity = -9.81f; // d—Í
+    public float gravity = -9.81f; // é‡åŠ›
 
     private CharacterController controller;
-    private Vector3 velocity; // d—Í‚Ì‰e‹¿‚È‚Ç‚ğŠÇ—‚·‚é‘¬“xƒxƒNƒgƒ‹
+    private Vector3 velocity; // é‡åŠ›ã®å½±éŸ¿ãªã©ã‚’ç®¡ç†ã™ã‚‹é€Ÿåº¦ãƒ™ã‚¯ãƒˆãƒ«
 
     void Start()
     {
@@ -15,65 +15,65 @@ public class karimove : MonoBehaviour
 
     void Update()
     {
-        // 1. “ü—Í‚Ìæ“¾
+        // 1. å…¥åŠ›ã®å–å¾—
         float moveZ = Input.GetAxis("Horizontal");
         float moveX = Input.GetAxis("Vertical");
 
-        // 2. ˆÚ“®•ûŒü‚ÌŒvZiƒ[ƒJƒ‹À•WŒn: ƒvƒŒƒCƒ„[‚ªŒü‚¢‚Ä‚¢‚é•ûŒüŠî€j
+        // 2. ç§»å‹•æ–¹å‘ã®è¨ˆç®—ï¼ˆãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ç³»: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå‘ã„ã¦ã„ã‚‹æ–¹å‘åŸºæº–ï¼‰
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
 
-        // 3. CharacterController‚ğg‚Á‚ÄˆÚ“®‚ğÀs
+        // 3. CharacterControllerã‚’ä½¿ã£ã¦ç§»å‹•ã‚’å®Ÿè¡Œ
         controller.Move(move * moveSpeed * Time.deltaTime);
 
-        // 4. d—Í‚Ì“K—p
-        // ’n–Ê‚É‚¢‚é‚©‚Ç‚¤‚©‚ğ”»’è
+        // 4. é‡åŠ›ã®é©ç”¨
+        // åœ°é¢ã«ã„ã‚‹ã‹ã©ã†ã‹ã‚’åˆ¤å®š
         if (controller.isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // ’n–Ê‚É‚¢‚é‚Æ‚«‚Í‚í‚¸‚©‚É‰º‚É‰Ÿ‚µ•t‚¯‚é
+            velocity.y = -2f; // åœ°é¢ã«ã„ã‚‹ã¨ãã¯ã‚ãšã‹ã«ä¸‹ã«æŠ¼ã—ä»˜ã‘ã‚‹
         }
 
         if (!controller.isGrounded)
         {
-            // e—v‘f‚ªİ’è‚³‚ê‚Ä‚¢‚ê‚Î‰ğœ‚·‚é
+            // è¦ªè¦ç´ ãŒè¨­å®šã•ã‚Œã¦ã„ã‚Œã°è§£é™¤ã™ã‚‹
             if (transform.parent != null)
             {
-                // ƒGƒŒƒx[ƒ^[‚Éæ‚Á‚Ä‚¢‚éŠÔ‚Íd—Í‚Ì‰e‹¿‚ğó‚¯‚¸A
-                // ƒvƒŒƒCƒ„[‚ªƒWƒƒƒ“ƒv‚â—‰º‚ğn‚ß‚½‚ç‰ğœ‚·‚é‚Ì‚ª©‘R‚Å‚·B
+                // ã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼ã«ä¹—ã£ã¦ã„ã‚‹é–“ã¯é‡åŠ›ã®å½±éŸ¿ã‚’å—ã‘ãšã€
+                // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚¸ãƒ£ãƒ³ãƒ—ã‚„è½ä¸‹ã‚’å§‹ã‚ãŸã‚‰è§£é™¤ã™ã‚‹ã®ãŒè‡ªç„¶ã§ã™ã€‚
                 transform.SetParent(null);
             }
         }
-        // d—Í‚É‚æ‚é‰Á‘¬
+        // é‡åŠ›ã«ã‚ˆã‚‹åŠ é€Ÿ
         velocity.y += gravity * Time.deltaTime;
 
-        // ÅI“I‚È‘¬“x‚ğ“K—pid—Í‚È‚Çj
+        // æœ€çµ‚çš„ãªé€Ÿåº¦ã‚’é©ç”¨ï¼ˆé‡åŠ›ãªã©ï¼‰
         controller.Move(velocity * Time.deltaTime);
     }
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // 1. Õ“Ë‘Šè‚©‚çƒGƒŒƒx[ƒ^[‚ÌƒXƒNƒŠƒvƒg‚ğæ“¾
+        // 1. è¡çªç›¸æ‰‹ã‹ã‚‰ã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å–å¾—
         elevator elevatorScript = hit.gameObject.GetComponent<elevator>();
 
-        // Õ“Ë‘Šè‚ªƒGƒŒƒx[ƒ^[ƒ^ƒO‚ğ‚Á‚Ä‚¢‚é‚©Šm”F (ƒ^ƒOİ’è‚ª•K{)
+        // è¡çªç›¸æ‰‹ãŒã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼ã‚¿ã‚°ã‚’æŒã£ã¦ã„ã‚‹ã‹ç¢ºèª (ã‚¿ã‚°è¨­å®šãŒå¿…é ˆ)
         if (hit.gameObject.CompareTag("Elevator"))
         {
-            // Õ“Ë–Ê‚ªãŒü‚«i°‚Éæ‚Á‚½j‚©‚ğŠm”F
+            // è¡çªé¢ãŒä¸Šå‘ãï¼ˆåºŠã«ä¹—ã£ãŸï¼‰ã‹ã‚’ç¢ºèª
             if (hit.normal.y > 0.8f)
             {
-                // ƒKƒNƒKƒN–h~FƒvƒŒƒCƒ„[‚ğƒGƒŒƒx[ƒ^[‚Ìq—v‘f‚É‚·‚é
+                // ã‚¬ã‚¯ã‚¬ã‚¯é˜²æ­¢ï¼šãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼ã®å­è¦ç´ ã«ã™ã‚‹
                 if (transform.parent != hit.transform)
                 {
                     transform.SetParent(hit.transform);
                 }
 
-                // “®ìŠJnFƒGƒŒƒx[ƒ^[‚ÌŒöŠJŠÖ”‚ğŒÄ‚Ño‚·
-                if (elevatorScript != null) // ƒXƒNƒŠƒvƒg‚ª•t‚¢‚Ä‚¢‚é‚©ÅIŠm”F
+                // å‹•ä½œé–‹å§‹ï¼šã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼ã®å…¬é–‹é–¢æ•°ã‚’å‘¼ã³å‡ºã™
+                if (elevatorScript != null) // ã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒä»˜ã„ã¦ã„ã‚‹ã‹æœ€çµ‚ç¢ºèª
                 {
-                    elevatorScript.StartElevator(); // š‚±‚ê‚ª‚È‚¢‚Æ“®‚«‚Ü‚¹‚ñI
+                  //  elevatorScript.StartElevator(); // â˜…ã“ã‚ŒãŒãªã„ã¨å‹•ãã¾ã›ã‚“ï¼
                 }
             }
-            else // ‘¤–ÊÕ“Ë‚È‚Ç‚Ìê‡
+            else // å´é¢è¡çªãªã©ã®å ´åˆ
             {
-                // ‘¤–ÊÕ“Ë‚ÅƒGƒŒƒx[ƒ^[‚Ìq—v‘f‚É‚È‚Á‚Ä‚¢‚½‚ç‰ğœ
+                // å´é¢è¡çªã§ã‚¨ãƒ¬ãƒ™ãƒ¼ã‚¿ãƒ¼ã®å­è¦ç´ ã«ãªã£ã¦ã„ãŸã‚‰è§£é™¤
                 if (transform.parent == hit.transform)
                 {
                     transform.SetParent(null);

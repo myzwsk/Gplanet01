@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
 using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
-    public Text ScoreText;
+    public TextMeshProUGUI ScoreText;
     static public int Score = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

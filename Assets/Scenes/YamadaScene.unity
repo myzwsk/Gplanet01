@@ -472,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7078b9c8272efa64bab7f16c9de2e8b1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 672.12
+      value: 666.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7078b9c8272efa64bab7f16c9de2e8b1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5249,7 +5249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1776562611}
-  fromCenter: 1.6
+  fromCenter: 0.9
 --- !u!1001 &421772534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10595,7 +10595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1776562611}
-  fromCenter: 1.6
+  fromCenter: 1.2
 --- !u!54 &851019847
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -20597,10 +20597,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fa98940ec9bf34490e48c07d2eda3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catchObjectFlag: 0
   grabRange: 1.5
   moveSpeed: 5
-  catchObjectMove: 0.6
+  HoldThreshold: 0.2
+  catchObjectFlag: 0
   isGrabbing: 0
   handPoint: {fileID: 1836350378}
   currentDetector: {fileID: 0}
@@ -21691,7 +21691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d951df8ab7b07439c103abdf942662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreText: {fileID: 0}
+  ScoreText: {fileID: 928699194}
 --- !u!1 &1916317154
 GameObject:
   m_ObjectHideFlags: 0
