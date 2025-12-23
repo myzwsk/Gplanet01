@@ -13,6 +13,9 @@ public class Boss : MonoBehaviour
     public GameObject AOEThin;
     public GameObject AOEThinHalf;
     public GameObject AOEPush;
+    public GameObject AOEDonut;
+    public GameObject BLOCKBar;
+    public GameObject BLOCKBarLong;
     public GameObject Nail;
     public GameObject[] Star;
     public GameObject[] Field;
@@ -29,7 +32,10 @@ public class Boss : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        for(int i = 0; i < 16; i++)
+        Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
+        Debug.Log("左コントロール：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
+        Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー");
+        for (int i = 0; i < 16; i++)
         {
             fi[i].fiOn = true;
             Effi[i].fiOn = false;
@@ -43,73 +49,211 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            StartCoroutine(AttackThin());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackThin());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(Attack1Field());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                StartCoroutine(Attack8Field());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                AttackCircle();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                StartCoroutine(AttackVirtical());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                StartCoroutine(AttackHrizon());
+            }
         }
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            StartCoroutine(Attack1Field());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackOut());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(AttackIn());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                StartCoroutine(AttackStar());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                StartCoroutine(AttackStar2());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                StartCoroutine(AttackSword());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                StartCoroutine(AttackSword2());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                StartCoroutine(AttackSword3());
+            }
         }
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
-            StartCoroutine(Attack8Field());
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            AttackCircle();
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            StartCoroutine(AttackVirtical());
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            StartCoroutine(AttackHrizon());
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            StartCoroutine(AttackOut());
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            StartCoroutine(AttackIn());
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            StartCoroutine(AttackStar());
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(AttackStar2());
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            StartCoroutine(AttackSword());
-        }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            StartCoroutine(AttackSword2());
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            StartCoroutine(AttackSword3());
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            StartCoroutine(AttackPush());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackPush());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(AttackPull());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                AttackDonut();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                StartCoroutine(AttackBar());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                StartCoroutine(AttackStick());
+            }
         }
     }
     //プレイヤー向き（仮）
-    //ドーナツがた
     //周囲マーク
-    //プレイヤー引き寄せ-------------------------------------------------------------------------------------------------------------------------------------------
+    //回転するバー--------------------------------------------------------------------------------------------------------------------------------------
+    private IEnumerator AttackStick()
+    {
+        Vector3 startPos = new Vector3(0,1,0);
 
+        // 召喚
+        GameObject Bar = Instantiate(BLOCKBarLong, startPos, Quaternion.identity);
+
+        float duration = 10f;      // 回転させる時間（秒）
+        float elapsed = 0f;       // 経過時間
+
+        while (elapsed < duration)
+        {
+            // 毎フレーム回転（Z軸に毎秒180度）
+            Bar.transform.Rotate(0, 90 * Time.deltaTime,0);
+
+            elapsed += Time.deltaTime;
+            yield return null;    // 次のフレームまで待つ
+        }
+
+        // 回転終了後に消すなら
+        Destroy(Bar);
+    }
+
+    //移動してくるバー----------------------------------------------------------------------------------------------------------------------
+    private IEnumerator AttackBar()
+    {
+        int rand = Random.Range(0, 4);
+        float time = 5;
+        float elapsed = 0;
+        Vector3 startPos = default;
+        Vector3 endPos = default;
+        GameObject Bar = null;
+        switch (rand)
+        {
+            case 0:
+                startPos = new Vector3(0, 1f, 13f);
+                endPos = new Vector3(0, 1f, -13f);
+                Bar = Instantiate(BLOCKBar, startPos, Quaternion.Euler(0, 90, 0));
+                break;
+            case 1:
+                startPos = new Vector3(-13, 1f, 0);
+                endPos = new Vector3(13, 1f, 0);
+                Bar = Instantiate(BLOCKBar, startPos, Quaternion.Euler(0, 0, 0));
+                break;
+            case 2:
+                startPos = new Vector3(13, 1f, 0);
+                endPos = new Vector3(-13, 1f, 0);
+                Bar = Instantiate(BLOCKBar, startPos, Quaternion.Euler(0, 0, 0));
+                break;
+            case 3:
+                startPos = new Vector3(0, 1f, -13f);
+                endPos = new Vector3(0, 1f, 13f);
+                Bar = Instantiate(BLOCKBar, startPos, Quaternion.Euler(0, 90, 0));
+                break;
+        }
+        while (elapsed<time)
+        {
+            float t = elapsed / time;
+            Bar.transform.position= Vector3.Lerp(startPos, endPos, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        Bar.transform.position = endPos;
+        Destroy(Bar);
+    }
+    //ドーナッツ範囲------------------------------------------------------------------------------------------------------------------------------
+    private void AttackDonut()
+    {
+        Vector3 startPos = Vector3.zero;
+        Attack(startPos, AOEDonut, 0);
+    }
+    //プレイヤー引き寄せ-------------------------------------------------------------------------------------------------------------------------------------------
+    private IEnumerator AttackPull()
+    {
+        float distance = 10f;
+        float duration = 0.4f;
+        Vector3 center = Vector3.zero;
+        Vector3 goPos = new Vector3(center.x, 50, center.z);
+        CharacterController[] players = FindObjectsOfType<CharacterController>();
+        Attack(goPos, AOEPush, 0);
+        yield return new WaitForSeconds(3f);
+        foreach (var controller in players)
+        {
+            Vector3 startPos = controller.transform.position;
+
+            // 中心からの方向ベクトル（XZのみ）
+            Vector3 dir = (startPos - center);
+            dir.y = 0f; // Y方向は無視
+            if (dir.sqrMagnitude < 0.01f)
+            {
+                // ほぼ中心にいる場合は強制的にX方向へ押し出すなど
+                dir = Vector3.right;
+            }
+            dir = dir.normalized;
+
+            // 中心までの距離
+            float distToCenter = Vector3.Distance(startPos, center);
+
+            // 中心を越えないようにクランプ
+            float pullDistance = Mathf.Min(distToCenter, distance);
+
+            // 吹き飛ばし先の位置（中心を越えない）
+            Vector3 targetPos = startPos + dir * -pullDistance;
+
+            float elapsed = 0f;
+            float speed = distance / duration;
+            while (elapsed < duration) 
+            { // 一定速度で中心方向へ移動
+                Vector3 newPos = Vector3.MoveTowards( controller.transform.position, targetPos, speed * Time.deltaTime ); 
+                controller.Move(newPos - controller.transform.position); 
+                elapsed += Time.deltaTime; 
+                yield return null; 
+            }
+        }
+    }
     //プレイヤーを中心から吹き飛ばし---------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackPush()
     {
         float distance = 10f;
-        float duration = 0.2f;
+        float duration = 0.4f;
         Vector3 center = Vector3.zero;
         Vector3 goPos = new Vector3(center.x, 50, center.z);
         CharacterController[] players = FindObjectsOfType<CharacterController>();
@@ -775,6 +919,7 @@ public class Boss : MonoBehaviour
     //AOE表示処理---------------------------------------------------------------------------------------------------------
     private void Attack(Vector3 startPoint, GameObject prefab, float yRotationOffset)
     {
+        startPoint.y = 50;
         Ray ray = new Ray(startPoint, Vector3.down);
         RaycastHit hit;
 
