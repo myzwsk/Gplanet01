@@ -14,7 +14,7 @@ public class playercopy : MonoBehaviour
     public float deceleration = 30f; // 減速の強さ
     public float climbSpeed = 3f; // 梯子用の速度
     public bool isClimbing = false; // 梯子判定フラグ
-   
+    private elevator currentElevator; // 現在乗っているエレベーターを記憶
 
     private playercatch currentTargetDetector;
     private playerhandcopy hand; // つかみ時オブジェクトの吸着位置
@@ -30,8 +30,8 @@ public class playercopy : MonoBehaviour
         controller = GetComponent<CharacterController>();
         hand = GetComponent<playerhandcopy>();
         animator = GetComponent<Animator>();
-       
-       
+
+
     }
 
     public void OnMove(InputAction.CallbackContext context) // Moveアクション
@@ -85,7 +85,7 @@ public class playercopy : MonoBehaviour
         Vector3 targetDirection = camForward * moveInput.y + camRight * moveInput.x;
         Vector3 currentHorizontalVelocity = new Vector3(velocity.x, 0, velocity.z);
 
-        UpdateAnimation();
+       
         if (animator != null)
         {
             // Speedパラメーターの更新
@@ -94,6 +94,7 @@ public class playercopy : MonoBehaviour
             //Debug.Log("Current Speed: " + currentSpeed);
             // IsGroundedパラメーターの更新
             animator.SetBool("IsGrounded", controller.isGrounded);
+            //UpdateAnimation();
         }
 
         if (!isClimbing) // 通常移動
@@ -234,93 +235,63 @@ public class playercopy : MonoBehaviour
         if (currentTargetDetector != null && other.GetComponent<playercatch>() == currentTargetDetector)
         {
             currentTargetDetector = null;
-   
+
         }
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // 1. 衝突相手からエレベーターのスクリプトを取得
-        elevator elevatorScript = hit.gameObject.GetComponent<elevator>();
-
-        // 衝突相手がエレベータータグを持っているか確認 (タグ設定が必須)
-        if (hit.gameObject.CompareTag("Elevator"))
-        {
-            // 衝突面が上向き（床に乗った）かを確認
-            if (hit.normal.y > 0.8f)
-            {
-                // ガクガク防止：プレイヤーをエレベーターの子要素にする
-                if (transform.parent != hit.transform)
-                {
-                    transform.SetParent(hit.transform);
-                }
-
-                // 動作開始：エレベーターの公開関数を呼び出す
-                if (elevatorScript != null) // スクリプトが付いているか最終確認
-                {
-                    elevatorScript.StartElevator(); // ★これがないと動きません！
-                }
-            }
-            else // 側面衝突などの場合
-            {
-                // 側面衝突でエレベーターの子要素になっていたら解除
-                if (transform.parent == hit.transform)
-                {
-                    transform.SetParent(null);
-                }
-            }
-        }
+        
     }
 
-
-    void UpdateAnimation()
-    {
-        bool isGrabbing = hand.isGrabbing;
-        playercatch detector = hand.currentDetector;
-
-        // 現在の水平方向の速度を取得（currentHorizontalVelocity は Update 内で計算されている変数）
-        // もし変数がない場合は、new Vector3(velocity.x, 0, velocity.z).magnitude を使用
-        float moveSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
-
-        if (isGrabbing && detector != null)
+        void UpdateAnimation()
         {
-            // 🔴 掴み中の静止判定（速度が 0.1 以下の場合は「掴みアイドル」とする）
-            if (moveSpeed < 0.1f)
-            {
-                animator.SetBool("IsGrabbingIdle", true);
-                animator.SetBool("IsPushing", false);
-                animator.SetBool("IsPulling", false);
-            }
-            else
-            {
-                animator.SetBool("IsGrabbingIdle", false);
+            bool isGrabbing = hand.isGrabbing;
+            playercatch detector = hand.currentDetector;
 
-                // 移動している場合は、既存の押し引き判定を実行
-                if (detector.isPushing)
+            // 現在の水平方向の速度を取得（currentHorizontalVelocity は Update 内で計算されている変数）
+            // もし変数がない場合は、new Vector3(velocity.x, 0, velocity.z).magnitude を使用
+            float moveSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
+
+            if (isGrabbing && detector != null)
+            {
+                // 🔴 掴み中の静止判定（速度が 0.1 以下の場合は「掴みアイドル」とする）
+                if (moveSpeed < 0.1f)
                 {
-                    animator.SetBool("IsPushing", true);
-                    animator.SetBool("IsPulling", false);
-                }
-                else if (detector.isPulling)
-                {
+                    animator.SetBool("IsGrabbingIdle", true);
                     animator.SetBool("IsPushing", false);
-                    animator.SetBool("IsPulling", true);
+                    animator.SetBool("IsPulling", false);
                 }
                 else
                 {
-                    // 移動はしているが押し引きが未確定な場合（Stationary）
-                    animator.SetBool("IsPushing", false);
-                    animator.SetBool("IsPulling", false);
+                    animator.SetBool("IsGrabbingIdle", false);
+
+                    // 移動している場合は、既存の押し引き判定を実行
+                    if (detector.isPushing)
+                    {
+                        animator.SetBool("IsPushing", true);
+                        animator.SetBool("IsPulling", false);
+                    }
+                    else if (detector.isPulling)
+                    {
+                        animator.SetBool("IsPushing", false);
+                        animator.SetBool("IsPulling", true);
+                    }
+                    else
+                    {
+                        // 移動はしているが押し引きが未確定な場合（Stationary）
+                        animator.SetBool("IsPushing", false);
+                        animator.SetBool("IsPulling", false);
+                    }
                 }
             }
-        }
-        else
-        {
-            // 掴んでいない時はすべてオフ
-            animator.SetBool("IsGrabbingIdle", false);
-            animator.SetBool("IsPushing", false);
-            animator.SetBool("IsPulling", false);
+            else
+            {
+                // 掴んでいない時はすべてオフ
+                animator.SetBool("IsGrabbingIdle", false);
+                animator.SetBool("IsPushing", false);
+                animator.SetBool("IsPulling", false);
+            }
         }
     }
-}
 

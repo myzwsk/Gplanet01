@@ -1,57 +1,49 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class elevator : MonoBehaviour
 {
     public float moveSpeed = 3f;
-    public float maxHeight = 5f; // ã¸‚·‚éÅ‚“_‚ÌYÀ•W
-    public float minHeight = 0f; // šVİF‰º~‚·‚éÅ’á“_‚ÌYÀ•W
-
-    private Vector3 initialPosition; // š•ÏXFƒXƒNƒŠƒvƒgŠJn‚ÌˆÊ’u‚ğ•Û‘¶
-    private bool isMovingUp = true;
-    public bool isMoving = false;
+    public float maxHeight = 5f;
+    private float minHeight;
+    private bool isPlayerOnBoard = false;
 
     void Start()
     {
-        // ‰ŠúˆÊ’u‚ğ•Û‘¶
-        initialPosition = transform.position;
+        minHeight = transform.position.y;
     }
 
-    // šd—v: Update() ‚©‚ç FixedUpdate() ‚ÉˆÚ“®‚µ‚Ü‚·I
     void FixedUpdate()
     {
-        if (isMoving)
+        float targetY = isPlayerOnBoard ? maxHeight : minHeight;
+        Vector3 currentPos = transform.position;
+
+        if (Mathf.Abs(currentPos.y - targetY) > 0.001f)
         {
-            Vector3 targetPosition;
-            if (isMovingUp)
-            {
-                // ã¸‚Ì–Ú•WˆÊ’u (X/Z‚Í‰ŠúˆÊ’u‚ğ•Û‚µAY‚ğmaxHeight‚É‚·‚é)
-                targetPosition = new Vector3(initialPosition.x, maxHeight, initialPosition.z);
-            }
-            else
-            {
-                // ‰º~‚Ì–Ú•WˆÊ’u (X/Z‚Í‰ŠúˆÊ’u‚ğ•Û‚µAY‚ğminHeight‚É‚·‚é)
-                targetPosition = new Vector3(initialPosition.x, minHeight, initialPosition.z); // šC³
-            }
-
-            // ... (ˆÚ“®ˆ—‚Æ“’B”»’è‚Í‚»‚Ì‚Ü‚Ü)
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.fixedDeltaTime);
-
-            if (transform.position == targetPosition)
-            {
-                isMovingUp = !isMovingUp;
-                isMoving = false;
-            }
+            float newY = Mathf.MoveTowards(currentPos.y, targetY, moveSpeed * Time.fixedDeltaTime);
+            transform.position = new Vector3(currentPos.x, newY, currentPos.z);
         }
     }
 
-    // ... (OnCollisionEnter ‚â StartElevator() ‚Í‚»‚Ì‚Ü‚Üc‚µ‚Ü‚·)
-    // OnCollisionEnter‚ÍíœÏ‚İAStartElevator()‚ÍUpdate()‚©‚çŒÄ‚Ño‚·‘z’è‚Å‚·
-    public void StartElevator()
+    // CharacterControllerãŒã€Œãƒˆãƒªã‚¬ãƒ¼ã€ã«å…¥ã£ãŸæ™‚ã«åå¿œ
+    private void OnTriggerEnter(Collider other)
     {
-        if (!isMoving)
+        if (other.CompareTag("player"))
         {
-            isMoving = true;
-            Debug.Log(gameObject.name + ": ƒGƒŒƒx[ƒ^[“®ìŠJnI");
+            isPlayerOnBoard = true;
+            other.transform.SetParent(transform); // è¦ªå­é–¢ä¿‚ã«ã™ã‚‹
+            Debug.Log("playerãŒä¹—ã‚Šã¾ã—ãŸ");
         }
     }
+
+    // CharacterControllerãŒã€Œãƒˆãƒªã‚¬ãƒ¼ã€ã‹ã‚‰å‡ºãŸæ™‚ã«åå¿œ
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("player"))
+        {
+            isPlayerOnBoard = false;
+            other.transform.SetParent(null); // è¦ªå­é–¢ä¿‚ã‚’è§£é™¤
+            Debug.Log("playerãŒé™ã‚Šã¾ã—ãŸ");
+        }
+    }
+
 }
