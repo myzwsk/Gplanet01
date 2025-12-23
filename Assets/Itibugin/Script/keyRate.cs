@@ -20,7 +20,7 @@ public class keyRate : MonoBehaviour
     {
         // 衝突してきたオブジェクトのタグが「Player」であるかを確認
         // collision引数には、衝突に関する詳細情報が含まれています。
-        if (collision.gameObject.CompareTag("player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             // Playerとの衝突が確認された場合
 

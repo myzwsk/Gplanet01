@@ -28,7 +28,7 @@ public class AnderBed : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // プレイヤーのタグ("Player")を持つオブジェクトか確認
-        if (other.CompareTag("player") && cameraFollowScript != null)
+        if (other.CompareTag("Player") && cameraFollowScript != null)
         {
             // 1. エリアに入る前の現在のオフセットを保存する
             originalOffset = cameraFollowScript.offset;
@@ -44,7 +44,7 @@ public class AnderBed : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         // プレイヤーのタグ("Player")を持つオブジェクトか確認
-        if (other.CompareTag("player") && cameraFollowScript != null)
+        if (other.CompareTag("Player") && cameraFollowScript != null)
         {
             // 3. 保存しておいた元のオフセットに戻す
             cameraFollowScript.offset = originalOffset;

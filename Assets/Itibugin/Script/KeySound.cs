@@ -16,7 +16,7 @@ public class KeySound : MonoBehaviour
     {
         // Playerと接触したかをタグで判定
         // ★ hasPlayedが false（未再生）の場合にのみ、if文のブロックを実行する
-        if (other.CompareTag("player") && hasPlayed == false)
+        if (other.CompareTag("Player") && hasPlayed == false)
         {
             // 音を再生
             audioSource.Play();

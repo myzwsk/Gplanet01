@@ -27,7 +27,7 @@ public class elevator : MonoBehaviour
     // CharacterControllerが「トリガー」に入った時に反応
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("player"))
+        if (other.CompareTag("Player"))
         {
             isPlayerOnBoard = true;
             other.transform.SetParent(transform); // 親子関係にする
@@ -38,7 +38,7 @@ public class elevator : MonoBehaviour
     // CharacterControllerが「トリガー」から出た時に反応
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("player"))
+        if (other.CompareTag("Player"))
         {
             isPlayerOnBoard = false;
             other.transform.SetParent(null); // 親子関係を解除

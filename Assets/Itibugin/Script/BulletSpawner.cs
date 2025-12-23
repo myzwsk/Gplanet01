@@ -41,12 +41,12 @@ public class BulletSpawner : MonoBehaviour
     // プレイヤーが入った判定（Playerタグがついている前提）
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("player")) playerInRange = true;
+        if (other.CompareTag("Player")) playerInRange = true;
     }
 
     // プレイヤーが出た判定
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("player")) playerInRange = false;
+        if (other.CompareTag("Player")) playerInRange = false;
     }
 }
