@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 662267814409702071}
   - component: {fileID: 4512328120931419410}
   - component: {fileID: 1836331534639919576}
-  - component: {fileID: 8937252425701702767}
   m_Layer: 0
   m_Name: neddle01 (4)
   m_TagString: DeathZone
@@ -87,27 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8937252425701702767
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 178747318011482125}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &195921019422913480
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +97,6 @@ GameObject:
   - component: {fileID: 717160365826009458}
   - component: {fileID: 4493473231881332439}
   - component: {fileID: 1853496577798410781}
-  - component: {fileID: 5840109634289482565}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -195,27 +172,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5840109634289482565
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 195921019422913480}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &203802421136006926
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +183,6 @@ GameObject:
   - component: {fileID: 693516497487480244}
   - component: {fileID: 4481088231547488785}
   - component: {fileID: 1861377841082580699}
-  - component: {fileID: 8986828275868947021}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -303,27 +258,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8986828275868947021
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203802421136006926}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &233946787289573663
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +269,6 @@ GameObject:
   - component: {fileID: 609382267353920421}
   - component: {fileID: 4601322454743415808}
   - component: {fileID: 1747353968378546378}
-  - component: {fileID: 166677105671045492}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -411,27 +344,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &166677105671045492
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 233946787289573663}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &276929813775293007
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +355,6 @@ GameObject:
   - component: {fileID: 620382523791950069}
   - component: {fileID: 4554213493736591184}
   - component: {fileID: 1789941446097583002}
-  - component: {fileID: 4238718936400684662}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -519,27 +430,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4238718936400684662
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 276929813775293007}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &462445036213761447
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +441,6 @@ GameObject:
   - component: {fileID: 946107645026742045}
   - component: {fileID: 4219561099354611896}
   - component: {fileID: 2119527737428694130}
-  - component: {fileID: 545449924010839577}
   m_Layer: 0
   m_Name: neddle01 (7)
   m_TagString: DeathZone
@@ -627,27 +516,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &545449924010839577
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 462445036213761447}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &488719108520201159
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,7 +527,6 @@ GameObject:
   - component: {fileID: 973788915607179645}
   - component: {fileID: 4191809230781914840}
   - component: {fileID: 2146170834017151506}
-  - component: {fileID: 876165222001860502}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -735,27 +602,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &876165222001860502
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488719108520201159}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &515711761734837837
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,7 +613,6 @@ GameObject:
   - component: {fileID: 892836091927887095}
   - component: {fileID: 4308860882501071698}
   - component: {fileID: 2029101899723933592}
-  - component: {fileID: 170189929567919743}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -843,27 +688,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &170189929567919743
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 515711761734837837}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &566313449572585107
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,7 +699,6 @@ GameObject:
   - component: {fileID: 905262799959921705}
   - component: {fileID: 4269403844564458380}
   - component: {fileID: 2079272578620550982}
-  - component: {fileID: 8933805974723613423}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -951,27 +774,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8933805974723613423
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 566313449572585107}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &673538055962068368
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,7 +785,6 @@ GameObject:
   - component: {fileID: 149520282059792170}
   - component: {fileID: 3872225359259553935}
   - component: {fileID: 1321840829685048389}
-  - component: {fileID: 6202949460227007157}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -1059,27 +860,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6202949460227007157
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 673538055962068368}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &738021198626939771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,7 +871,6 @@ GameObject:
   - component: {fileID: 105318860939180481}
   - component: {fileID: 3952455574429546084}
   - component: {fileID: 1242155869050913454}
-  - component: {fileID: 8346755014699623640}
   m_Layer: 0
   m_Name: neddle01 (5)
   m_TagString: DeathZone
@@ -1167,27 +946,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8346755014699623640
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 738021198626939771}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &779986104821361294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,7 +1007,6 @@ GameObject:
   - component: {fileID: 362785016217361}
   - component: {fileID: 4012305285858881716}
   - component: {fileID: 1173861908979811454}
-  - component: {fileID: 7021936779105999800}
   m_Layer: 0
   m_Name: neddle01 (6)
   m_TagString: DeathZone
@@ -1325,27 +1082,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7021936779105999800
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 813631319798261163}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &872001655262740270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,7 +1093,6 @@ GameObject:
   - component: {fileID: 527528422697379220}
   - component: {fileID: 3530245806827481649}
   - component: {fileID: 1664366565083275003}
-  - component: {fileID: 8769071652778660817}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -1433,27 +1168,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8769071652778660817
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 872001655262740270}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &904428007831320272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1513,7 +1227,6 @@ GameObject:
   - component: {fileID: 461079091273129165}
   - component: {fileID: 3587626627497907048}
   - component: {fileID: 1597995158055298978}
-  - component: {fileID: 914303233930324125}
   m_Layer: 0
   m_Name: neddle01 (3)
   m_TagString: DeathZone
@@ -1589,27 +1302,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &914303233930324125
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949630948650092151}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &1001867696233596773
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,7 +1313,6 @@ GameObject:
   - component: {fileID: 480910924295773663}
   - component: {fileID: 3531757127830737530}
   - component: {fileID: 1650469399659734704}
-  - component: {fileID: 1306750085844623100}
   m_Layer: 0
   m_Name: neddle01 (5)
   m_TagString: DeathZone
@@ -1697,27 +1388,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1306750085844623100
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001867696233596773}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &1039509157105856282
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,7 +1399,6 @@ GameObject:
   - component: {fileID: 371200342727013792}
   - component: {fileID: 3641476047522773509}
   - component: {fileID: 1544145755208470223}
-  - component: {fileID: 9133306852074358386}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -1805,27 +1474,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9133306852074358386
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039509157105856282}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &1270923576789041280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,7 +1485,6 @@ GameObject:
   - component: {fileID: 1939057951559801402}
   - component: {fileID: 3262630862483707295}
   - component: {fileID: 766674281202557269}
-  - component: {fileID: 3495470465251514347}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -1913,27 +1560,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3495470465251514347
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270923576789041280}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &1413024600715458578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,7 +1571,6 @@ GameObject:
   - component: {fileID: 1790113574743974568}
   - component: {fileID: 3420511793812286733}
   - component: {fileID: 620632616158616007}
-  - component: {fileID: 3830810384350866789}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -2021,27 +1646,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3830810384350866789
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1413024600715458578}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &1662615669382937164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,7 +1657,6 @@ GameObject:
   - component: {fileID: 2042695280341623030}
   - component: {fileID: 3167938318208741203}
   - component: {fileID: 869810816533060505}
-  - component: {fileID: 3380411414997828063}
   m_Layer: 0
   m_Name: neddle01 (8)
   m_TagString: DeathZone
@@ -2129,27 +1732,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3380411414997828063
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1662615669382937164}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &1705307996885637457
 GameObject:
   m_ObjectHideFlags: 0
@@ -2161,7 +1743,6 @@ GameObject:
   - component: {fileID: 2081129470180197355}
   - component: {fileID: 3120558788742941774}
   - component: {fileID: 912688001055717508}
-  - component: {fileID: 530537231028581449}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -2237,27 +1818,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &530537231028581449
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705307996885637457}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &1943051770533311813
 GameObject:
   m_ObjectHideFlags: 0
@@ -2269,7 +1829,6 @@ GameObject:
   - component: {fileID: 1278120587136643071}
   - component: {fileID: 2743554687300771930}
   - component: {fileID: 141836150996948112}
-  - component: {fileID: 2576019002975443677}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -2345,27 +1904,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2576019002975443677
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943051770533311813}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &2009773637309560339
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,7 +1915,6 @@ GameObject:
   - component: {fileID: 1202451020361739433}
   - component: {fileID: 2810295921696875276}
   - component: {fileID: 64416029637892038}
-  - component: {fileID: 4891138624949977368}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -2453,27 +1990,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4891138624949977368
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2009773637309560339}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &2188952487256342725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,7 +2001,6 @@ GameObject:
   - component: {fileID: 1525427368593660543}
   - component: {fileID: 2487310296643802586}
   - component: {fileID: 387385162594312464}
-  - component: {fileID: 3529169439315040084}
   m_Layer: 0
   m_Name: neddle01 (8)
   m_TagString: DeathZone
@@ -2561,27 +2076,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3529169439315040084
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2188952487256342725}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &2211912514066745334
 GameObject:
   m_ObjectHideFlags: 0
@@ -2593,7 +2087,6 @@ GameObject:
   - component: {fileID: 1583466183703715148}
   - component: {fileID: 2474237129997144809}
   - component: {fileID: 410591479403062819}
-  - component: {fileID: 5650368934851963082}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -2669,27 +2162,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5650368934851963082
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2211912514066745334}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &2562076253375238385
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,7 +2173,6 @@ GameObject:
   - component: {fileID: 2937897731010939467}
   - component: {fileID: 2263720714279994862}
   - component: {fileID: 4075386814344114468}
-  - component: {fileID: 761490567050809030}
   m_Layer: 0
   m_Name: neddle01 (7)
   m_TagString: DeathZone
@@ -2777,27 +2248,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &761490567050809030
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2562076253375238385}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &2637657508093000923
 GameObject:
   m_ObjectHideFlags: 0
@@ -2809,7 +2259,6 @@ GameObject:
   - component: {fileID: 3445543074463622753}
   - component: {fileID: 1765090814821214660}
   - component: {fileID: 4583023912533220622}
-  - component: {fileID: 4879279576934149650}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -2885,27 +2334,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4879279576934149650
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2637657508093000923}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &2639725883909475101
 GameObject:
   m_ObjectHideFlags: 0
@@ -2917,7 +2345,6 @@ GameObject:
   - component: {fileID: 3452536983113716135}
   - component: {fileID: 1749150983170776578}
   - component: {fileID: 4585452515628919496}
-  - component: {fileID: 3740504501340067139}
   m_Layer: 0
   m_Name: neddle01 (6)
   m_TagString: DeathZone
@@ -2993,27 +2420,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3740504501340067139
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2639725883909475101}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &2681898848083554144
 GameObject:
   m_ObjectHideFlags: 0
@@ -3025,7 +2431,6 @@ GameObject:
   - component: {fileID: 3347252489484039642}
   - component: {fileID: 1863381881625770623}
   - component: {fileID: 4483606911981391541}
-  - component: {fileID: 8607420714020755245}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -3101,27 +2506,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8607420714020755245
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2681898848083554144}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &2977710420003891289
 GameObject:
   m_ObjectHideFlags: 0
@@ -3133,7 +2517,6 @@ GameObject:
   - component: {fileID: 2457034057913987811}
   - component: {fileID: 1564711563274812742}
   - component: {fileID: 3625977870706280844}
-  - component: {fileID: 8891011594838197700}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -3209,27 +2592,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8891011594838197700
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2977710420003891289}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &3056454476246980317
 GameObject:
   m_ObjectHideFlags: 0
@@ -3241,7 +2603,6 @@ GameObject:
   - component: {fileID: 2387300927748623463}
   - component: {fileID: 1625445555283280834}
   - component: {fileID: 3560739094314432264}
-  - component: {fileID: 8791114161886913076}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -3317,27 +2678,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8791114161886913076
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3056454476246980317}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &3412263399308005833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3349,7 +2689,6 @@ GameObject:
   - component: {fileID: 2598889070358842227}
   - component: {fileID: 1422785923328591062}
   - component: {fileID: 3772388161036857372}
-  - component: {fileID: 863322489953984790}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -3425,27 +2764,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &863322489953984790
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3412263399308005833}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &3651859278832868525
 GameObject:
   m_ObjectHideFlags: 0
@@ -3457,7 +2775,6 @@ GameObject:
   - component: {fileID: 4171971557171414551}
   - component: {fileID: 1029645994728573362}
   - component: {fileID: 3003618215271316856}
-  - component: {fileID: 5926715171936015820}
   m_Layer: 0
   m_Name: neddle01 (3)
   m_TagString: DeathZone
@@ -3533,27 +2850,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5926715171936015820
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3651859278832868525}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &3684107345758941872
 GameObject:
   m_ObjectHideFlags: 0
@@ -3565,7 +2861,6 @@ GameObject:
   - component: {fileID: 4065418611352545290}
   - component: {fileID: 1136207988455974831}
   - component: {fileID: 2891425776739144549}
-  - component: {fileID: 5324554541604806192}
   m_Layer: 0
   m_Name: neddle01 (4)
   m_TagString: DeathZone
@@ -3641,27 +2936,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5324554541604806192
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3684107345758941872}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &3705788269558377951
 GameObject:
   m_ObjectHideFlags: 0
@@ -3673,7 +2947,6 @@ GameObject:
   - component: {fileID: 4046003093855696741}
   - component: {fileID: 1119586467445307584}
   - component: {fileID: 2913097492649839626}
-  - component: {fileID: 1888077216935577571}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -3749,27 +3022,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1888077216935577571
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3705788269558377951}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &4257799657705161777
 GameObject:
   m_ObjectHideFlags: 0
@@ -3781,7 +3033,6 @@ GameObject:
   - component: {fileID: 3485063278269013643}
   - component: {fileID: 572719127235694894}
   - component: {fileID: 2312108348270732772}
-  - component: {fileID: 8653779968516049651}
   m_Layer: 0
   m_Name: neddle01 (6)
   m_TagString: DeathZone
@@ -3857,27 +3108,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8653779968516049651
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4257799657705161777}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &4396071295805292984
 GameObject:
   m_ObjectHideFlags: 0
@@ -3889,7 +3119,6 @@ GameObject:
   - component: {fileID: 3911986650337794818}
   - component: {fileID: 136780021828900007}
   - component: {fileID: 2738478833495416941}
-  - component: {fileID: 5801080345596127745}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -3965,27 +3194,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5801080345596127745
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4396071295805292984}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &4429846128041460536
 GameObject:
   m_ObjectHideFlags: 0
@@ -3997,7 +3205,6 @@ GameObject:
   - component: {fileID: 3905229155385301378}
   - component: {fileID: 116515988533564967}
   - component: {fileID: 2772253528626995949}
-  - component: {fileID: 1869855691740989586}
   m_Layer: 0
   m_Name: neddle01 (4)
   m_TagString: DeathZone
@@ -4073,27 +3280,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1869855691740989586
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4429846128041460536}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &4464429721630340285
 GameObject:
   m_ObjectHideFlags: 0
@@ -4105,7 +3291,6 @@ GameObject:
   - component: {fileID: 3944880050184695303}
   - component: {fileID: 76803174249767330}
   - component: {fileID: 2806916148687754600}
-  - component: {fileID: 7111023544469981308}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -4181,27 +3366,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7111023544469981308
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4464429721630340285}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &4612059025106539316
 GameObject:
   m_ObjectHideFlags: 0
@@ -4262,7 +3426,6 @@ GameObject:
   - component: {fileID: 5453991011101392110}
   - component: {fileID: 8944057020115333963}
   - component: {fileID: 6627991543502391169}
-  - component: {fileID: 3017004729628782348}
   m_Layer: 0
   m_Name: neddle01 (3)
   m_TagString: DeathZone
@@ -4338,27 +3501,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3017004729628782348
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4682520135237330516}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &4771716661578674202
 GameObject:
   m_ObjectHideFlags: 0
@@ -4370,7 +3512,6 @@ GameObject:
   - component: {fileID: 5292674769513474720}
   - component: {fileID: 9141322340897580293}
   - component: {fileID: 6429019814892278223}
-  - component: {fileID: 6671011559073862866}
   m_Layer: 0
   m_Name: neddle01 (3)
   m_TagString: DeathZone
@@ -4446,27 +3587,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6671011559073862866
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4771716661578674202}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &5178202461876891443
 GameObject:
   m_ObjectHideFlags: 0
@@ -4478,7 +3598,6 @@ GameObject:
   - component: {fileID: 5519015214353872265}
   - component: {fileID: 8879023196964583980}
   - component: {fileID: 6691319646187294438}
-  - component: {fileID: 6019228021725945007}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -4554,27 +3673,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6019228021725945007
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5178202461876891443}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &5567381869614802412
 GameObject:
   m_ObjectHideFlags: 0
@@ -4586,7 +3684,6 @@ GameObject:
   - component: {fileID: 5046425205273493334}
   - component: {fileID: 8189614958085435635}
   - component: {fileID: 6216001164643173433}
-  - component: {fileID: 4950098211941196522}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -4662,27 +3759,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4950098211941196522
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5567381869614802412}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &5644914727587659934
 GameObject:
   m_ObjectHideFlags: 0
@@ -4694,7 +3770,6 @@ GameObject:
   - component: {fileID: 4980159466131135012}
   - component: {fileID: 8264896074356135297}
   - component: {fileID: 6149164434965422411}
-  - component: {fileID: 675473498013041000}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -4770,27 +3845,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &675473498013041000
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5644914727587659934}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &5744284063699710007
 GameObject:
   m_ObjectHideFlags: 0
@@ -4802,7 +3856,6 @@ GameObject:
   - component: {fileID: 4970878082537908877}
   - component: {fileID: 8310197746635990312}
   - component: {fileID: 6104408962397737442}
-  - component: {fileID: 4412126923653780432}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -4878,27 +3931,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4412126923653780432
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5744284063699710007}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &5956249011245328456
 GameObject:
   m_ObjectHideFlags: 0
@@ -4910,7 +3942,6 @@ GameObject:
   - component: {fileID: 6477029792670348018}
   - component: {fileID: 7947960344816909655}
   - component: {fileID: 5307532409995200925}
-  - component: {fileID: 4143512668024054297}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -4986,27 +4017,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4143512668024054297
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5956249011245328456}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &5974511398786171649
 GameObject:
   m_ObjectHideFlags: 0
@@ -5018,7 +4028,6 @@ GameObject:
   - component: {fileID: 6458842303990356411}
   - component: {fileID: 7930189474474186270}
   - component: {fileID: 5325865027159433940}
-  - component: {fileID: 3433824156969906794}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -5094,27 +4103,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3433824156969906794
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5974511398786171649}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &6015522838118415226
 GameObject:
   m_ObjectHideFlags: 0
@@ -5126,7 +4114,6 @@ GameObject:
   - component: {fileID: 6354788577540071872}
   - component: {fileID: 8043258645690150501}
   - component: {fileID: 5222929092657257135}
-  - component: {fileID: 9059737522975116031}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -5202,27 +4189,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9059737522975116031
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6015522838118415226}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &6152035272953419891
 GameObject:
   m_ObjectHideFlags: 0
@@ -5234,7 +4200,6 @@ GameObject:
   - component: {fileID: 6785723769764676297}
   - component: {fileID: 7603307923576491372}
   - component: {fileID: 5647680011937806758}
-  - component: {fileID: 8612287448757953741}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -5310,27 +4275,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8612287448757953741
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6152035272953419891}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &6289135967454827975
 GameObject:
   m_ObjectHideFlags: 0
@@ -5342,7 +4286,6 @@ GameObject:
   - component: {fileID: 6632869297498050429}
   - component: {fileID: 7756171551111135448}
   - component: {fileID: 5496506625171174418}
-  - component: {fileID: 4167686010983521237}
   m_Layer: 0
   m_Name: neddle01 (6)
   m_TagString: DeathZone
@@ -5418,27 +4361,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4167686010983521237
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6289135967454827975}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &6339889477015043913
 GameObject:
   m_ObjectHideFlags: 0
@@ -5450,7 +4372,6 @@ GameObject:
   - component: {fileID: 6678872672526902771}
   - component: {fileID: 7719104728999176790}
   - component: {fileID: 5547084075008286364}
-  - component: {fileID: 8355305020529168078}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -5526,27 +4447,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8355305020529168078
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6339889477015043913}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &6514650898801306176
 GameObject:
   m_ObjectHideFlags: 0
@@ -5558,7 +4458,6 @@ GameObject:
   - component: {fileID: 5846623210946916602}
   - component: {fileID: 7389486972932489055}
   - component: {fileID: 4713100614871321493}
-  - component: {fileID: 8165219695562977818}
   m_Layer: 0
   m_Name: neddle01 (9)
   m_TagString: DeathZone
@@ -5634,27 +4533,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8165219695562977818
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6514650898801306176}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &6634465255108168370
 GameObject:
   m_ObjectHideFlags: 0
@@ -5666,7 +4544,6 @@ GameObject:
   - component: {fileID: 6294214044384792584}
   - component: {fileID: 6986861784801714093}
   - component: {fileID: 5121338861863791463}
-  - component: {fileID: 4549582229224887374}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -5742,27 +4619,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4549582229224887374
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6634465255108168370}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &6756015912708444017
 GameObject:
   m_ObjectHideFlags: 0
@@ -5774,7 +4630,6 @@ GameObject:
   - component: {fileID: 6235761457853617611}
   - component: {fileID: 7000348180342692462}
   - component: {fileID: 5098862978962304676}
-  - component: {fileID: 3504068575644860425}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -5850,27 +4705,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3504068575644860425
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6756015912708444017}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &6815212573960243129
 GameObject:
   m_ObjectHideFlags: 0
@@ -5931,7 +4765,6 @@ GameObject:
   - component: {fileID: 6098369196556256400}
   - component: {fileID: 7137670960897100597}
   - component: {fileID: 4966043935491522559}
-  - component: {fileID: 2370675883131667863}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -6007,27 +4840,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2370675883131667863
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6911357287938121258}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &6926802472595681443
 GameObject:
   m_ObjectHideFlags: 0
@@ -6039,7 +4851,6 @@ GameObject:
   - component: {fileID: 7740318363669015065}
   - component: {fileID: 6684741662572520892}
   - component: {fileID: 8872107028969116022}
-  - component: {fileID: 8687367836349068187}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -6115,27 +4926,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8687367836349068187
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6926802472595681443}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &7021092176456412486
 GameObject:
   m_ObjectHideFlags: 0
@@ -6147,7 +4937,6 @@ GameObject:
   - component: {fileID: 7648306846826313724}
   - component: {fileID: 6740733172562671705}
   - component: {fileID: 8822290341363895443}
-  - component: {fileID: 8090664091478828161}
   m_Layer: 0
   m_Name: neddle01 (7)
   m_TagString: DeathZone
@@ -6223,27 +5012,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8090664091478828161
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7021092176456412486}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &7134584334082243361
 GameObject:
   m_ObjectHideFlags: 0
@@ -6255,7 +5023,6 @@ GameObject:
   - component: {fileID: 7514522103831962011}
   - component: {fileID: 6910537917873434174}
   - component: {fileID: 8648000722394569460}
-  - component: {fileID: 5262629696821705316}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -6331,27 +5098,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5262629696821705316
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7134584334082243361}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &7218967428237161850
 GameObject:
   m_ObjectHideFlags: 0
@@ -6363,7 +5109,6 @@ GameObject:
   - component: {fileID: 8026887934428884928}
   - component: {fileID: 6398180865109631077}
   - component: {fileID: 9164280781103649967}
-  - component: {fileID: 8128720943042345668}
   m_Layer: 0
   m_Name: neddle01 (8)
   m_TagString: DeathZone
@@ -6439,27 +5184,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8128720943042345668
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7218967428237161850}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &7446905534747812797
 GameObject:
   m_ObjectHideFlags: 0
@@ -6471,7 +5195,6 @@ GameObject:
   - component: {fileID: 7787684232687057159}
   - component: {fileID: 6610354174560827042}
   - component: {fileID: 8959987672112628328}
-  - component: {fileID: 6828676005944825101}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -6547,27 +5270,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6828676005944825101
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7446905534747812797}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8039379959541248265
 GameObject:
   m_ObjectHideFlags: 0
@@ -6579,7 +5281,6 @@ GameObject:
   - component: {fileID: 7267206530576542643}
   - component: {fileID: 6013878093312615446}
   - component: {fileID: 8399601478694998236}
-  - component: {fileID: 786482139933459047}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -6655,27 +5356,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &786482139933459047
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8039379959541248265}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8125458482254530276
 GameObject:
   m_ObjectHideFlags: 0
@@ -6687,9 +5367,10 @@ GameObject:
   - component: {fileID: 8901573420337536094}
   - component: {fileID: 5487467137834947579}
   - component: {fileID: 7765209613067675441}
+  - component: {fileID: 517792036996188590}
   m_Layer: 0
   m_Name: Toge
-  m_TagString: Untagged
+  m_TagString: DeathZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6766,6 +5447,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &517792036996188590
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8125458482254530276}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.018
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8379020110233766577
 GameObject:
   m_ObjectHideFlags: 0
@@ -6777,7 +5479,6 @@ GameObject:
   - component: {fileID: 9152320263741165579}
   - component: {fileID: 5236641129044762542}
   - component: {fileID: 8018868135060384612}
-  - component: {fileID: 6777431824339639183}
   m_Layer: 0
   m_Name: neddle01 (5)
   m_TagString: DeathZone
@@ -6853,27 +5554,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6777431824339639183
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8379020110233766577}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8499225623068574289
 GameObject:
   m_ObjectHideFlags: 0
@@ -6885,7 +5565,6 @@ GameObject:
   - component: {fileID: 9131188986182031595}
   - component: {fileID: 5266778987901343566}
   - component: {fileID: 7994923825853178756}
-  - component: {fileID: 3899088225689730175}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -6961,27 +5640,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3899088225689730175
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8499225623068574289}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8518320181179007673
 GameObject:
   m_ObjectHideFlags: 0
@@ -6993,7 +5651,6 @@ GameObject:
   - component: {fileID: 9042374548217337859}
   - component: {fileID: 5391701744210679718}
   - component: {fileID: 7870000090299556716}
-  - component: {fileID: 888859276937906250}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -7069,27 +5726,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &888859276937906250
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8518320181179007673}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8526759234179815241
 GameObject:
   m_ObjectHideFlags: 0
@@ -7101,7 +5737,6 @@ GameObject:
   - component: {fileID: 9015910635373956595}
   - component: {fileID: 5382128526712275542}
   - component: {fileID: 7878447390565234332}
-  - component: {fileID: 3286785915983355288}
   m_Layer: 0
   m_Name: neddle01 (4)
   m_TagString: DeathZone
@@ -7177,27 +5812,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3286785915983355288
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8526759234179815241}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8723948666745210770
 GameObject:
   m_ObjectHideFlags: 0
@@ -7209,7 +5823,6 @@ GameObject:
   - component: {fileID: 8240005927548689704}
   - component: {fileID: 5041140067136443021}
   - component: {fileID: 7066514397224035911}
-  - component: {fileID: 9140463775803175268}
   m_Layer: 0
   m_Name: neddle01 (5)
   m_TagString: DeathZone
@@ -7285,27 +5898,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9140463775803175268
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8723948666745210770}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8745910606191940300
 GameObject:
   m_ObjectHideFlags: 0
@@ -7317,7 +5909,6 @@ GameObject:
   - component: {fileID: 8220309531986757750}
   - component: {fileID: 5024816938822076371}
   - component: {fileID: 7088466990616802073}
-  - component: {fileID: 1780942114424578856}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -7393,27 +5984,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1780942114424578856
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8745910606191940300}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8777708377994166565
 GameObject:
   m_ObjectHideFlags: 0
@@ -7425,7 +5995,6 @@ GameObject:
   - component: {fileID: 8258335010195528607}
   - component: {fileID: 4986791534133204026}
   - component: {fileID: 7120282490505240816}
-  - component: {fileID: 9221673284546482419}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -7501,27 +6070,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9221673284546482419
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8777708377994166565}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8856861017760487808
 GameObject:
   m_ObjectHideFlags: 0
@@ -7533,7 +6081,6 @@ GameObject:
   - component: {fileID: 8188164827444544314}
   - component: {fileID: 5047953619419204767}
   - component: {fileID: 7055197073363302485}
-  - component: {fileID: 2832482979913119656}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -7609,27 +6156,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2832482979913119656
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8856861017760487808}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8858833509681740796
 GameObject:
   m_ObjectHideFlags: 0
@@ -7641,7 +6167,6 @@ GameObject:
   - component: {fileID: 8195203907062358342}
   - component: {fileID: 5049921794360176355}
   - component: {fileID: 7057169564744260137}
-  - component: {fileID: 4709983325584628876}
   m_Layer: 0
   m_Name: neddle01 (1)
   m_TagString: DeathZone
@@ -7717,27 +6242,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4709983325584628876
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8858833509681740796}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &8907850468779818909
 GameObject:
   m_ObjectHideFlags: 0
@@ -7749,7 +6253,6 @@ GameObject:
   - component: {fileID: 8130363344660636967}
   - component: {fileID: 5150712763145104002}
   - component: {fileID: 6962554844863618632}
-  - component: {fileID: 4056999540438826495}
   m_Layer: 0
   m_Name: neddle01
   m_TagString: DeathZone
@@ -7825,27 +6328,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4056999540438826495
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8907850468779818909}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &9109896145018647180
 GameObject:
   m_ObjectHideFlags: 0
@@ -7857,7 +6339,6 @@ GameObject:
   - component: {fileID: 8441728033281878070}
   - component: {fileID: 4794312145858078611}
   - component: {fileID: 7308258313620607833}
-  - component: {fileID: 6915898388683687617}
   m_Layer: 0
   m_Name: neddle01 (2)
   m_TagString: DeathZone
@@ -7933,27 +6414,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6915898388683687617
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9109896145018647180}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
 --- !u!1 &9171713570466500150
 GameObject:
   m_ObjectHideFlags: 0
@@ -7965,7 +6425,6 @@ GameObject:
   - component: {fileID: 8359710371794736268}
   - component: {fileID: 4876399901807106857}
   - component: {fileID: 7226171382766677987}
-  - component: {fileID: 7309422853363918691}
   m_Layer: 0
   m_Name: neddle01 (7)
   m_TagString: DeathZone
@@ -8041,24 +6500,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7309422853363918691
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9171713570466500150}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0005793966, y: 0.026268812, z: 0.0015987199}
-  m_Center: {x: 0.00008515534, y: -0.011890057, z: 0.00042973674}
