@@ -2,7 +2,7 @@
 
 public class AOE1Field : MonoBehaviour
 {
-    private string touchedTag = null; // 最後に触れたタグを記録
+    private bool isTouchingPlayer = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,20 +14,26 @@ public class AOE1Field : MonoBehaviour
     {
 
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        touchedTag = other.gameObject.tag;
+        if (other.CompareTag("Player"))
+        {
+            isTouchingPlayer = true;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isTouchingPlayer = false;
+        }
     }
     void Destroy()
     {
 
-        if (touchedTag != null)
+        if (isTouchingPlayer)
         {
-            if (touchedTag == "Player")
-            {
-                Debug.Log("破壊時に触れていたタグ: " + touchedTag);
-            }
-
+            Debug.Log("プレイヤー死亡！");
         }
         Destroy(gameObject);
     }
