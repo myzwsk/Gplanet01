@@ -472,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7078b9c8272efa64bab7f16c9de2e8b1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 666.4
+      value: 667.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7078b9c8272efa64bab7f16c9de2e8b1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2698,7 +2698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 317.93
+      value: 318.74
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3647,7 +3647,7 @@ Transform:
   m_GameObject: {fileID: 223096561}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.99977744, z: -0.021099469, w: 0}
-  m_LocalPosition: {x: 27.711, y: 4.2935, z: -8.451874}
+  m_LocalPosition: {x: 24.06, y: 4.2935, z: -8.451874}
   m_LocalScale: {x: 5.393904, y: 12.829968, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5214,7 +5214,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &411835592
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5250,6 +5250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1776562611}
   fromCenter: 0.9
+  isGrabIdol: 0
 --- !u!1001 &421772534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10732,6 +10733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1776562611}
   fromCenter: 1.2
+  isGrabIdol: 0
 --- !u!54 &851019847
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17354,6 +17356,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.342
       objectReference: {fileID: 0}
+    - target: {fileID: 7757452446062051254, guid: b6a7b475bc0b58d4a982217b8aaef36c, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8031823712133124030, guid: b6a7b475bc0b58d4a982217b8aaef36c, type: 3}
       propertyPath: m_Name
       value: Props_Box_3 (1)
@@ -20665,7 +20671,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabRange: 1.5
-  moveSpeed: 5
   HoldThreshold: 0.2
   catchObjectFlag: 0
   isGrabbing: 0
