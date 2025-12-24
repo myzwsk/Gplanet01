@@ -1,9 +1,9 @@
-﻿using UnityEditor.Rendering.LookDev;
+﻿
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using static UnityEngine.GraphicsBuffer;
+//using static UnityEngine.GraphicsBuffer;
 
 public class TitleKari : MonoBehaviour
 {
