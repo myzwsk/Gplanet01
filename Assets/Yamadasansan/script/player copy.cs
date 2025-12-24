@@ -1,118 +1,92 @@
 ﻿using System.Collections;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class playercopy : MonoBehaviour
 {
-    public float gravity = -9.81f; // 重力計算用
-    public float initialJumpVelocity = 5f; // 最初のジャンプの勢い
-    public float gravityMultiplier = 0.7f; // ジャンプ上昇中の重力抑制用
-    public float movelock = 0.5f; // 空中時の移動速度制限用
-    public float maxSpeed = 5f; // 最大速度
-    public float acceleration = 25f; // 加速の強さ
-    public float deceleration = 30f; // 減速の強さ
-    public float climbSpeed = 3f; // 梯子用の速度
-    public bool isClimbing = false; // 梯子判定フラグ
-    private elevator currentElevator; // 現在乗っているエレベーターを記憶
+    [Header("Movement Settings")]
+    public float gravity = -9.81f;
+    public float initialJumpVelocity = 5f;
+    public float gravityMultiplier = 0.7f;
+    public float movelock = 0.5f;
+    public float maxSpeed = 5f;
+    public float acceleration = 25f;
+    public float deceleration = 30f;
 
-    private playercatch currentTargetDetector;
-    private playerhandcopy hand; // つかみ時オブジェクトの吸着位置
+    [Header("Climb Settings")]
+    public float climbSpeed = 3f;
+    public bool isClimbing = false;
+
+    // 内部コンポーネント
     private CharacterController controller;
+    private playerhandcopy hand;
+    private Animator animator;
+
+    // 状態変数
     private Vector2 moveInput;
     private Vector3 velocity;
     private bool isJumping = false;
-    private float maxJumpVelocity = 0f; // ボタンを離した時点での最高速
-    private Animator animator;//アニメーター
+    private float maxJumpVelocity = 0f;
+    private playercatch currentTargetDetector;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         hand = GetComponent<playerhandcopy>();
         animator = GetComponent<Animator>();
-
-
     }
 
-    public void OnMove(InputAction.CallbackContext context) // Moveアクション
+    // --- Input System Events ---
+    public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
 
-    public void OnJump(InputAction.CallbackContext context) // Jumpアクション
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if (isClimbing) return; // 梯子中はジャンプ禁止
+        if (isClimbing) return;
 
-        if (context.started) // ジャンプボタン押し始め
+        if (context.started && controller.isGrounded && !hand.isGrabbing)
         {
-            if (controller.isGrounded) // 地面にいる間ジャンプ可
-            {
-                if (!hand.isGrabbing) // ものをキャッチしていないときジャンプ可
-                {
-                    velocity.y = initialJumpVelocity;
-                    isJumping = true;
-                    maxJumpVelocity = velocity.y;
-                    if (animator != null)
-                    {
-                        animator.SetTrigger("Jump");
-                    }
-                }
-            }
+            velocity.y = initialJumpVelocity;
+            isJumping = true;
+            maxJumpVelocity = velocity.y;
+            if (animator != null) animator.SetTrigger("Jump");
         }
-        else if (context.canceled) // ジャンプボタンを離したとき
+        else if (context.canceled)
         {
             maxJumpVelocity = velocity.y;
             isJumping = false;
         }
     }
 
-
-
     void Update()
     {
-        // カメラの座標取得
+        ApplyMovement();
+        UpdateAnimation(); // 🔴 ここでアニメーション更新を呼ぶ
+    }
 
+    private void ApplyMovement()
+    {
         Transform cam = Camera.main.transform;
-        // カメラの forward と right を水平成分だけにする
-        Vector3 camForward = cam.forward;
-        camForward.y = 0;
-        camForward.Normalize();
-
-        Vector3 camRight = cam.right;
-        camRight.y = 0;
-        camRight.Normalize();
-        // 入力をカメラ基準に変換
+        Vector3 camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 camRight = Vector3.Scale(cam.right, new Vector3(1, 0, 1)).normalized;
         Vector3 targetDirection = camForward * moveInput.y + camRight * moveInput.x;
+
         Vector3 currentHorizontalVelocity = new Vector3(velocity.x, 0, velocity.z);
 
-       
-        if (animator != null)
+        if (!isClimbing)
         {
-            // Speedパラメーターの更新
-            float currentSpeed = currentHorizontalVelocity.magnitude;
-            animator.SetFloat("Speed", currentSpeed);
-            //Debug.Log("Current Speed: " + currentSpeed);
-            // IsGroundedパラメーターの更新
-            animator.SetBool("IsGrounded", controller.isGrounded);
-            //UpdateAnimation();
-        }
-
-        if (!isClimbing) // 通常移動
-        {
-            if (targetDirection.magnitude > 0.1f) // キーが押されている場合（加速）
+            if (targetDirection.magnitude > 0.1f)
             {
-                // 加速
-                if (controller.isGrounded)
-                    currentHorizontalVelocity += targetDirection.normalized * acceleration * Time.deltaTime;
-                else
-                    currentHorizontalVelocity += targetDirection.normalized * acceleration * Time.deltaTime * movelock;
-                // 速度制限
-                if (controller.isGrounded)
-                    currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, maxSpeed - (1f * hand.catchObjectFlag));
-                else
-                    currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, maxSpeed * 0.6f);
-                // つかんでないときは移動方向に向きを変える
-                if (targetDirection != Vector3.zero && !hand.isGrabbing)
+                float penalty = 1f * hand.catchObjectFlag;
+                float currentMax = controller.isGrounded ? (maxSpeed - penalty) : (maxSpeed * 0.6f);
+                float accelRate = controller.isGrounded ? acceleration : acceleration * movelock;
+
+                currentHorizontalVelocity += targetDirection.normalized * accelRate * Time.deltaTime;
+                currentHorizontalVelocity = Vector3.ClampMagnitude(currentHorizontalVelocity, currentMax);
+
+                if (!hand.isGrabbing)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15f);
@@ -124,174 +98,107 @@ public class playercopy : MonoBehaviour
                     currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, Vector3.zero, deceleration * Time.deltaTime);
             }
 
-            if (controller.isGrounded && velocity.y < 0)
-            {
-                velocity.y = -2f;
-                isJumping = false;
-            }
+            // 重力
+            if (controller.isGrounded && velocity.y < 0) velocity.y = -2f;
+            velocity.y += gravity * (isJumping && velocity.y > 0 ? gravityMultiplier : 1f) * Time.deltaTime;
 
-            // ジャンプ中は重力を弱める
-            if (isJumping && velocity.y > 0)
-            {
-                // 押している間は重力を弱める → 高く飛べる
-                velocity.y += gravity * Time.deltaTime * gravityMultiplier;
-            }
-            else
-            {
-                // 通常の重力
-                velocity.y += gravity * Time.deltaTime;
-            }
-
-            // ボタンを離した後は最高速度を制限
-            if (!isJumping && velocity.y > maxJumpVelocity)
-            {
-                velocity.y = maxJumpVelocity;
-            }
-
+            if (!isJumping && velocity.y > maxJumpVelocity) velocity.y = maxJumpVelocity;
         }
-        else // 梯子移動
+        else
         {
-            // 横移動は制限して、上下だけ
             currentHorizontalVelocity = Vector3.zero;
-
-            // 上下入力で移動
             velocity.y = moveInput.y * climbSpeed;
         }
 
         velocity.x = currentHorizontalVelocity.x;
         velocity.z = currentHorizontalVelocity.z;
-
         controller.Move(velocity * Time.deltaTime);
     }
-    public void ExitSlopeTop(float groundY)
-    {
-        isClimbing = false;
 
-        // 足元を床の高さに合わせる
-        controller.enabled = false;
-        Vector3 pos = transform.position;
-        pos.y = groundY;
-        transform.position = pos;
-        controller.enabled = true;
+    private void UpdateAnimation()
+    {
+        if (animator == null) return;
 
-        // 一時的に重力を無効化して前に押し出す
-        StartCoroutine(DisableGravityAndPush());
-    }
+        // 通常の移動速度
+        float hSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
+        animator.SetFloat("Speed", hSpeed);
+        animator.SetBool("IsGrounded", controller.isGrounded);
 
-    private IEnumerator DisableGravityAndPush()
-    {
-        // 前方向へ少し押し出す
-        controller.Move(transform.forward * 0.5f);
-
-        // 0.2秒だけ重力無効化
-        yield return new WaitForSeconds(0.2f);
-    }
-
-    public void ExitSlopeBottom(float groundY)
-    {
-        isClimbing = false;
-        // 足元を地面の高さに合わせる
-        Vector3 pos = transform.position;
-        pos.y = groundY;
-        transform.position = pos;
-        velocity.y = -2f;
-    }
-    public void Slope()
-    {
-        isClimbing = true;
-        velocity = Vector3.zero; // 入った瞬間にリセット
-    }
-    public void ExitSlope()
-    {
-        isClimbing = false;
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        AudioSource hitAudio = other.GetComponent<AudioSource>();
-        if (other.CompareTag("Bubble")) // バブル取得時
+        // 掴み中の処理
+        if (hand.isGrabbing && hand.currentDetector != null)
         {
+            // 物理的に動いているか、または移動キーを入力しているか
+            bool isMoving = hSpeed > 0.1f || moveInput.magnitude > 0.1f;
 
-            hitAudio.Play();
-            // バブルの見た目を消す (MeshRendererとColliderを無効化)
-            other.GetComponent<MeshRenderer>().enabled = false;
-            other.GetComponent<Collider>().enabled = false;
-
-            // 4. 無音部分を含めたクリップの全体の長さだけ待ってから、オブジェクト破棄
-            Destroy(other.gameObject, hitAudio.clip.length);
-        }
-
-        playercatch detector = other.GetComponent<playercatch>();
-        if (detector != null)
-        {
-            // 接触したオブジェクトのDetectorを一時的に保持
-            currentTargetDetector = detector;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-
-        // 離れたオブジェクトが現在掴んでいたオブジェクトと同じか確認し、参照を解除
-        if (currentTargetDetector != null && other.GetComponent<playercatch>() == currentTargetDetector)
-        {
-            currentTargetDetector = null;
-
-        }
-    }
-
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        
-    }
-
-        void UpdateAnimation()
-        {
-            bool isGrabbing = hand.isGrabbing;
-            playercatch detector = hand.currentDetector;
-
-            // 現在の水平方向の速度を取得（currentHorizontalVelocity は Update 内で計算されている変数）
-            // もし変数がない場合は、new Vector3(velocity.x, 0, velocity.z).magnitude を使用
-            float moveSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
-
-            if (isGrabbing && detector != null)
+            if (isMoving)
             {
-                // 🔴 掴み中の静止判定（速度が 0.1 以下の場合は「掴みアイドル」とする）
-                if (moveSpeed < 0.1f)
-                {
-                    animator.SetBool("IsGrabbingIdle", true);
-                    animator.SetBool("IsPushing", false);
-                    animator.SetBool("IsPulling", false);
-                }
-                else
-                {
-                    animator.SetBool("IsGrabbingIdle", false);
-
-                    // 移動している場合は、既存の押し引き判定を実行
-                    if (detector.isPushing)
-                    {
-                        animator.SetBool("IsPushing", true);
-                        animator.SetBool("IsPulling", false);
-                    }
-                    else if (detector.isPulling)
-                    {
-                        animator.SetBool("IsPushing", false);
-                        animator.SetBool("IsPulling", true);
-                    }
-                    else
-                    {
-                        // 移動はしているが押し引きが未確定な場合（Stationary）
-                        animator.SetBool("IsPushing", false);
-                        animator.SetBool("IsPulling", false);
-                    }
-                }
+                
+                // 移動中：Detectorの判定をそのまま流し込む
+                animator.SetBool("IsPushing", hand.currentDetector.isPushing);
+                animator.SetBool("IsPulling", hand.currentDetector.isPulling);
+                animator.SetBool("IsGrabbingIdle", hand.currentDetector.isGrabIdol);
             }
             else
             {
-                // 掴んでいない時はすべてオフ
-                animator.SetBool("IsGrabbingIdle", false);
+                // 停止中
+                animator.SetBool("IsGrabbingIdle", true);
                 animator.SetBool("IsPushing", false);
                 animator.SetBool("IsPulling", false);
             }
         }
+        else
+        {
+            Debug.Log("aaaaaaaaaaaaaaaaaaaa");
+            // 掴んでいない時
+            animator.SetBool("IsGrabbingIdle", false);
+            animator.SetBool("IsPushing", false);
+            animator.SetBool("IsPulling", false);
+        }
     }
 
+    // --- トリガー関連 (元々の機能を維持) ---
+    private void OnTriggerEnter(Collider other)
+    {
+        // バブル処理
+        if (other.CompareTag("Bubble"))
+        {
+            AudioSource hitAudio = other.GetComponent<AudioSource>();
+            if (hitAudio) hitAudio.Play();
+            other.GetComponent<MeshRenderer>().enabled = false;
+            other.GetComponent<Collider>().enabled = false;
+            Destroy(other.gameObject, hitAudio ? hitAudio.clip.length : 0f);
+        }
+
+        playercatch detector = other.GetComponent<playercatch>();
+        if (detector != null) currentTargetDetector = detector;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (currentTargetDetector != null && other.GetComponent<playercatch>() == currentTargetDetector)
+            currentTargetDetector = null;
+    }
+
+    // 梯子用メソッド群
+    public void Slope() { isClimbing = true; velocity = Vector3.zero; }
+    public void ExitSlope() { isClimbing = false; }
+    public void ExitSlopeTop(float groundY)
+    {
+        isClimbing = false;
+        controller.enabled = false;
+        transform.position = new Vector3(transform.position.x, groundY, transform.position.z);
+        controller.enabled = true;
+        StartCoroutine(DisableGravityAndPush());
+    }
+    private IEnumerator DisableGravityAndPush()
+    {
+        controller.Move(transform.forward * 0.5f);
+        yield return new WaitForSeconds(0.2f);
+    }
+    public void ExitSlopeBottom(float groundY)
+    {
+        isClimbing = false;
+        transform.position = new Vector3(transform.position.x, groundY, transform.position.z);
+        velocity.y = -2f;
+    }
+}

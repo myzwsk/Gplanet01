@@ -21,6 +21,7 @@ TagManager:
   - GaolArea
   - LookBox
   - Key
+  - KeyText
   layers:
   - Default
   - TransparentFX
