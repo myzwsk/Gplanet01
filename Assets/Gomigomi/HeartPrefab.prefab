@@ -69,6 +69,10 @@ PrefabInstance:
       value: HeartPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 151145d77ae919f45b5472efdbc9f986, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 151145d77ae919f45b5472efdbc9f986, type: 3}
       propertyPath: m_TagString
       value: Bubble
       objectReference: {fileID: 0}
