@@ -4,128 +4,111 @@ using UnityEngine.InputSystem;
 public class DialSlot_AutoStop : MonoBehaviour
 {
     [Header("Target")]
-    [SerializeField] private Transform dial;   // 回る円盤
+    [SerializeField] private Transform dial;   // DialMesh（Tick_0～Tick_11が子にある想定）
 
-    [Header("Slots (模様の数)")]
-    [SerializeField] private int slotCount = 12;         // 12分割（30度刻み）
-    [SerializeField] private int winSlotIndex = 0;       // 当たりスロット番号
+    [Header("Slots")]
+    [SerializeField] private int slotCount = 12;
+    [SerializeField] private int winSlotIndex = 0;
 
-    [Header("Spin")]
-    [SerializeField] private float spinSpeed = 540f;     // 自動回転速度(度/秒)
-    [SerializeField] private float decelSpeed = 900f;    // 減速速度
-    [SerializeField] private float snapSpeed = 20f;      // スナップ吸い付き
+    [Header("Spin (GTAダイヤル＝Y軸)")]
+    [SerializeField] private float spinSpeed = 540f;   // 度/秒
 
-    [Header("Judge (ビタ判定)")]
-    [SerializeField] private float perfectEpsilon = 1.0f; // PERFECT(ビタ)許容角度
+    [Header("Judge (角度で判定)")]
+    [SerializeField] private float perfectEpsilon = 1.0f; // PERFECT許容角度
     [SerializeField] private float goodEpsilon = 6.0f;    // GOOD許容角度
 
-    private enum State { AutoSpin, Decelerating, Snapping }
-    private State state = State.AutoSpin;
+    [Header("Control")]
+    [SerializeField] private bool restartOnPressWhenStopped = true;
 
-    private float currentSpeed;
-    private float targetAngle;
+    private enum State { AutoSpin, Stopped }
+    private State state = State.AutoSpin;
 
     private float SlotStep => 360f / slotCount;
 
     void Start()
     {
-        currentSpeed = spinSpeed;
-
         if (dial == null)
         {
             Debug.LogError("dial が未設定です。Inspectorで DialMesh を入れてください。");
+            enabled = false;
+            return;
         }
+
+        // 最初から当たりだけ赤
+        UpdateTickColors(-1);
     }
 
     void Update()
     {
         if (dial == null) return;
 
-        // コントローラーが無ければ動かさない（PCなら接続してね）
-        if (Gamepad.current == null) return;
+        // 入力（A/× or Space）
+        bool press = false;
+        if (Gamepad.current != null) press |= Gamepad.current.buttonSouth.wasPressedThisFrame;
+        if (Keyboard.current != null) press |= Keyboard.current.spaceKey.wasPressedThisFrame;
 
-        // A（PSなら×）で止める
-        bool stopPressed = false;
-
-        // コントローラー（A / ×）
-        if (Gamepad.current != null)
+        // 止まってる時に押したら再開（任意）
+        if (press && state == State.Stopped && restartOnPressWhenStopped)
         {
-            stopPressed |= Gamepad.current.buttonSouth.wasPressedThisFrame;
-        }
-
-        // キーボード（Space）
-        if (Keyboard.current != null)
-        {
-            stopPressed |= Keyboard.current.spaceKey.wasPressedThisFrame;
-        }
-
-
-        // 入力は AutoSpin の時だけ受け付ける
-        if (stopPressed && state == State.AutoSpin)
-        {
-            state = State.Decelerating;
+            state = State.AutoSpin;
+            UpdateTickColors(-1); // 黄色を消して当たりだけ赤に戻す
+            return;
         }
 
         switch (state)
         {
             case State.AutoSpin:
+                // 回転
                 dial.Rotate(0f, spinSpeed * Time.deltaTime, 0f, Space.Self);
-                break;
 
-            case State.Decelerating:
-                // 速度を0へ落とす
-                currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, decelSpeed * Time.deltaTime);
-                dial.Rotate(0f, currentSpeed * Time.deltaTime, 0f, Space.Self);
-
-                // ほぼ止まったらスナップへ
-                if (currentSpeed <= 5f)
+                // ★ビタ押し：押した瞬間に即停止
+                if (press)
                 {
-                    targetAngle = GetNearestSlotAngle();
-                    state = State.Snapping;
+                    JudgeAndColorizeY(); // 押した瞬間の角度で判定
+                    state = State.Stopped;
                 }
                 break;
 
-            case State.Snapping:
-                // 最寄りのスロット角へ吸い付く
-                float y = dial.localEulerAngles.y;
-                float next = Mathf.LerpAngle(y, targetAngle, 1f - Mathf.Exp(-snapSpeed * Time.deltaTime));
-                dial.localEulerAngles = new Vector3(0f, next, 0f);
-
-                // ほぼ一致したら確定
-                if (Mathf.Abs(Mathf.DeltaAngle(next, targetAngle)) < 0.3f)
-                {
-                    dial.localEulerAngles = new Vector3(0f, targetAngle, 0f);
-
-                    Judge();
-
-                    // 次のラウンド
-                    currentSpeed = spinSpeed;
-                    state = State.AutoSpin;
-                }
+            case State.Stopped:
+                // 完全停止（何もしない）
                 break;
         }
     }
 
-    // 今の角度を「スロット刻み」に丸めて、止まる角度を作る
-    private float GetNearestSlotAngle()
-    {
-        float y = NormalizeAngle(dial.localEulerAngles.y);
-        return Mathf.Round(y / SlotStep) * SlotStep;
-    }
-
-    // ビタ判定（PERFECT/GOOD/MISS）
-    private void Judge()
+    private void JudgeAndColorizeY()
     {
         float y = NormalizeAngle(dial.localEulerAngles.y);
         float winAngle = NormalizeAngle(winSlotIndex * SlotStep);
         float diff = Mathf.Abs(Mathf.DeltaAngle(y, winAngle));
 
+        // 押した瞬間の角度が「どのスロットに一番近いか」
+        int stoppedIndex = Mathf.RoundToInt(y / SlotStep) % slotCount;
+
+        // 色：当たり赤、押した場所黄
+        UpdateTickColors(stoppedIndex);
+
         if (diff <= perfectEpsilon)
-            Debug.Log($"PERFECT（ビタ） diff={diff:F2}°");
+            Debug.Log($"PERFECT（ビタ） Tick_{stoppedIndex} diff={diff:F2}°");
         else if (diff <= goodEpsilon)
-            Debug.Log($"GOOD diff={diff:F2}°");
+            Debug.Log($"GOOD Tick_{stoppedIndex} diff={diff:F2}°");
         else
-            Debug.Log($"MISS diff={diff:F2}°");
+            Debug.Log($"MISS Tick_{stoppedIndex} diff={diff:F2}°");
+    }
+
+    private void UpdateTickColors(int stoppedIndex)
+    {
+        for (int i = 0; i < slotCount; i++)
+        {
+            Transform t = dial.Find($"Tick_{i}");
+            if (t == null) continue;
+
+            Renderer r = t.GetComponent<Renderer>();
+            if (r == null) continue;
+
+            if (i == winSlotIndex) r.material.color = Color.red;           // 当たり
+            else if (i == stoppedIndex) r.material.color = Color.yellow;   // 押した位置
+            else r.material.color = Color.white;                           // それ以外
+        }
     }
 
     private float NormalizeAngle(float a)
