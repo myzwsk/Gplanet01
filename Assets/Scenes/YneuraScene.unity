@@ -191,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 107069501}
   fromCenter: 0.8
+  isGrabIdol: 0
 --- !u!1001 &27447618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1144,7 +1145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabRange: 1.5
-  moveSpeed: 5
   HoldThreshold: 0.2
   catchObjectFlag: 0
   isGrabbing: 0
@@ -3783,8 +3783,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5569,7 +5569,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
+  m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &878126893
@@ -6479,6 +6479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 107069501}
   fromCenter: 0.8
+  isGrabIdol: 0
 --- !u!1 &1068253998
 GameObject:
   m_ObjectHideFlags: 0
@@ -7482,6 +7483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 107069501}
   fromCenter: 0.8
+  isGrabIdol: 0
 --- !u!4 &1179100064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3437678238219923271, guid: 9128d690def8a214dbee1a3b255786c6, type: 3}
@@ -8120,8 +8122,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 558526965}
-  - {fileID: 876243410}
   - {fileID: 1734998645}
+  - {fileID: 876243410}
   - {fileID: 1967356041}
   - {fileID: 1461256918}
   m_Father: {fileID: 0}
@@ -16525,7 +16527,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -7, y: -25}
+  m_AnchoredPosition: {x: -26, y: -44}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1734998646
@@ -18070,8 +18072,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -18138,7 +18140,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -60}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1968244928
