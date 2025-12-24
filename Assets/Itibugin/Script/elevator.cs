@@ -6,6 +6,7 @@ public class elevator : MonoBehaviour
     public float maxHeight = 5f;
     private float minHeight;
     private bool isPlayerOnBoard = false;
+    private Transform playerTransform; // 乗っているプレイヤーを記録しておく
 
     void Start()
     {
@@ -14,6 +15,12 @@ public class elevator : MonoBehaviour
 
     void FixedUpdate()
     {
+        // ★追加：プレイヤーが乗っているはずなのに、非アクティブ（死亡）になったら強制リセット
+        if (isPlayerOnBoard && (playerTransform == null || !playerTransform.gameObject.activeInHierarchy))
+        {
+            ResetElevator();
+        }
+
         float targetY = isPlayerOnBoard ? maxHeight : minHeight;
         Vector3 currentPos = transform.position;
 
@@ -24,24 +31,40 @@ public class elevator : MonoBehaviour
         }
     }
 
-    // CharacterControllerが「トリガー」に入った時に反応
+    // ★追加：エレベーターを安全にリセットする関数
+    private void ResetElevator()
+    {
+        isPlayerOnBoard = false;
+        if (playerTransform != null)
+        {
+            // 親子関係を解除（プレイヤーが消えていても安全のため）
+            if (playerTransform.parent == transform)
+            {
+                playerTransform.SetParent(null);
+            }
+            playerTransform = null;
+        }
+        Debug.Log("プレイヤーの消失を検知したためエレベーターを戻します");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerOnBoard = true;
-            other.transform.SetParent(transform); // 親子関係にする
+            playerTransform = other.transform; // プレイヤーを記録
+            other.transform.SetParent(transform);
             Debug.Log("playerが乗りました");
         }
     }
 
-    // CharacterControllerが「トリガー」から出た時に反応
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerOnBoard = false;
-            other.transform.SetParent(null); // 親子関係を解除
+            playerTransform = null; // 記録を消す
+            other.transform.SetParent(null);
             Debug.Log("playerが降りました");
         }
     }
