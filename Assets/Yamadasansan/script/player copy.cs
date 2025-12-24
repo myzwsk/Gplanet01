@@ -148,7 +148,6 @@ public class playercopy : MonoBehaviour
         }
         else
         {
-            Debug.Log("aaaaaaaaaaaaaaaaaaaa");
             // 掴んでいない時
             animator.SetBool("IsGrabbingIdle", false);
             animator.SetBool("IsPushing", false);

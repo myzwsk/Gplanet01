@@ -9,7 +9,7 @@ public class playercatch : MonoBehaviour
     public bool isPulling { get; private set; }
 
     private Vector3 previousPosition;
-    private const float MovementThreshold = 0.001f;
+    private const float MovementThreshold = 0.00000001f;
 
     // 🔴 判定維持用のタイマー
     private float stopDelayTimer = 0f;

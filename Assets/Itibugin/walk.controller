@@ -235,7 +235,7 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: IsPulling
     m_EventTreshold: 0
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: IsGrabbingIdle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -1299,7 +1299,7 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: IsPushing
     m_EventTreshold: 0
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: IsGrabbingIdle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
