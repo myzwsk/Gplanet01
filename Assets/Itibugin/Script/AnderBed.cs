@@ -2,54 +2,67 @@
 
 public class AnderBed : MonoBehaviour
 {
-    //  Inspectorで設定：直接カメラコンポーネントをアタッチ
-    public camera cameraFollowScript; // FindObjectOfTypeの代わりにこれを使う！
+    // Inspectorで設定：直接カメラコンポーネントをアタッチ
+    public camera cameraFollowScript;
 
     public Vector3 newOffset = new Vector3(0f, 5f, -2f);
     private Vector3 originalOffset;
 
+    private bool isPlayerInside = false; // プレイヤーがエリア内にいるかどうかのフラグ
+    private Transform playerTransform;   // エリアに入ったプレイヤーを記録
+
     void Start()
     {
-        // 参照が設定されているか確認するだけで済む（検索は不要）
         if (cameraFollowScript == null)
         {
             Debug.LogError("CameraFollowScriptがInspectorで設定されていません。");
             enabled = false;
             return;
         }
-
-        // 元のオフセットを保存する処理
         originalOffset = cameraFollowScript.offset;
     }
 
-    // ... (OnTriggerEnter, OnTriggerExit のロジックは変更なし)
-
-    // プレイヤーが判定エリアに入ったとき
-    private void OnTriggerEnter(Collider other)
+    void Update()
     {
-        // プレイヤーのタグ("Player")を持つオブジェクトか確認
-        if (other.CompareTag("Player") && cameraFollowScript != null)
+        // ★追加：エリア内にいるはずのプレイヤーが消えた（死亡した）場合、カメラを戻す
+        if (isPlayerInside && (playerTransform == null || !playerTransform.gameObject.activeInHierarchy))
         {
-            // 1. エリアに入る前の現在のオフセットを保存する
-            originalOffset = cameraFollowScript.offset;
-
-            // 2. カメラのオフセットを新しい値に変更する
-            cameraFollowScript.offset = newOffset;
-
-            Debug.Log("カメラオフセットを新しい値に切り替えました: " + newOffset);
+            ResetCameraOffset();
         }
     }
 
-    // プレイヤーが判定エリアから出たとき
-    private void OnTriggerExit(Collider other)
+    // ★追加：カメラオフセットを安全に戻すための関数
+    private void ResetCameraOffset()
     {
-        // プレイヤーのタグ("Player")を持つオブジェクトか確認
+        if (cameraFollowScript != null)
+        {
+            cameraFollowScript.offset = originalOffset;
+            Debug.Log("プレイヤーの消失を検知したため、カメラオフセットをリセットしました");
+        }
+        isPlayerInside = false;
+        playerTransform = null;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.CompareTag("Player") && cameraFollowScript != null)
         {
-            // 3. 保存しておいた元のオフセットに戻す
-            cameraFollowScript.offset = originalOffset;
+            // エリアに入る前の値を保存し、フラグを立てる
+            isPlayerInside = true;
+            playerTransform = other.transform;
+            originalOffset = cameraFollowScript.offset;
 
-            Debug.Log("カメラオフセットを元の値に戻しました: " + originalOffset);
+            cameraFollowScript.offset = newOffset;
+            Debug.Log("カメラオフセットを切り替えました: " + newOffset);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") && cameraFollowScript != null)
+        {
+            // 通常の退出時もリセット関数を呼ぶ
+            ResetCameraOffset();
         }
     }
 }

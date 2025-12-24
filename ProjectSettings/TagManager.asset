@@ -21,6 +21,7 @@ TagManager:
   - GaolArea
   - LookBox
   - Key
+  - KeyText
   layers:
   - Default
   - TransparentFX
@@ -30,8 +31,8 @@ TagManager:
   - UI
   - BossField
   - Bullet
-  - 
-  - 
+  - Elevator
+  - Heart
   - 
   - 
   - 

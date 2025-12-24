@@ -3,6 +3,7 @@
 public class KeySound : MonoBehaviour
 {
     private AudioSource audioSource;
+   
     // 一度再生されたかどうかを記録するフラグ
     private bool hasPlayed = false; // ★ ここに警告が出ている
 
@@ -20,9 +21,12 @@ public class KeySound : MonoBehaviour
         {
             // 音を再生
             audioSource.Play();
+           
+
 
             // 再生したので、フラグを true に設定する
             hasPlayed = true;
         }
     }
+    
 }

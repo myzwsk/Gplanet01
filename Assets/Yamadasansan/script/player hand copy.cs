@@ -5,9 +5,8 @@ public class playerhandcopy : MonoBehaviour
 {
     [Header("Settings")]
     public float grabRange = 1.5f;
-    public float moveSpeed = 5f;
-    public float HoldThreshold = 0.2f; // 0.2秒以上で掴み
-    public const float ForceGain = 20f;
+    public float HoldThreshold = 0.2f;
+    private const float ForceGain = 20f;
     private const float SnapStrength = 10f;
 
     [Header("State")]
@@ -25,49 +24,31 @@ public class playerhandcopy : MonoBehaviour
 
     [HideInInspector] public playercatch currentDetector;
 
-    // --- Input System イベント ---
     public void OnCatch(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            isPressing = true;
-            pressTimer = 0f;
-        }
-        else if (context.canceled)
-        {
-            isPressing = false;
-            if (isGrabbing) Release();
-        }
+        if (context.started) { isPressing = true; pressTimer = 0f; }
+        else if (context.canceled) { isPressing = false; if (isGrabbing) Release(); }
     }
 
     void Update()
     {
-        // 1. 長押し判定
         if (isPressing && !isGrabbing)
         {
             pressTimer += Time.deltaTime;
-            if (pressTimer >= HoldThreshold)
-            {
-                TryGrab();
-            }
+            if (pressTimer >= HoldThreshold) TryGrab();
         }
 
-        // 2. 座標・回転のロック（ここを1つに統合しました）
         if (isPositionLocked && grabbedObject != null && grabbedObject.isKinematic)
         {
             grabbedObject.position = frozenPosition;
             grabbedObject.rotation = frozenRotation;
         }
 
-        if (isGrabbing)
-        {
-            isPositionLocked = false;
-        }
+        if (isGrabbing) isPositionLocked = false;
     }
 
     void FixedUpdate()
     {
-        // 1. handPoint の位置更新（Detectorの距離設定を反映）
         if (handPoint != null)
         {
             float distance = (currentDetector != null) ? currentDetector.fromCenter : 0.8f;
@@ -75,29 +56,19 @@ public class playerhandcopy : MonoBehaviour
             handPoint.rotation = transform.rotation;
         }
 
-        // 2. 掴んでいる最中の物理挙動
         if (isGrabbing && grabbedObject != null)
         {
             grabbedObject.isKinematic = false;
-
-            // 位置の追従計算
             Vector3 positionError = handPoint.position - grabbedObject.position;
             Vector3 targetVelocity = positionError * SnapStrength;
             Vector3 velocityError = targetVelocity - grabbedObject.linearVelocity;
-            Vector3 force = velocityError * ForceGain * grabbedObject.mass;
-            grabbedObject.AddForce(force);
-
-            // 角度の維持（オフセットを適用）
+            grabbedObject.AddForce(velocityError * ForceGain * grabbedObject.mass);
             grabbedObject.rotation = transform.rotation * rotationOffset;
             grabbedObject.angularVelocity = Vector3.zero;
         }
-        else
+        else if (grabbedObject != null && grabbedObject.isKinematic)
         {
-            // 離した後の後始末：フリーズが完了していたら参照を外す
-            if (grabbedObject != null && grabbedObject.isKinematic)
-            {
-                grabbedObject = null;
-            }
+            grabbedObject = null;
         }
     }
 
@@ -113,15 +84,12 @@ public class playerhandcopy : MonoBehaviour
                 {
                     grabbedObject = hit.rigidbody;
                     isGrabbing = true;
-
-                    // 角度オフセットの保存（掴んだ瞬間の向きをキープ）
                     rotationOffset = Quaternion.Inverse(transform.rotation) * grabbedObject.rotation;
-                    grabbedObject.linearVelocity = Vector3.zero;
 
-                    // Detectorの取得
+                    // 🔴 修正点：オブジェクトにプレイヤーの情報を渡す
                     currentDetector = grabbedObject.GetComponent<playercatch>();
+                    if (currentDetector != null) currentDetector.playerTransform = this.transform;
 
-                    // フラグ設定
                     switch (grabbedTag)
                     {
                         case "Object01": catchObjectFlag = 1f; break;
@@ -137,33 +105,20 @@ public class playerhandcopy : MonoBehaviour
     {
         isGrabbing = false;
         catchObjectFlag = 0;
+        if (currentDetector != null) currentDetector.ResetStates();
         currentDetector = null;
-
-        if (grabbedObject != null)
-        {
-            ForceFreezeAndLock();
-        }
+        ForceFreezeAndLock();
     }
 
     private void ForceFreezeAndLock()
     {
-        if (grabbedObject == null || grabbedObject.isKinematic) return;
-
-        // 物理挙動を止める
+        if (grabbedObject == null) return;
         grabbedObject.linearVelocity = Vector3.zero;
         grabbedObject.angularVelocity = Vector3.zero;
         grabbedObject.isKinematic = true;
-
-        // 手の位置に補正して記憶
-        if (handPoint != null)
-        {
-            grabbedObject.position = handPoint.position;
-        }
-
+        if (handPoint != null) grabbedObject.position = handPoint.position;
         frozenPosition = grabbedObject.position;
         frozenRotation = grabbedObject.rotation;
-
         isPositionLocked = true;
-        grabbedObject.Sleep();
     }
 }

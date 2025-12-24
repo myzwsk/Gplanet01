@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using Unity.VisualScripting;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+//using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class Boss : MonoBehaviour
 {
@@ -137,8 +137,10 @@ public class Boss : MonoBehaviour
     private IEnumerator AttackStick()
     {
         Vector3 startPos = new Vector3(0,1,0);
-
-        // 召喚
+        int value=Random.Range(0,2);
+        if (value == 0) value -= 1;
+        Attack(startPos, AOEThin, 0);
+        yield return new WaitForSeconds(1f);
         GameObject Bar = Instantiate(BLOCKBarLong, startPos, Quaternion.identity);
 
         float duration = 10f;      // 回転させる時間（秒）
@@ -146,8 +148,7 @@ public class Boss : MonoBehaviour
 
         while (elapsed < duration)
         {
-            // 毎フレーム回転（Z軸に毎秒180度）
-            Bar.transform.Rotate(0, 90 * Time.deltaTime,0);
+            Bar.transform.Rotate(0, 90 * Time.deltaTime * value, 0);
 
             elapsed += Time.deltaTime;
             yield return null;    // 次のフレームまで待つ
