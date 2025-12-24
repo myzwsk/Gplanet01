@@ -235,7 +235,7 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: IsPulling
     m_EventTreshold: 0
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: IsGrabbingIdle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -447,10 +447,10 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 5065164227637799840}
-  - {fileID: -6978478626877029292}
   - {fileID: 3680862132698185178}
   - {fileID: -101832385250743959}
+  - {fileID: 5065164227637799840}
+  - {fileID: -6978478626877029292}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -675,7 +675,7 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: IsPushing
     m_EventTreshold: 0
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: IsGrabbingIdle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -905,7 +905,7 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: IsPushing
     m_EventTreshold: 0
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: IsGrabbingIdle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -1218,10 +1218,10 @@ AnimatorStateMachine:
     m_Position: {x: 320, y: 780, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5608823183321044129}
-    m_Position: {x: 1040, y: 790, z: 0}
+    m_Position: {x: 1230, y: 780, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2814966950287501037}
-    m_Position: {x: 700, y: 1050, z: 0}
+    m_Position: {x: 930, y: 1060, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -1299,7 +1299,7 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: IsPushing
     m_EventTreshold: 0
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: IsGrabbingIdle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
