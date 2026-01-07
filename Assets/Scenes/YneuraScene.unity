@@ -1280,7 +1280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8c0af9e7365cf6439cf529d02f5550a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionText: {fileID: 0}
+  collisionText: {fileID: 1758608640}
   displayDuration: 2
   collisionSoundClip: {fileID: 8300000, guid: f9cdf91da8dfcfe4dab070920f728813, type: 3}
 --- !u!95 &107069498

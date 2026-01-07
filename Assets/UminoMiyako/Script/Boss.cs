@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using Unity.VisualScripting;
-//using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class Boss : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public class Boss : MonoBehaviour
     {
         Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
         Debug.Log("左コントロール：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
-        Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー");
+        Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス");
         for (int i = 0; i < 16; i++)
         {
             fi[i].fiOn = true;
@@ -129,10 +129,90 @@ public class Boss : MonoBehaviour
             {
                 StartCoroutine(AttackStick());
             }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                StartCoroutine(AttackStealth());
+            }
         }
     }
     //プレイヤー向き（仮）
     //周囲マーク
+    //床複数破壊かつ床透明化--------------------------------------------------------------------------------------------------------------------------------------
+    private IEnumerator AttackStealth()
+    {
+        int[] OutField = { 0,0,0,0};
+        int rand = default;
+        bool stealth = false;
+        Vector3 startPos = default;
+        while (true)
+        {
+            rand = Random.Range(1, 17);
+            bool duplicate = false;
+            // 重複チェック
+            for (int i = 0; i < OutField.Length; i++)
+            {
+                if (OutField[i] == rand)
+                {
+                    duplicate = true;
+                    break;
+                }
+            }
+            // 重複していなければ代入
+            if (!duplicate)
+            {
+                for (int i = 0; i < OutField.Length; i++)
+                {
+                    if (OutField[i] == 0)
+                    {
+                        OutField[i] = rand;
+                        break;
+                    }
+                }
+            }
+            if (OutField[3] != 0) break;
+            yield return null;
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            startPos = fi[OutField[i]-1].fiPre.transform.position;
+            Attack(startPos, AOE1Field, 0);
+        }
+        yield return new WaitForSeconds(1f);
+        for(int i = 0; i < 16; i++)
+        {
+            stealth = true;
+            for(int j = 0; j < 4; j++)
+            {
+                if (i == OutField[j] - 1)
+                {
+                    stealth = false;
+                }
+            }
+            if (stealth == true)
+            {
+                fi[i].fiSc.ObjectStealth();
+            }
+        }
+        DestroyField(OutField);
+
+        yield return new WaitForSeconds(5f);
+        for (int i = 0; i < 16; i++)
+        {
+            stealth = true;
+            for (int j = 0; j < 4; j++)
+            {
+                if (i == OutField[j] - 1)
+                {
+                    stealth = false;
+                }
+            }
+            if (stealth == true)
+            {
+                fi[i].fiSc.ObjectReStealth();
+            }
+        }
+        ReField();
+    }
     //回転するバー--------------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackStick()
     {
