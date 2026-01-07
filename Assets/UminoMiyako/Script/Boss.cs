@@ -33,7 +33,7 @@ public class Boss : MonoBehaviour
     void Start()
     {
         Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
-        Debug.Log("左コントロール：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
+        Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
         Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス");
         for (int i = 0; i < 16; i++)
         {
@@ -76,7 +76,7 @@ public class Boss : MonoBehaviour
                 StartCoroutine(AttackHrizon());
             }
         }
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.RightShift))
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -992,7 +992,7 @@ public class Boss : MonoBehaviour
                 startPos.z = -6f; rota = 90; field = new int[] { 9, 10, 11, 12, 13, 14, 15, 16 }; break;
         }
         Attack(startPos, AOE8Field, rota);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         DestroyField(field);
         yield return new WaitForSeconds(5f);
         ReField();
