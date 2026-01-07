@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1269223487821909403}
   - component: {fileID: 6941665946874874927}
   - component: {fileID: -4912972037341825491}
-  - component: {fileID: 6728713746759590206}
+  - component: {fileID: 1139743039585839996}
   m_Layer: 0
   m_Name: AOEPush
   m_TagString: Untagged
@@ -139,7 +139,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6728713746759590206
+--- !u!114 &1139743039585839996
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,6 +148,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5871946227932424150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de88152579be0ce4ea61bf3982ed2757, type: 3}
+  m_Script: {fileID: 11500000, guid: bc68414d2e6fb5d449d04dfb61e97339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 3
+  AOEeffPre: {fileID: 5871946227932424150, guid: 46106b06848720d40907180262e1a9be, type: 3}

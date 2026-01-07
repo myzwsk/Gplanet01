@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1269223487821909403}
   - component: {fileID: 6941665946874874927}
   - component: {fileID: -4912972037341825491}
-  - component: {fileID: 3326641122033540224}
+  - component: {fileID: 8253364625547341011}
   m_Layer: 0
   m_Name: AOEBigCircle
   m_TagString: Untagged
@@ -139,7 +139,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3326641122033540224
+--- !u!114 &8253364625547341011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,6 +148,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5871946227932424150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c41c9902d25184b9247d45fd693d52, type: 3}
+  m_Script: {fileID: 11500000, guid: bc68414d2e6fb5d449d04dfb61e97339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 1
+  AOEeffPre: {fileID: 5871946227932424150, guid: c5fdcdcab2951be4abb6d3644a518358, type: 3}
