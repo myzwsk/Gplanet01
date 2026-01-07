@@ -52,6 +52,7 @@ public class PlayerHealth : MonoBehaviour
             // エラー時のフォールバックとして即座にリスポーン
             ForceImmediateRespawn();
         }
+
     }
 
     // エラー時やデバッグ用の強制リスポーン関数（ポッドを使わない場合）

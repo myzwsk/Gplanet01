@@ -57,10 +57,12 @@ public class RespawnBox : MonoBehaviour
             rb.linearVelocity = Vector3.up * 5f;
             
         }*/
-        Debug.Log("aaa");
+        
         GetComponent<AudioSource>().Play();
         // ポッドは役目を終えたら破棄
-        Destroy(gameObject, 5.0f);
+        Destroy(this.gameObject,2.0f);
+        Debug.Log("aaa");
+
     }
 
 }
