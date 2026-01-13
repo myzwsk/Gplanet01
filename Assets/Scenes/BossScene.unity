@@ -1849,6 +1849,8 @@ MonoBehaviour:
   BLOCKBar: {fileID: 8652941978574177043, guid: 6be70e6638496724d8ad46a76c5f05da, type: 3}
   BLOCKBarLong: {fileID: 8652941978574177043, guid: 008bdef3e3f088b47b3e8c9e8d90e877, type: 3}
   Nail: {fileID: 1209158394735692994, guid: abae1d2aac4770140854e4a9fb33e5ac, type: 3}
+  Ball: {fileID: 0}
+  Ghost: {fileID: 0}
   Star:
   - {fileID: 1703699778589090699, guid: 9a832082b06223c4299b531842fde077, type: 3}
   - {fileID: 2841377147327897967, guid: be5c6cd0fd26ea54697e54550888e611, type: 3}

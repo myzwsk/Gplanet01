@@ -17,6 +17,8 @@ public class Boss : MonoBehaviour
     public GameObject BLOCKBar;
     public GameObject BLOCKBarLong;
     public GameObject Nail;
+    public GameObject Ball;
+    public GameObject Ghost;
     public GameObject[] Star;
     public GameObject[] Field;
     public GameObject[] EffectField;
@@ -34,7 +36,7 @@ public class Boss : MonoBehaviour
     {
         Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
         Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
-        Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス");
+        Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス,7.全消し");
         for (int i = 0; i < 16; i++)
         {
             fi[i].fiOn = true;
@@ -133,10 +135,30 @@ public class Boss : MonoBehaviour
             {
                 StartCoroutine(AttackStealth());
             }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                StartCoroutine(AttackAllBreak());
+            }
         }
     }
     //プレイヤー向き（仮）
-    //周囲マーク
+    //周囲マーク(仮)
+    //床全消し--------------------------------------------------------------------------------------------------------------------------------------------------
+    private IEnumerator AttackAllBreak()
+    {
+        Vector3 startPos = default;
+        int[] All = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+        for(int i = 0; i < 16; i++)
+        {
+            startPos = Field[i].transform.position;
+            startPos.y = 50;
+            Attack(startPos, AOE1Field, 0);
+        }
+        yield return new WaitForSeconds(1f);
+        DestroyField(All);
+        yield return new WaitForSeconds(1f);
+        ReField();
+    }
     //床複数破壊かつ床透明化--------------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackStealth()
     {
