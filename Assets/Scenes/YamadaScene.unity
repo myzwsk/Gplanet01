@@ -2012,15 +2012,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 657.14
+      value: 662.64
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 358.61
+      value: 372.26
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 318.62
+      value: 328.98
       objectReference: {fileID: 0}
     - target: {fileID: 5340817128416409435, guid: 208ec691874a72a4a904bd5cab3736fe, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12574,8 +12574,8 @@ Transform:
   m_GameObject: {fileID: 1776893280}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.78, y: 14.67, z: 2.78}
-  m_LocalScale: {x: 30, y: 18.3129, z: 1}
+  m_LocalPosition: {x: -0.61, y: 14.97, z: 2.8}
+  m_LocalScale: {x: 16.362001, y: -6.8526874, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1072031157}
@@ -15329,6 +15329,7 @@ GameObject:
   - component: {fileID: 2140228271}
   - component: {fileID: 2140228272}
   - component: {fileID: 2140228273}
+  - component: {fileID: 2140228274}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -15476,13 +15477,31 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140228267}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a6d9e2654f204eb43afe08b6eefeee20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerTarget: {fileID: 1776562611}
   offset: {x: 0, y: 4, z: -10}
+--- !u!114 &2140228274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140228267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81801c363f7ccb43a63f937a643d0ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTarget: {fileID: 1776562611}
+  normalOffset: {x: 0, y: 4, z: -10}
+  zoomOffset: {x: 0, y: 2, z: -10}
+  zoomSpeed: 5
+  areaCenter: {x: 660.5, y: 369.5, z: 328.5}
+  areaSize: {x: 33, y: 18, z: 19}
 --- !u!1001 &2141743516
 PrefabInstance:
   m_ObjectHideFlags: 0
