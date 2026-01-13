@@ -374,7 +374,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193212017}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 548bf3ed8d43aba42a60f1c0aa0e7f60, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -411,7 +411,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5ffd31547eda0cb45bf0b5594b7e84f5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -938,12 +938,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 141934935611139162, guid: efe899177400f0f4cb2efff008c20816, type: 3}
+      propertyPath: grabRange
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 141934935611139162, guid: efe899177400f0f4cb2efff008c20816, type: 3}
       propertyPath: moveSpeed
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 141934935611139162, guid: efe899177400f0f4cb2efff008c20816, type: 3}
+      propertyPath: minDistance
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 141934935611139162, guid: efe899177400f0f4cb2efff008c20816, type: 3}
       propertyPath: catchObjectMove
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 141934935611139162, guid: efe899177400f0f4cb2efff008c20816, type: 3}
+      propertyPath: minOffsetDistance
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 1960045812490631040, guid: efe899177400f0f4cb2efff008c20816, type: 3}
       propertyPath: m_Radius
