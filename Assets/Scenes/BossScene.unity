@@ -825,6 +825,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2891902647415429643, guid: 7934ee77edd1b984a86b06338dcdb4b9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5ffd31547eda0cb45bf0b5594b7e84f5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1091,6 +1095,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9108808217530669131, guid: efe899177400f0f4cb2efff008c20816, type: 3}
+      propertyPath: collisionText
+      value: 
+      objectReference: {fileID: 209833627}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1548,6 +1556,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2891902647415429643, guid: 7934ee77edd1b984a86b06338dcdb4b9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5ffd31547eda0cb45bf0b5594b7e84f5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2302,6 +2314,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1131824515100662287, guid: 623ad173f0612ec40ab7769f5c8c4ec2, type: 3}
   m_PrefabInstance: {fileID: 1250868785}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1362073726 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8538952775747437565, guid: efe899177400f0f4cb2efff008c20816, type: 3}
+  m_PrefabInstance: {fileID: 618809303}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1407314555
 PrefabInstance:
@@ -3155,6 +3172,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: acbf2f09-2c57-4694-85cc-8cceb72bbe71
+    m_ActionName: 'Player/Action[/Keyboard/enter]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3172,7 +3193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a6107caf74e8246bb7fdbf24f0e57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1362073726}
   mouseSensitivity: 0.1
   gamepadSensitivity: 2
   distance: 15
