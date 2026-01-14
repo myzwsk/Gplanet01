@@ -14,11 +14,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         //Debug.Log("!!!!!!!");
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")|| other.CompareTag("player"))
         {
             
             ScoreManager.Score+=GetScore;
-            //Debug.Log("スコアゲット"+ ScoreManager.Score);
+            Debug.Log("スコアゲット"+ GetScore);
         }
     }
 }
