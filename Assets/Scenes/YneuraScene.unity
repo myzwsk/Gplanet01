@@ -154,7 +154,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &16971134
 BoxCollider:
@@ -725,7 +725,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1793340289879562, guid: 0b4e64b68be2d404f8d503ed5ca46526, type: 3}
       propertyPath: m_Name
-      value: Stool01v1 (2)
+      value: MoveChare2
       objectReference: {fileID: 0}
     - target: {fileID: 1793340289879562, guid: 0b4e64b68be2d404f8d503ed5ca46526, type: 3}
       propertyPath: m_TagString
@@ -852,7 +852,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1551099783998600, guid: a4e0ff4643b80d547ba35af8e6089350, type: 3}
       propertyPath: m_Name
-      value: Chair02v2
+      value: MoveChare3
       objectReference: {fileID: 0}
     - target: {fileID: 1551099783998600, guid: a4e0ff4643b80d547ba35af8e6089350, type: 3}
       propertyPath: m_TagString
@@ -5659,7 +5659,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1059704304
 BoxCollider:
@@ -6536,7 +6536,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1178368879
 BoxCollider:
@@ -12612,7 +12612,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1793340289879562, guid: 0b4e64b68be2d404f8d503ed5ca46526, type: 3}
       propertyPath: m_Name
-      value: Stool01v1 (1)
+      value: MoveChare1
       objectReference: {fileID: 0}
     - target: {fileID: 1793340289879562, guid: 0b4e64b68be2d404f8d503ed5ca46526, type: 3}
       propertyPath: m_TagString
