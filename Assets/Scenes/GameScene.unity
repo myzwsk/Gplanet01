@@ -1222,7 +1222,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 141934935611139162, guid: efe899177400f0f4cb2efff008c20816, type: 3}
       propertyPath: grabRange
-      value: 0.7
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 141934935611139162, guid: efe899177400f0f4cb2efff008c20816, type: 3}
       propertyPath: moveSpeed
@@ -1231,6 +1231,10 @@ PrefabInstance:
     - target: {fileID: 141934935611139162, guid: efe899177400f0f4cb2efff008c20816, type: 3}
       propertyPath: minDistance
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 141934935611139162, guid: efe899177400f0f4cb2efff008c20816, type: 3}
+      propertyPath: safetyMargin
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 141934935611139162, guid: efe899177400f0f4cb2efff008c20816, type: 3}
       propertyPath: catchObjectMove

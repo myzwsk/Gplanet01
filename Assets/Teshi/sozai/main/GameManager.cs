@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     Vector3 returnCameraPos;
     Quaternion returnCameraRot;
 
+    CharacterController cc;
+    SmoothFollowCamera cameraFollow;   // ← カメラ追従スクリプト
+
     public bool isMiniGame = false;
 
     void Awake()
@@ -21,6 +24,9 @@ public class GameManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        cc = player.GetComponent<CharacterController>();
+        cameraFollow = mainCamera.GetComponent<SmoothFollowCamera>();
     }
 
     // ===== ミニゲーム開始 =====
@@ -28,23 +34,22 @@ public class GameManager : MonoBehaviour
     {
         if (isMiniGame) return;
 
-        // CharacterController を一瞬だけ無効化
-        CharacterController cc = player.GetComponent<CharacterController>();
-        if (cc != null) cc.enabled = false;
-
-        // 元の位置・カメラを保存
+        // 元の状態を保存
         returnPlayerPos = player.position;
         returnCameraPos = mainCamera.transform.position;
         returnCameraRot = mainCamera.transform.rotation;
 
-        // カメラ固定
-        mainCamera.transform.position = cameraPos;
+        // カメラ追従を止める（固定）
+        if (cameraFollow != null)
+            cameraFollow.enabled = false;
 
-        // プレイヤーをミニゲームへ
+        // Player テレポート（CharacterController対策）
+        if (cc != null) cc.enabled = false;
         player.position = miniGamePoint.position;
-
-        // CharacterController を戻す
         if (cc != null) cc.enabled = true;
+
+        // カメラを固定位置へ
+        mainCamera.transform.position = cameraPos;
 
         isMiniGame = true;
         Debug.Log("StartMiniGame");
@@ -55,17 +60,19 @@ public class GameManager : MonoBehaviour
     {
         if (!isMiniGame) return;
 
-        CharacterController cc = player.GetComponent<CharacterController>();
+        // Player を元の場所へ戻す
         if (cc != null) cc.enabled = false;
-
-        // プレイヤーを元の場所へ戻す
         player.position = returnPlayerPos;
+        Physics.SyncTransforms();
+        if (cc != null) cc.enabled = true;
 
-        // カメラも元に戻す
+        // カメラを元の状態へ
         mainCamera.transform.position = returnCameraPos;
         mainCamera.transform.rotation = returnCameraRot;
 
-        if (cc != null) cc.enabled = true;
+        // カメラ追従を再開
+        if (cameraFollow != null)
+            cameraFollow.enabled = true;
 
         isMiniGame = false;
         Debug.Log("FinishMiniGame");
