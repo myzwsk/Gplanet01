@@ -22,6 +22,7 @@ public class Boss : MonoBehaviour
     public GameObject[] Star;
     public GameObject[] Field;
     public GameObject[] EffectField;
+    public GameObject[] Canon;
     public LayerMask targetLayerMask;
     private field[] fi = new field[16];
     private field[] Effi = new field[16];

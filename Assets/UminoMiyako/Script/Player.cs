@@ -134,7 +134,6 @@ public class Player : MonoBehaviour
                 Vector3 currentPosition = transform.position;
                 Vector3 moveDelta = currentPosition - previousPosition;
                 float speed = moveDelta.magnitude;
-                Debug.Log(speed + "aaaaa");
                 if (speed > MovementThreshold)
                 {
                     // 動きを検知したらタイマーをリセットして判定
@@ -154,7 +153,6 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("aaaaaaaaaaaaaaaaa");
                         animator.SetBool("IsGrabbingIdle", true);
                         animator.SetBool("IsPushing", false);
                         animator.SetBool("IsPulling", false);

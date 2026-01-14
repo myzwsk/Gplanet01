@@ -317,6 +317,7 @@ MonoBehaviour:
   handPoint: {fileID: 6475890765452908738}
   playerRadius: 0.4
   safetyMargin: 0.5
+  grabMaterial: {fileID: 13400000, guid: 548bf3ed8d43aba42a60f1c0aa0e7f60, type: 2}
 --- !u!114 &2534022115488478093
 MonoBehaviour:
   m_ObjectHideFlags: 0

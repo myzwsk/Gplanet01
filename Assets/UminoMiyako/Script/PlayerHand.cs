@@ -14,11 +14,12 @@ public class PlayerHand : MonoBehaviour
     public float playerRadius = 0.4f;
     // ★ 追加の安全マージン
     public float safetyMargin = 0.2f;
+    public PhysicsMaterial grabMaterial;
 
     private Rigidbody grabbedObject;
     private Vector3 grabOffset;
     private bool originalKinematicState;
-
+    private PhysicsMaterial originalMaterial;
     public void OnCatch(InputAction.CallbackContext context)
     {
         if (context.started) TryGrab();
@@ -27,6 +28,12 @@ public class PlayerHand : MonoBehaviour
 
     void Update()
     {
+        if (isGrabbing && grabbedObject == null)
+        {
+            Release();
+            return;
+        }
+
         if (handPoint)
         {
             handPoint.position = transform.position + transform.forward * 0.8f;
@@ -67,8 +74,18 @@ public class PlayerHand : MonoBehaviour
                 {
                     grabbedObject = hit.rigidbody;
                     isGrabbing = true;
+                    // ★ 元のマテリアルを保存
+                    Collider col = hit.collider;
+                    originalMaterial = col.material;
+
+                    // ★ つかみ中のマテリアルに変更
+                    if (grabMaterial != null)
+                        col.material = grabMaterial;
+
                     originalKinematicState = grabbedObject.isKinematic;
                     grabbedObject.isKinematic = false;
+
+
 
                     // --- 長方形の面に対応した動的押し出し ---
 
@@ -118,9 +135,16 @@ public class PlayerHand : MonoBehaviour
         {
             grabbedObject.isKinematic = originalKinematicState;
             grabbedObject.linearVelocity = Vector3.zero;
+
+            // ★ マテリアルを元に戻す
+            Collider col = grabbedObject.GetComponent<Collider>();
+            if (col != null && originalMaterial != null)
+                col.material = originalMaterial;
         }
+
         isGrabbing = false;
         catchObjectFlag = 0;
         grabbedObject = null;
     }
+
 }
