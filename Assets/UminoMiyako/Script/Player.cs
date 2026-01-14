@@ -20,20 +20,30 @@ public class Player : MonoBehaviour
     private CharacterController controller;
     private Vector2 moveInput;
     private Vector3 velocity;
+    private Vector3 previousPosition;
     private bool isJumping = false;
     private float maxJumpVelocity = 0f; // ボタンを離した時点での最高速
+    private float MovementThreshold = 0.2f;
     private Animator animator;//アニメーター
+    // 🔴 判定維持用のタイマー
+    private float stopDelayTimer = 0f;
+    private const float StopDelayDuration = 0.15f; // 0.15秒間は「止まった」とみなさない
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         hand = GetComponent<PlayerHand>();
         animator = GetComponent<Animator>();
+        previousPosition = transform.position;
     }
 
     public void OnMove(InputAction.CallbackContext context) // Moveアクション
     {
         moveInput = context.ReadValue<Vector2>();
+        if (hand.isGrabbing)
+        {
+            previousPosition = transform.position;
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context) // Jumpアクション
@@ -119,7 +129,38 @@ public class Player : MonoBehaviour
                 if (controller.isGrounded)
                     currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, Vector3.zero, deceleration * Time.deltaTime);
             }
+            if (hand.isGrabbing)
+            {
+                Vector3 currentPosition = transform.position;
+                Vector3 moveDelta = currentPosition - previousPosition;
+                float speed = moveDelta.magnitude;
+                Debug.Log(speed + "aaaaa");
+                if (speed > MovementThreshold)
+                {
+                    // 動きを検知したらタイマーをリセットして判定
+                    stopDelayTimer = StopDelayDuration;
 
+                    float dot = Vector3.Dot(transform.forward, moveDelta.normalized);
+                    animator.SetBool("IsGrabbingIdle", true);
+                    if (dot > 0.1f) { animator.SetBool("IsPushing", true); animator.SetBool("IsPulling", false); }
+                    else if (dot < -0.1f) { animator.SetBool("IsPushing", false); animator.SetBool("IsPulling", true); }
+                }
+                else
+                {
+                    // 動きが止まったらタイマーを減らす
+                    if (stopDelayTimer > 0)
+                    {
+                        stopDelayTimer -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        Debug.Log("aaaaaaaaaaaaaaaaa");
+                        animator.SetBool("IsGrabbingIdle", true);
+                        animator.SetBool("IsPushing", false);
+                        animator.SetBool("IsPulling", false);
+                    }
+                }
+            }
             if (controller.isGrounded && velocity.y < 0)
             {
                 velocity.y = -2f;
@@ -153,7 +194,12 @@ public class Player : MonoBehaviour
             // 上下入力で移動
             velocity.y = moveInput.y * climbSpeed;
         }
-
+        if (!hand.isGrabbing)
+        {
+                animator.SetBool("IsGrabbingIdle", false);
+                animator.SetBool("IsPushing", false);
+                animator.SetBool("IsPulling", false);
+        }
         velocity.x = currentHorizontalVelocity.x;
         velocity.z = currentHorizontalVelocity.z;
 
