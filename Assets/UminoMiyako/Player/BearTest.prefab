@@ -307,11 +307,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   catchObjectFlag: 0
-  grabRange: 0.9
-  moveSpeed: 5
-  catchObjectMove: 1
+  grabRange: 0.7
+  moveSpeed: 20
+  catchObjectMove: 2
   isGrabbing: 0
   handPoint: {fileID: 6475890765452908738}
+  playerRadius: 0.4
+  safetyMargin: 0.2
 --- !u!114 &2534022115488478093
 MonoBehaviour:
   m_ObjectHideFlags: 0
