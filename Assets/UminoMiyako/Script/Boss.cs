@@ -17,7 +17,7 @@ public class Boss : MonoBehaviour
     public GameObject BLOCKBar;
     public GameObject BLOCKBarLong;
     public GameObject Nail;
-    public GameObject Ball;
+    public GameObject Shooter;
     public GameObject Ghost;
     public GameObject[] Star;
     public GameObject[] Field;
@@ -38,6 +38,7 @@ public class Boss : MonoBehaviour
         Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
         Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
         Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス,7.全消し");
+        Debug.Log("Pキー :\n1.四方に弾召喚,2.内側に弾召喚");
         for (int i = 0; i < 16; i++)
         {
             fi[i].fiOn = true;
@@ -141,9 +142,63 @@ public class Boss : MonoBehaviour
                 StartCoroutine(AttackAllBreak());
             }
         }
+        if (Input.GetKey(KeyCode.P))
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackShot4());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(AttackShotIn());
+            }
+        }
     }
-    //プレイヤー向き（仮）
-    //周囲マーク(仮)
+    //内側消去から中心から弾を召喚------------------------------------------------------------------------------------------------------------------------
+    private IEnumerator AttackShotIn()
+    {
+        Vector3 startPos = default;
+        int[] In = { 6, 7, 10, 11 };
+        for (int i = 0; i < 4; i++)
+        {
+            startPos = Field[(In[i] - 1)].transform.position;
+            startPos.y = 50;
+            Attack(startPos, AOE1Field, 0);
+        }
+        yield return new WaitForSeconds(1f);
+        DestroyField(In);
+        
+
+        GameObject shooter = default;
+        startPos = new Vector3(0f, 2f, 0f);
+        shooter = Instantiate(Shooter, startPos, Quaternion.identity);
+        yield return new WaitForSeconds(5f);
+        Destroy(shooter);
+        ReField();
+    }
+    //弾をいっぱい召喚---------------------------------------------------------------------------------------------------------------------------------------
+    private IEnumerator AttackShot4()
+    {
+        GameObject[] shooter = new GameObject[4];
+        Vector3[] startPos = new Vector3[]
+        {
+            new Vector3(0f, 2f, 13f),
+            new Vector3(-13f, 2f, 0f),
+            new Vector3(13f, 2f, 0f),
+            new Vector3(0f, 2f, -13f)
+        };
+        CanonOff();
+        for(int i = 0; i < 4; i++)
+        {
+            shooter[i] = Instantiate(Shooter, startPos[i], Quaternion.identity);
+        }
+        yield return new WaitForSeconds(5f);
+        for(int i = 0; i < 4; i++)
+        {
+            Destroy(shooter[i]);
+        }
+        CanonOn();
+    }
     //床全消し--------------------------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackAllBreak()
     {
@@ -1063,6 +1118,24 @@ public class Boss : MonoBehaviour
                 fi[i].fiSc.ObjectTrue();
                 fi[i].fiOn = true;
             }
+        }
+    }
+    private void CanonOff()
+    {
+        BossField[] canonSc = new BossField[2];
+        for(int i = 0; i < 2; i++)
+        {
+            canonSc[i] = Canon[i].GetComponent<BossField>();
+            canonSc[i].ObjectFalse();
+        }
+    }
+    private void CanonOn()
+    {
+        BossField[] canonSc = new BossField[2];
+        for (int i = 0; i < 2; i++)
+        {
+            canonSc[i] = Canon[i].GetComponent<BossField>();
+            canonSc[i].ObjectTrue();
         }
     }
 }
