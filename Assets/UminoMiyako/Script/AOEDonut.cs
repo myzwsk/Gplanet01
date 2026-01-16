@@ -4,14 +4,41 @@ public class AOEDonut : MonoBehaviour
 {
     public bool isHitCol1 = false;
     public bool isHitCol2 = false;
-
+    public float time = 1f;
+    public GameObject AOEeffPre;
+    private Vector3 startScale;
+    private Vector3 endScale;
+    private GameObject AOEeff;
+    private bool isTouchingPlayer = false;
+    private float count = 0;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Invoke("Destroy", 4f);
+        startScale = new Vector3(0.001f, 0.001f, 0.001f);
+        endScale = transform.localScale;
+        AOEeff = Instantiate(AOEeffPre, transform.position, transform.localRotation);
+        AOEeff.transform.localScale = startScale;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (count < time)
+        {
+            count += Time.deltaTime;
+            float t = count / time;
+            AOEeff.transform.localScale = Vector3.Lerp(startScale, endScale, t);
+        }
+        else
+        {
+            Destroy();
+        }
+
     }
     void Destroy()
     {
-        if (isHitCol1&&!isHitCol2)
+
+        if (isHitCol1 && !isHitCol2)
         {
             Debug.Log("プレイヤー死亡！");
         }
@@ -19,7 +46,7 @@ public class AOEDonut : MonoBehaviour
         {
             Debug.Log("生存");
         }
-
+        Destroy(AOEeff);
         Destroy(gameObject);
     }
 }

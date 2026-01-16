@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9256fdad47beccd42ac5041a39bf136c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  donut: {fileID: 2752367373070605156}
+  donut: {fileID: 551869111504507498}
 --- !u!1 &5871946227932424150
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 1210775854598285857}
   - component: {fileID: 1269223487821909403}
   - component: {fileID: -4912972037341825491}
-  - component: {fileID: 2752367373070605156}
+  - component: {fileID: 551869111504507498}
   m_Layer: 0
   m_Name: AOEDonut
   m_TagString: Untagged
@@ -126,8 +126,8 @@ Transform:
   m_GameObject: {fileID: 5871946227932424150}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9, y: 2.86, z: 9}
-  m_LocalScale: {x: 75, y: 0.001, z: 75}
+  m_LocalPosition: {x: 0, y: 2.86, z: 0}
+  m_LocalScale: {x: 60, y: 0.001, z: 60}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1526812553624131943}
@@ -214,7 +214,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2752367373070605156
+--- !u!114 &551869111504507498
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,6 +228,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isHitCol1: 0
   isHitCol2: 0
+  time: 3
+  AOEeffPre: {fileID: 5871946227932424150, guid: 490210864595e0a44beeed66e46ad42d, type: 3}
 --- !u!1 &7848831804251951437
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,4 +326,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026498646f9296547b1eec89f1e9ea5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  donut: {fileID: 2752367373070605156}
+  donut: {fileID: 551869111504507498}
