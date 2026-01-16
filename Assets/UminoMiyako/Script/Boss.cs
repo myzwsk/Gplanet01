@@ -4,6 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using Unity.VisualScripting;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 using UnityEngine.Windows.Speech;
+using Unity.VisualScripting.Antlr3.Runtime;
+using static UnityEngine.Rendering.DebugUI;
+using TMPro;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
@@ -25,6 +29,8 @@ public class Boss : MonoBehaviour
     public GameObject[] EffectField;
     public GameObject[] Canon;
     public LayerMask targetLayerMask;
+    public Slider slider;
+    public TextMeshProUGUI text;
     private field[] fi = new field[16];
     private field[] Effi = new field[16];
     struct field
@@ -58,109 +64,110 @@ public class Boss : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                StartCoroutine(AttackThin());
+                StartCoroutine(AttackThin(1));
+                StartCoroutine(Cast("こうげき！", 5));
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                StartCoroutine(Attack1Field());
+                StartCoroutine(Attack1Field(1,5));
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                StartCoroutine(Attack8Field());
+                StartCoroutine(Attack8Field(3,5,0));
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                AttackCircle();
+                AttackCircle(1);
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                StartCoroutine(AttackVirtical());
+                StartCoroutine(AttackVirtical(1,5));
             }
             if (Input.GetKeyDown(KeyCode.Alpha6))
             {
-                StartCoroutine(AttackHrizon());
+                StartCoroutine(AttackHrizon(1,5));
             }
         }
         if (Input.GetKey(KeyCode.RightShift))
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                StartCoroutine(AttackOut());
+                StartCoroutine(AttackOut(1,5));
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                StartCoroutine(AttackIn());
+                StartCoroutine(AttackIn(1,5));
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                StartCoroutine(AttackStar());
+                StartCoroutine(AttackStar(1));
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                StartCoroutine(AttackStar2());
+                StartCoroutine(AttackStar2(1,2,1,2));
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                StartCoroutine(AttackSword());
+                StartCoroutine(AttackSword(1,1,2,2,3));
             }
             if (Input.GetKeyDown(KeyCode.Alpha6))
             {
-                StartCoroutine(AttackSword2());
+                StartCoroutine(AttackSword2(1,1,3,2,5));
             }
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
-                StartCoroutine(AttackSword3());
+                StartCoroutine(AttackSword3(1,1,2,2,5));
             }
         }
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                StartCoroutine(AttackPush());
+                StartCoroutine(AttackPush(3));
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                StartCoroutine(AttackPull());
+                StartCoroutine(AttackPull(3));
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                AttackDonut();
+                AttackDonut(3);
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                StartCoroutine(AttackBar());
+                StartCoroutine(AttackBar(0));
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                StartCoroutine(AttackStick());
+                StartCoroutine(AttackStick(2,10));
             }
             if (Input.GetKeyDown(KeyCode.Alpha6))
             {
-                StartCoroutine(AttackStealth());
+                StartCoroutine(AttackStealth(1,5));
             }
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
-                StartCoroutine(AttackAllBreak());
+                StartCoroutine(AttackAllBreak(1,1));
             }
         }
         if (Input.GetKey(KeyCode.P))
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                StartCoroutine(AttackShot4());
+                StartCoroutine(AttackShot4(5));
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                StartCoroutine(AttackShotIn());
+                StartCoroutine(AttackShotIn(1,5));
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                StartCoroutine(AttackGhost());
+                StartCoroutine(AttackGhost(3,15));
             }
         }
     }
     //お化け--------------------------------------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator AttackGhost()
+    private IEnumerator AttackGhost(float st,float et)
     {
         Vector3 startPoint = new Vector3(0.6f, 50f, -0.4f);
         Ray ray = new Ray(startPoint, Vector3.down);
@@ -179,9 +186,9 @@ public class Boss : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, targetLayerMask))
         {
             spawnPrefab = Instantiate(AOEDonut, hit.point, Quaternion.identity);
-            spawnPrefab.GetComponent<AOEDonut>().time = 3;
+            spawnPrefab.GetComponent<AOEDonut>().time =st;
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(st);
         for(int i = 0; i < ghost.Length; i++)
         {
             ghost[i] = Instantiate(Ghost, startPos[i], Quaternion.Euler(0, ghostlota[i], 0));
@@ -195,14 +202,14 @@ public class Boss : MonoBehaviour
             else if (i == 8) { ghostSc[i].sX = -4; ghostSc[i].sZ = 0; }
         }
 
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(et);
         for (int i = 0; i < ghost.Length;i++)
         {
             Destroy(ghost[i]);
         }
     }
     //内側消去から中心から弾を召喚------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator AttackShotIn()
+    private IEnumerator AttackShotIn(float st,float et)
     {
         Vector3 startPos = default;
         int[] In = { 6, 7, 10, 11 };
@@ -210,21 +217,21 @@ public class Boss : MonoBehaviour
         {
             startPos = Field[(In[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,1);
+            Attack(startPos, AOE1Field, 0,st);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(st);
         DestroyField(In);
         
 
         GameObject shooter = default;
         startPos = new Vector3(0f, 2f, 0f);
         shooter = Instantiate(Shooter, startPos, Quaternion.identity);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(et);
         Destroy(shooter);
         ReField();
     }
     //弾をいっぱい召喚---------------------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator AttackShot4()
+    private IEnumerator AttackShot4(float et)
     {
         GameObject[] shooter = new GameObject[4];
         Vector3[] startPos = new Vector3[]
@@ -239,7 +246,7 @@ public class Boss : MonoBehaviour
         {
             shooter[i] = Instantiate(Shooter, startPos[i], Quaternion.identity);
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(et);
         for(int i = 0; i < 4; i++)
         {
             Destroy(shooter[i]);
@@ -247,7 +254,7 @@ public class Boss : MonoBehaviour
         CanonOn();
     }
     //床全消し--------------------------------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator AttackAllBreak()
+    private IEnumerator AttackAllBreak(float st,float et)
     {
         Vector3 startPos = default;
         int[] All = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
@@ -255,15 +262,15 @@ public class Boss : MonoBehaviour
         {
             startPos = Field[i].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,1);
+            Attack(startPos, AOE1Field, 0,st);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(st);
         DestroyField(All);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(et);
         ReField();
     }
     //床複数破壊かつ床透明化--------------------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator AttackStealth()
+    private IEnumerator AttackStealth(float st,float et)
     {
         int[] OutField = { 0,0,0,0};
         int rand = default;
@@ -300,9 +307,9 @@ public class Boss : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             startPos = fi[OutField[i]-1].fiPre.transform.position;
-            Attack(startPos, AOE1Field, 0,1);
+            Attack(startPos, AOE1Field, 0,st);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(st);
         for(int i = 0; i < 16; i++)
         {
             stealth = true;
@@ -320,7 +327,7 @@ public class Boss : MonoBehaviour
         }
         DestroyField(OutField);
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(et);
         for (int i = 0; i < 16; i++)
         {
             stealth = true;
@@ -339,16 +346,16 @@ public class Boss : MonoBehaviour
         ReField();
     }
     //回転するバー--------------------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator AttackStick()
+    private IEnumerator AttackStick(float st,float et)
     {
         Vector3 startPos = new Vector3(0,1,0);
         int value=Random.Range(0,2);
         if (value == 0) value -= 1;
-        Attack(startPos, AOEThin, 0,1);
-        yield return new WaitForSeconds(1f);
+        Attack(startPos, AOEThin, 0,st);
+        yield return new WaitForSeconds(st);
         GameObject Bar = Instantiate(BLOCKBarLong, startPos, Quaternion.identity);
 
-        float duration = 10f;      // 回転させる時間（秒）
+        float duration = et;      // 回転させる時間（秒）
         float elapsed = 0f;       // 経過時間
 
         while (elapsed < duration)
@@ -364,9 +371,11 @@ public class Boss : MonoBehaviour
     }
 
     //移動してくるバー----------------------------------------------------------------------------------------------------------------------
-    private IEnumerator AttackBar()
+    private IEnumerator AttackBar(int value)
     {
-        int rand = Random.Range(0, 4);
+        int rand = 0;
+        if (value == 0) { rand = Random.Range(1, 5); }
+        else { rand = value; }
         float time = 5;
         float elapsed = 0;
         Vector3 startPos = default;
@@ -374,22 +383,22 @@ public class Boss : MonoBehaviour
         GameObject Bar = null;
         switch (rand)
         {
-            case 0:
+            case 1:
                 startPos = new Vector3(0, 1f, 13f);
                 endPos = new Vector3(0, 1f, -13f);
                 Bar = Instantiate(BLOCKBar, startPos, Quaternion.Euler(0, 90, 0));
                 break;
-            case 1:
+            case 2:
                 startPos = new Vector3(-13, 1f, 0);
                 endPos = new Vector3(13, 1f, 0);
                 Bar = Instantiate(BLOCKBar, startPos, Quaternion.Euler(0, 0, 0));
                 break;
-            case 2:
+            case 3:
                 startPos = new Vector3(13, 1f, 0);
                 endPos = new Vector3(-13, 1f, 0);
                 Bar = Instantiate(BLOCKBar, startPos, Quaternion.Euler(0, 0, 0));
                 break;
-            case 3:
+            case 4:
                 startPos = new Vector3(0, 1f, -13f);
                 endPos = new Vector3(0, 1f, 13f);
                 Bar = Instantiate(BLOCKBar, startPos, Quaternion.Euler(0, 90, 0));
@@ -406,7 +415,7 @@ public class Boss : MonoBehaviour
         Destroy(Bar);
     }
     //ドーナッツ範囲------------------------------------------------------------------------------------------------------------------------------
-    private void AttackDonut()
+    private void AttackDonut(float st)
     {
         Vector3 startPoint = new Vector3(0.6f,50f,-0.4f);
         Ray ray = new Ray(startPoint, Vector3.down);
@@ -415,19 +424,19 @@ public class Boss : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, targetLayerMask))
         {
             spawnPrefab = Instantiate(AOEDonut, hit.point, Quaternion.identity);
-            spawnPrefab.GetComponent<AOEDonut>().time = 3;
+            spawnPrefab.GetComponent<AOEDonut>().time = st;
         }
     }
     //プレイヤー引き寄せ-------------------------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator AttackPull()
+    private IEnumerator AttackPull(float st)
     {
         float distance = 10f;
         float duration = 0.4f;
         Vector3 center = Vector3.zero;
         Vector3 goPos = new Vector3(center.x, 50, center.z);
         CharacterController[] players = FindObjectsOfType<CharacterController>();
-        Attack(goPos, AOEPush, 0,3);
-        yield return new WaitForSeconds(3f);
+        Attack(goPos, AOEPush, 0,st);
+        yield return new WaitForSeconds(st);
         foreach (var controller in players)
         {
             Vector3 startPos = controller.transform.position;
@@ -463,15 +472,15 @@ public class Boss : MonoBehaviour
         }
     }
     //プレイヤーを中心から吹き飛ばし---------------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator AttackPush()
+    private IEnumerator AttackPush(float st)
     {
         float distance = 10f;
         float duration = 0.4f;
         Vector3 center = Vector3.zero;
         Vector3 goPos = new Vector3(center.x, 50, center.z);
         CharacterController[] players = FindObjectsOfType<CharacterController>();
-        Attack(goPos, AOEPush, 0,3);
-        yield return new WaitForSeconds(3f);
+        Attack(goPos, AOEPush, 0,st);
+        yield return new WaitForSeconds(st);
         foreach (var controller in players)
         {
             Vector3 startPos = controller.transform.position;
@@ -504,7 +513,7 @@ public class Boss : MonoBehaviour
         }
     }
     //外側のフィールドの予兆からの攻撃3--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackSword3()
+    private IEnumerator AttackSword3(float st,float st2,float et,float cool,float let)
     {
         //外周削除
         Vector3 startPos = default;
@@ -517,17 +526,18 @@ public class Boss : MonoBehaviour
         {
             startPos = Field[(Out[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,1);
+            Attack(startPos, AOE1Field, 0,st);
         }
         for (int i = 0; i < 2; i++)
         {
             startPos = Field[(In[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,1);
+            Attack(startPos, AOE1Field, 0,st);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(st);
         DestroyField(Out);
         DestroyField(In);
+        CanonOff();
         for (int i = 0; i < 16; i++)
         {
             if (Effi[i].fiSc != null)
@@ -536,7 +546,7 @@ public class Boss : MonoBehaviour
                 Effi[i].fiOn = true;
             }
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(cool);
         rand = Random.Range(0, 8);
         int[] rota = new int[2];
         Vector3 goPos = Vector3.zero;
@@ -616,24 +626,25 @@ public class Boss : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(let);
         for (int j = 0; j < 2; j++)
         {
             for (int i = 0; i < 2; i++)
             {
-                Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j],1);
-                Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j],1);
+                Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j],st2);
+                Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j],st2);
             }
         }
 
         //外周エリア再出現
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(et);
 
         for (int i = 0; i < 4; i++)
         {
             Destroy(sword[i]);
         }
         ReField();
+        CanonOn();
         for (int i = 0; i < 16; i++)
         {
             Effi[i].fiSc.ObjectFalse();
@@ -641,7 +652,7 @@ public class Boss : MonoBehaviour
         }
     }
     //外側のフィールドの予兆からの攻撃2--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackSword2()
+    private IEnumerator AttackSword2(float st,float st2,float et,float cool,float let)
     {
         //外周削除
         Vector3 startPos = default;
@@ -650,10 +661,11 @@ public class Boss : MonoBehaviour
         {
             startPos = Field[(Out[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,1);
+            Attack(startPos, AOE1Field, 0,st);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(st);
         DestroyField(Out);
+        CanonOff();
         for (int i = 0; i < 16; i++)
         {
             if (Effi[i].fiSc != null)
@@ -662,7 +674,7 @@ public class Boss : MonoBehaviour
                 Effi[i].fiOn = true;
             }
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(cool);
         int rand = Random.Range(0, 8);
         int[] rota = new int[2];
         Vector3 goPos = Vector3.zero;
@@ -742,24 +754,25 @@ public class Boss : MonoBehaviour
             }
         }
         
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(let);
         for(int j = 0; j < 2; j++)
         {
             for (int i = 0; i < 2; i++)
             {
-                Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j],1);
-                Attack(attackPos2[i+(j*2)], AOEThinHalf, rota[j],1);
+                Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j],st2);
+                Attack(attackPos2[i+(j*2)], AOEThinHalf, rota[j],st2);
             }
         }
         
         //外周エリア再出現
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(et);
 
         for (int i = 0; i < 4; i++)
         {
             Destroy(sword[i]);
         }
         ReField();
+        CanonOn();
         for (int i = 0; i < 16; i++)
         {
             Effi[i].fiSc.ObjectFalse();
@@ -767,7 +780,7 @@ public class Boss : MonoBehaviour
         }
     }
     //外側のフィールドの予兆からの攻撃--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackSword()
+    private IEnumerator AttackSword(float st,float st2,float et,float cool,float let)
     {
         Vector3 startPos = default;
         int[] Out = { 1, 2, 3, 4, 5, 8, 9, 12, 13, 14, 15, 16 };
@@ -775,10 +788,11 @@ public class Boss : MonoBehaviour
         {
             startPos = Field[(Out[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,1);
+            Attack(startPos, AOE1Field, 0,st);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(st);
         DestroyField(Out);
+        CanonOff();
         for (int i = 0; i < 16; i++)
         {
             if (Effi[i].fiSc != null)
@@ -787,7 +801,7 @@ public class Boss : MonoBehaviour
                 Effi[i].fiOn = true;
             }
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(cool);
         int rand = Random.Range(0, 8);
         int rota = default;
         Vector3 goPos = Vector3.zero;
@@ -802,7 +816,7 @@ public class Boss : MonoBehaviour
                 for (int i = 0; i < 2; i++)
                 {
                     sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
-                    Attack(startPos, AOEThinHalf, 0,1);
+                    Attack(startPos, AOEThinHalf, 0,let);
                     attackPos[i] = new Vector3(startPos.x, startPos.y, 0);
                     goPos.x += 6f;
                     startPos.x += 6f;
@@ -816,7 +830,7 @@ public class Boss : MonoBehaviour
                 for (int i = 0; i < 2; i++)
                 {
                     sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
-                    Attack(startPos, AOEThinHalf, 90,1);
+                    Attack(startPos, AOEThinHalf, 90,let);
                     attackPos[i]= new Vector3(0,startPos.y,startPos.z);
                     goPos.z -= 6f;
                     startPos.z -= 6f;
@@ -830,7 +844,7 @@ public class Boss : MonoBehaviour
                 for (int i = 0; i < 2; i++)
                 {
                     sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
-                    Attack(startPos, AOEThinHalf, 90,1);
+                    Attack(startPos, AOEThinHalf, 90,let);
                     attackPos[i] = new Vector3(0, startPos.y, startPos.z);
                     goPos.z -= 6f;
                     startPos.z -= 6f;
@@ -844,7 +858,7 @@ public class Boss : MonoBehaviour
                 for (int i = 0; i < 2; i++)
                 {
                     sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
-                    Attack(startPos, AOEThinHalf, 0,1);
+                    Attack(startPos, AOEThinHalf, 0,let);
                     attackPos[i] = new Vector3(startPos.x, startPos.y, 0);
                     goPos.x += 6f;
                     startPos.x += 6f;
@@ -852,19 +866,20 @@ public class Boss : MonoBehaviour
                 rota = 0;
                 break;
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(let);
         for(int i = 0; i < 2; i++)
         {
-            Attack(attackPos[i], AOEThinHalf, rota,1);
+            Attack(attackPos[i], AOEThinHalf, rota,st2);
         }
         //外周エリア再出現
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(et);
 
         for (int i = 0; i < 2; i++)
         {
             Destroy(sword[i]);
         }
         ReField();
+        CanonOn();
         for (int i = 0; i < 16; i++)
         {
             Effi[i].fiSc.ObjectFalse();
@@ -872,7 +887,7 @@ public class Boss : MonoBehaviour
         }
     }
     //星が重なった場所から攻撃2--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackStar2()
+    private IEnumerator AttackStar2(float st,float cool,float st2,float et)
     {
         int rand = Random.Range(0, 361);
         float startAngleDegrees = rand;
@@ -885,9 +900,9 @@ public class Boss : MonoBehaviour
         {
             startPos = Field[(In[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,1);
+            Attack(startPos, AOE1Field, 0,st);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(st);
         BossField[] FieldScript = { null, null, null, null, null, null, null, null, null, null, null, null };
         for (int i = 0; i < 4; i++)
         {
@@ -897,7 +912,7 @@ public class Boss : MonoBehaviour
                 FieldScript[i].ObjectFalse();
             }
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(cool);
         for (int i = 0; i < 2; i++)
         {
             float angle = startAngleDegrees * Mathf.Deg2Rad;
@@ -917,8 +932,8 @@ public class Boss : MonoBehaviour
         goPos = StarMana[0].transform.position;
         Destroy(StarMana[0]);
         Destroy(StarMana[1]);
-        Attack(goPos, AOEBigCircle, 0,1);
-        yield return new WaitForSeconds(2f);
+        Attack(goPos, AOEBigCircle, 0,st2);
+        yield return new WaitForSeconds(et);
         if (FieldScript != null)
         {
             for (int i = 0; i < 4; i++)
@@ -928,7 +943,7 @@ public class Boss : MonoBehaviour
         }
     }
     //星が重なった場所から攻撃--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackStar()
+    private IEnumerator AttackStar(float st)
     {
         int rand = Random.Range(0, 361);
         float startAngleDegrees = rand;
@@ -954,10 +969,10 @@ public class Boss : MonoBehaviour
         goPos = StarMana[0].transform.position;
         Destroy(StarMana[0]);
         Destroy(StarMana[1]);
-        Attack(goPos, AOEBigCircle, 0,1);
+        Attack(goPos, AOEBigCircle, 0,st);
     }
     //横の1列以外に攻撃--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackHrizon()
+    private IEnumerator AttackHrizon(float st,float let)
     {
         int rand = Random.Range(0, 8);
         Vector3 startPos = new Vector3(15f, 3f, -10.5f);
@@ -971,13 +986,13 @@ public class Boss : MonoBehaviour
                 nail[i]=Instantiate(Nail, goPos, Quaternion.identity);
             }
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(let);
         startPos = new Vector3(0, 50f, -10.5f);
         for (int i = 0; i < 8; i++)
         {
             if (rand != i)
             {
-                Attack(startPos, AOEThin, 90,1);
+                Attack(startPos, AOEThin, 90,st);
             }
             startPos.z += 3;
         }
@@ -990,7 +1005,7 @@ public class Boss : MonoBehaviour
         }
     }
     //縦の1列以外に攻撃--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackVirtical()
+    private IEnumerator AttackVirtical(float st,float let)
     {
         int rand = Random.Range(0, 8);
         Vector3 startPos = new Vector3(-10.5f, 3f, 15f);
@@ -1004,13 +1019,13 @@ public class Boss : MonoBehaviour
                 nail[i] = Instantiate(Nail, goPos, Quaternion.identity);
             }
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(let);
         startPos = new Vector3(-10.5f, 50f, 0);
         for (int i = 0; i < 8; i++)
         {
             if (rand != i)
             {
-                Attack(startPos, AOEThin, 0,1);
+                Attack(startPos, AOEThin, 0,st);
             }
             startPos.x += 3;
         }
@@ -1023,7 +1038,7 @@ public class Boss : MonoBehaviour
         }
     }
     //外周破壊--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackOut()
+    private IEnumerator AttackOut(float st,float et)
     {
         Vector3 startPos = default;
         int[] Out = { 1, 2, 3, 4, 5, 8, 9, 12, 13, 14, 15, 16 };
@@ -1031,15 +1046,15 @@ public class Boss : MonoBehaviour
         {
             startPos = Field[(Out[i]-1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,1);
+            Attack(startPos, AOE1Field, 0,st);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(st);
         DestroyField(Out);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(et);
         ReField();
     }
     //内側破壊--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackIn()
+    private IEnumerator AttackIn(float st,float et)
     {
         Vector3 startPos = default;
         int[] In = { 6,7,10,11 };
@@ -1047,15 +1062,15 @@ public class Boss : MonoBehaviour
         {
             startPos = Field[(In[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,1);
+            Attack(startPos, AOE1Field, 0,st);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(st);
         DestroyField (In);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(et);
         ReField();
     }
     //プレイヤー地点に攻撃--------------------------------------------------------------------------------------------------
-    private void AttackCircle()
+    private void AttackCircle(float st)
     {
         Vector3 startPos = new Vector3(0,0,0);
         GameObject obj = GameObject.FindWithTag("Player");
@@ -1065,10 +1080,10 @@ public class Boss : MonoBehaviour
             startPos = obj.transform.position;
         }
         startPos.y = 50;
-        Attack(startPos, AOECircle, 0,5);
+        Attack(startPos, AOECircle, 0,st);
     }
     //外から内　内から外--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackThin()
+    private IEnumerator AttackThin(float st)
     {
         Vector3 startPosU = new Vector3(0f, 50f, -10.5f);
         Vector3 startPosL = new Vector3(-10.5f, 50f, 0f);
@@ -1077,38 +1092,40 @@ public class Boss : MonoBehaviour
         for(int i = 0; i < 8; i++)
         {
            
-            Attack(startPosU, AOEThin,90,1);
-            Attack(startPosL, AOEThin,0,1);
-            Attack(startPosR, AOEThin,0,1);
-            Attack(startPosD, AOEThin,90,1);
+            Attack(startPosU, AOEThin,90,st);
+            Attack(startPosL, AOEThin,0,st);
+            Attack(startPosR, AOEThin,0,st);
+            Attack(startPosD, AOEThin,90,st);
             startPosU.z += 3;
             startPosL.x += 3;
             startPosR.x -= 3;
             startPosD.z -= 3;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(st);
         }
         
     }
     //１ブロック破壊--------------------------------------------------------------------------------------------------
-    private IEnumerator Attack1Field()
+    private IEnumerator Attack1Field(float st,float et)
     {
         int rand=Random.Range(1, 17);
         Vector3 startPos = Field[rand - 1].transform.position;
         startPos.y = 50f;
-        Attack(startPos, AOE1Field, 0,1);
-        yield return new WaitForSeconds(1f);
+        Attack(startPos, AOE1Field, 0,st);
+        yield return new WaitForSeconds(st);
         if (fi[rand-1].fiSc != null)
         {
             fi[rand - 1].fiSc.ObjectFalse();
             fi[rand - 1].fiOn = false;
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(et);
         ReField();
     }
     //半面攻撃--------------------------------------------------------------------------------------------------------------------
-    private IEnumerator Attack8Field()
+    private IEnumerator Attack8Field(float st,float et,int value)
     {
-        int rand = Random.Range(1, 5);
+        int rand = 0;
+        if (value == 0) { rand = Random.Range(1, 5); }
+        else { rand = value; }
         Vector3 startPos=new Vector3(0,50,0);
         int rota = 0;
         int[] field = { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -1123,10 +1140,10 @@ public class Boss : MonoBehaviour
             case 4:
                 startPos.z = -6f; rota = 90; field = new int[] { 9, 10, 11, 12, 13, 14, 15, 16 }; break;
         }
-        Attack(startPos, AOE8Field, rota,3);
-        yield return new WaitForSeconds(3f);
+        Attack(startPos, AOE8Field, rota,st);
+        yield return new WaitForSeconds(st);
         DestroyField(field);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(et);
         ReField();
     }
     //AOE表示処理---------------------------------------------------------------------------------------------------------
@@ -1192,5 +1209,19 @@ public class Boss : MonoBehaviour
             canonSc[i] = Canon[i].GetComponent<BossField>();
             canonSc[i].ObjectTrue();
         }
+    }
+    private IEnumerator Cast(string cast,float time)
+    {
+        text.text = cast;
+        float t = 0;
+        while (t < time)
+        {
+            t += Time.deltaTime;
+            slider.value = t / time;
+            yield return null;
+        }
+        slider.value = 0f;
+        text.text = "のん";
+
     }
 }
