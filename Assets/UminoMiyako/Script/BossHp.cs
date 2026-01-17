@@ -6,6 +6,14 @@ public class BossHp : MonoBehaviour
     public int maxHp = 3000;
     public int Hp = 0;
     public Slider slider;
+    public State state;
+    public enum State
+    {
+        normal,
+        gear2,
+        gear3,
+        gear4
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,16 +21,40 @@ public class BossHp : MonoBehaviour
         slider.minValue = 0;
         slider.maxValue = maxHp;
         slider.value = Hp;
+        state= State.normal;
     }
 
     // Update is called once per frame
     void Update()
     {
         slider.value = Hp;
+        CheckStateByHp();
     }
     public void Damage()
     {
         Hp -=1;
         Debug.Log("ボスにダメージ");
     }
+    void CheckStateByHp()
+    {
+        float rate = (float)Hp / maxHp;
+
+        if (rate <= 0.25f)
+        {
+            state = State.gear4;
+        }
+        else if (rate <= 0.5f)
+        {
+            state = State.gear3;
+        }
+        else if (rate <= 0.75f)
+        {
+            state = State.gear2;
+        }
+        else
+        {
+            state = State.normal;
+        }
+    }
+
 }

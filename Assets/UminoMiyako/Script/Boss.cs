@@ -8,6 +8,10 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using static UnityEngine.Rendering.DebugUI;
 using TMPro;
 using UnityEngine.UI;
+using System;
+using Random = UnityEngine.Random;
+using System.Collections.Generic;
+
 
 public class Boss : MonoBehaviour
 {
@@ -31,6 +35,9 @@ public class Boss : MonoBehaviour
     public LayerMask targetLayerMask;
     public Slider slider;
     public TextMeshProUGUI text;
+
+    private float cooldown = 0;
+    private BossHp bosshp;
     private field[] fi = new field[16];
     private field[] Effi = new field[16];
     struct field
@@ -39,9 +46,112 @@ public class Boss : MonoBehaviour
         public GameObject fiPre;
         public BossField fiSc;
     }
+    public List<AttackCoro> Nfunc = new List<AttackCoro>();
+    public List<AttackCoro> G2func = new List<AttackCoro>();
+    public List<AttackCoro> G3func = new List<AttackCoro>();
+    public List<AttackCoro> G4func = new List<AttackCoro>();
+
+    public class AttackCoro
+    {
+        public string cast;
+        public float casttime;
+        public float time;
+        public bool flag;
+        public Func<IEnumerator> func;
+    }
+    private List<Coroutine> runcoro= new List<Coroutine>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        bosshp = GetComponent<BossHp>();
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "1けし",
+            casttime = 1f,
+            time = 3f,
+            flag = false,
+            func = () => Attack1Field(1, 2)
+        });
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "ついび",
+            casttime = 1f,
+            time = 7f,
+            flag = false,
+            func = () => AttackLockOn(1,2,3)
+        });
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "バーティカル",
+            casttime = 1f,
+            time = 5.5f,
+            flag = false,
+            func = () => AttackVirtical(0.5f,5)
+        });
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "ホライゾン",
+            casttime = 1f,
+            time = 5.5f,
+            flag = false,
+            func = () => AttackHrizon(0.5f, 5)
+        });
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "バー",
+            casttime = 1f,
+            time = 5f,
+            flag = false,
+            func = () => AttackBar(0)
+        });
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "ぐるぐる",
+            casttime = 1f,
+            time = 12f,
+            flag = false,
+            func = () => AttackStick(2, 10)
+        });
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "そとがわ",
+            casttime = 2f,
+            time = 7f,
+            flag = false,
+            func = () => AttackOut(2, 5)
+        });
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "そとがわ",
+            casttime = 2f,
+            time = 7f,
+            flag = false,
+            func = () => AttackOut(2, 5)
+        });
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "うちがわ",
+            casttime = 2f,
+            time = 7f,
+            flag = false,
+            func = () => AttackIn(2, 5)
+        });
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "レフトサイド",
+            casttime = 2f,
+            time = 7f,
+            flag = false,
+            func = () => Attack8Field(2, 5, 3)
+        });
+        Nfunc.Add(new AttackCoro
+        {
+            cast = "ライトサイド",
+            casttime = 2f,
+            time = 7f,
+            flag = false,
+            func = () => Attack8Field(2, 5, 2)
+        });
         Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
         Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
         Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス,7.全消し");
@@ -60,6 +170,45 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        switch (bosshp.state)
+        {
+            case BossHp.State.normal:
+                if (cooldown > 0f)
+                {
+                    cooldown -= Time.deltaTime;
+                    
+                }
+                else
+                {
+                    bool allTrue = true;
+                    for (int i = 0; i < Nfunc.Count; i++)
+                    {
+                        if (!Nfunc[i].flag)
+                        {
+                            allTrue = false;
+                            break;
+                        }
+                    }
+                    if (allTrue)
+                    {
+                        for (int i = 0; i < Nfunc.Count; i++)
+                        {
+                            var tmp = Nfunc[i];
+                            tmp.flag = false;
+                            Nfunc[i] = tmp;
+                        }
+                    }
+                    int r = Random.Range(0, Nfunc.Count);
+                    while (Nfunc[r].flag)
+                    {
+                        r = Random.Range(0, Nfunc.Count);
+                    }
+                    StartCoroutine(DoAttack(Nfunc[r]));
+                    Nfunc[r].flag = true;
+                    cooldown = Nfunc[r].time+ Nfunc[r].casttime;
+                }
+                break;
+        }
         if (Input.GetKey(KeyCode.LeftShift))
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -77,7 +226,7 @@ public class Boss : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                AttackCircle(1);
+                StartCoroutine(AttackLockOn(1, 1, 1));
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
@@ -165,7 +314,16 @@ public class Boss : MonoBehaviour
                 StartCoroutine(AttackGhost(3,15));
             }
         }
+        
     }
+    //normal用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //お化け--------------------------------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackGhost(float st,float et)
     {
@@ -1069,6 +1227,15 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(et);
         ReField();
     }
+    //プレイヤー地点に追尾攻撃-------------------------------------------------------------------------------------------
+    private IEnumerator AttackLockOn(float st,float cool,int value)
+    {
+        for(int i = 0; i < value; i++)
+        {
+            AttackCircle(st);
+            yield return new WaitForSeconds(cool);
+        }
+    }
     //プレイヤー地点に攻撃--------------------------------------------------------------------------------------------------
     private void AttackCircle(float st)
     {
@@ -1224,4 +1391,15 @@ public class Boss : MonoBehaviour
         text.text = "のん";
 
     }
+    private IEnumerator DoAttack(AttackCoro atk)
+    {
+        // キャスト表示
+        StartCoroutine(Cast(atk.cast, atk.casttime));
+        // キャストタイム待つ
+        yield return new WaitForSeconds(atk.casttime);
+
+        // 攻撃コルーチン実行
+        StartCoroutine(atk.func());
+    }
+
 }
