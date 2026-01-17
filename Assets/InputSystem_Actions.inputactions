@@ -220,17 +220,6 @@
                 },
                 {
                     "name": "",
-                    "id": "3ea4d645-4504-4529-b061-ab81934c3752",
-                    "path": "<Joystick>/stick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
@@ -385,17 +374,6 @@
                 },
                 {
                     "name": "",
-                    "id": "eb40bb66-4559-4dfa-9a2f-820438abb426",
-                    "path": "<Keyboard>/space",
-                    "interactions": "Press(behavior=2)",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "daba33a1-ad0c-4742-a909-43ad1cdfbeb6",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "Press(behavior=2)",
@@ -412,6 +390,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb40bb66-4559-4dfa-9a2f-820438abb426",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -11,10 +11,9 @@ using UnityEngine.UI;
 using System;
 using Random = UnityEngine.Random;
 using System.Collections.Generic;
-using UnityEngine.Rendering;
 
 
-public class Boss : MonoBehaviour
+public class BossNormal : MonoBehaviour
 {
     public GameObject AOE1Field;
     public GameObject AOE8Field;
@@ -60,7 +59,6 @@ public class Boss : MonoBehaviour
         public bool flag;
         public Func<IEnumerator> func;
     }
-    private Coroutine currentCombo=default(Coroutine);
     private List<Coroutine> runcoro= new List<Coroutine>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -154,6 +152,10 @@ public class Boss : MonoBehaviour
             flag = false,
             func = () => Attack8Field(2, 5, 2)
         });
+        Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
+        Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
+        Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス,7.全消し");
+        Debug.Log("Pキー :\n1.四方に弾召喚,2.内側に弾召喚,3.お化け召喚");
         for (int i = 0; i < 16; i++)
         {
             fi[i].fiOn = true;
@@ -168,238 +170,156 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        switch (bosshp.state)
         {
-            currentCombo = StartCoroutine(ComboA());
+            case BossHp.State.normal:
+                if (cooldown > 0f)
+                {
+                    cooldown -= Time.deltaTime;
+                    
+                }
+                else
+                {
+                    bool allTrue = true;
+                    for (int i = 0; i < Nfunc.Count; i++)
+                    {
+                        if (!Nfunc[i].flag)
+                        {
+                            allTrue = false;
+                            break;
+                        }
+                    }
+                    if (allTrue)
+                    {
+                        for (int i = 0; i < Nfunc.Count; i++)
+                        {
+                            var tmp = Nfunc[i];
+                            tmp.flag = false;
+                            Nfunc[i] = tmp;
+                        }
+                    }
+                    int r = Random.Range(0, Nfunc.Count);
+                    while (Nfunc[r].flag)
+                    {
+                        r = Random.Range(0, Nfunc.Count);
+                    }
+                    StartCoroutine(DoAttack(Nfunc[r]));
+                    Nfunc[r].flag = true;
+                    cooldown = Nfunc[r].time+ Nfunc[r].casttime;
+                }
+                break;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            currentCombo = StartCoroutine(ComboB());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackThin(1));
+                StartCoroutine(Cast("こうげき！", 5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(Attack1Field(1,5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                StartCoroutine(Attack8Field(3,5,0));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                StartCoroutine(AttackLockOn(1, 1, 1));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                StartCoroutine(AttackVirtical(1,5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                StartCoroutine(AttackHrizon(1,5));
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKey(KeyCode.RightShift))
         {
-            currentCombo = StartCoroutine(ComboC());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackOut(1,5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(AttackIn(1,5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                StartCoroutine(AttackStar(1));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                StartCoroutine(AttackStar2(1,2,1,2));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                StartCoroutine(AttackSword(1,1,2,2,3));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                StartCoroutine(AttackSword2(1,1,3,2,5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                StartCoroutine(AttackSword3(1,1,2,2,5));
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
-            currentCombo = StartCoroutine(ComboD());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackPush(3));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(AttackPull(3));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                AttackDonut(3);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                StartCoroutine(AttackBar(0));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                StartCoroutine(AttackStick(2,10));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                StartCoroutine(AttackStealth(1,5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                StartCoroutine(AttackAllBreak(1,1));
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKey(KeyCode.P))
         {
-            currentCombo = StartCoroutine(ComboE());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackShot4(5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(AttackShotIn(1,5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                StartCoroutine(AttackGhost(3,15));
+            }
         }
+        
     }
-    //コンボ用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
+    //normal用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator ComboA()
-    {
-        int rand = 0;
-
-        StartCoroutine(Cast("なかけし", 2));
-        Coroutine c1 = StartCoroutine(AttackPush(2f));
-        runcoro.Add(c1);
-        yield return new WaitForSeconds(2);
-
-        Coroutine c2 = StartCoroutine(AttackIn(0.5f, 500));
-        runcoro.Add(c2);
-        yield return new WaitForSeconds(0.5f);
-
-        StartCoroutine(Cast("バー", 0.5f));
-        yield return new WaitForSeconds(0.5f);
-        Coroutine c3 = StartCoroutine(AttackBar(1));
-        runcoro.Add(c3);
-        Coroutine c4 = StartCoroutine(AttackBar(2));
-        runcoro.Add(c4);
-        Coroutine c5 = StartCoroutine(AttackBar(3));
-        runcoro.Add(c5);
-        Coroutine c6 = StartCoroutine(AttackBar(4));
-        runcoro.Add(c6);
-
-        StartCoroutine(Cast("ロックオン", 2));
-        yield return new WaitForSeconds(2f);
-        Coroutine c7 = StartCoroutine(AttackLockOn(1.5f, 1, 5));
-        runcoro.Add(c7);
-        yield return new WaitForSeconds(5f);
-
-        StartCoroutine(Cast("スタープラチナ", 1f));
-        yield return new WaitForSeconds(1f);
-        Coroutine c8 = StartCoroutine(AttackStar2(0, 0, 1, 500));
-        runcoro.Add(c8);
-
-        StartCoroutine(Cast("バー", 0.5f));
-        yield return new WaitForSeconds(0.5f);
-        rand= Random.Range(0, 4);
-        switch (rand)
-        {
-            case 0:
-                Coroutine c9 = StartCoroutine(AttackBar(1));
-                runcoro.Add(c9);
-                Coroutine c10 = StartCoroutine(AttackBar(2));
-                runcoro.Add(c10);
-                break;
-            case 1:
-                Coroutine c11 = StartCoroutine(AttackBar(1));
-                runcoro.Add(c11);
-                Coroutine c12 = StartCoroutine(AttackBar(3));
-                runcoro.Add(c12);
-                break;
-            case 2:
-                Coroutine c13 = StartCoroutine(AttackBar(4));
-                runcoro.Add(c13);
-                Coroutine c14 = StartCoroutine(AttackBar(2));
-                runcoro.Add(c14);
-                break;
-            case 3:
-                Coroutine c15 = StartCoroutine(AttackBar(4));
-                runcoro.Add(c15);
-                Coroutine c16 = StartCoroutine(AttackBar(3));
-                runcoro.Add(c16);
-                break;
-        }
-
-        StartCoroutine(Cast("ショット", 1f));
-        yield return new WaitForSeconds(1f);
-        Coroutine c17 = StartCoroutine(AttackShotIn(0, 10));
-        runcoro.Add(c17);
-        yield return new WaitForSeconds(8f);
-
-        StartCoroutine(Cast("なおすよ", 2f));
-        yield return new WaitForSeconds(2f);
-
-        yield return new WaitForSeconds(10f);
-        ReField();
-        StopAllAttackCoroutines();
-    }
-    private IEnumerator ComboB()
-    {
-        StartCoroutine(Cast("ぜんけし", 2));
-        yield return new WaitForSeconds(2);
-        Coroutine c1 = StartCoroutine(AttackAllBreak(0.2f, 1));
-        runcoro.Add(c1);
-        yield return new WaitForSeconds(1);
-
-        StartCoroutine(Cast("そとけし", 2));
-        yield return new WaitForSeconds(2);
-        Coroutine c2 = StartCoroutine(AttackOut(1, 500));
-        runcoro.Add(c2);
-        yield return new WaitForSeconds(1);
-
-        StartCoroutine(Cast("ぐるぐる", 1));
-        yield return new WaitForSeconds(1);
-        Coroutine c3 = StartCoroutine(AttackStick(1, 11));
-        runcoro.Add(c3);
-
-        yield return new WaitForSeconds(3);
-
-        StartCoroutine(Cast("おきにです", 2));
-        yield return new WaitForSeconds(2);
-        Coroutine c4 = StartCoroutine(AttackSword3(2, 0.5f, 2, 0, 5));
-        runcoro.Add(c4);
-        yield return new WaitForSeconds(10);
-
-        ReField();
-        StopAllAttackCoroutines();
-    }
-    private IEnumerator ComboC()
-    {
-        StartCoroutine(Cast("レフトサイド", 3));
-        yield return new WaitForSeconds(3);
-        Coroutine c1 = StartCoroutine(Attack8Field(0.5f, 7, 3));
-        runcoro.Add(c1);
-        yield return new WaitForSeconds(1);
-
-        StartCoroutine(Cast("バーバー", 1));
-        yield return new WaitForSeconds(1);
-        Coroutine c2 = StartCoroutine(AttackBar(1));
-        runcoro.Add(c2);
-        Coroutine c3 = StartCoroutine(AttackBar(4));
-        runcoro.Add(c3);
-        yield return new WaitForSeconds(2);
-        Coroutine c4 = StartCoroutine(AttackStick(1, 10));
-        runcoro.Add(c4);
-
-        StartCoroutine(Cast("ライトサイド", 3));
-        yield return new WaitForSeconds(3);
-        Coroutine c5 = StartCoroutine(Attack8Field(0.5f, 7, 2));
-        runcoro.Add(c5);
-        yield return new WaitForSeconds(1);
-
-        StartCoroutine(Cast("バーバー", 1));
-        yield return new WaitForSeconds(1);
-        Coroutine c6 = StartCoroutine(AttackBar(1));
-        runcoro.Add(c6);
-        Coroutine c7 = StartCoroutine(AttackBar(4));
-        runcoro.Add(c7);
-
-        yield return new WaitForSeconds(6);
-        StopAllAttackCoroutines();
-    }
-    private IEnumerator ComboD()
-    {
-        StartCoroutine(Cast("おっぱお", 3));
-        yield return new WaitForSeconds(3);
-        Coroutine c1 = StartCoroutine(AttackShot2(20));
-        runcoro.Add(c1);
-        StartCoroutine(Cast("バンバンバー", 2));
-        yield return new WaitForSeconds(2);
-        Coroutine c2 = StartCoroutine(AttackBar(0));
-        runcoro.Add(c2);
-        yield return new WaitForSeconds(2);
-        Coroutine c3 = StartCoroutine(AttackBar(0));
-        runcoro.Add(c3);
-        yield return new WaitForSeconds(2);
-        Coroutine c4 = StartCoroutine(AttackBar(0));
-        runcoro.Add(c4);
-        yield return new WaitForSeconds(2);
-        Coroutine c5 = StartCoroutine(AttackBar(0));
-        runcoro.Add(c5);
-        yield return new WaitForSeconds(2);
-        Coroutine c6 = StartCoroutine(AttackBar(0));
-        runcoro.Add(c6);
-        yield return new WaitForSeconds(2);
-        Coroutine c7 = StartCoroutine(AttackBar(0));
-        runcoro.Add(c7);
-        yield return new WaitForSeconds(2);
-        Coroutine c8 = StartCoroutine(AttackBar(0));
-        runcoro.Add(c8);
-        yield return new WaitForSeconds(2);
-        Coroutine c9 = StartCoroutine(AttackBar(0));
-        runcoro.Add(c9);
-        yield return new WaitForSeconds(5);
-        StopAllAttackCoroutines();
-    }
-    private IEnumerator ComboE()
-    {
-        StartCoroutine(Cast("トリッキー", 2));
-        yield return new WaitForSeconds(2);
-        Coroutine c1 = StartCoroutine(AttackGhost(3, 15));
-        runcoro.Add(c1);
-        yield return new WaitForSeconds(2);
-        Coroutine c2 = StartCoroutine(AttackStealth(1, 14));
-        runcoro.Add(c2);
-        yield return new WaitForSeconds(16);
-        StopAllAttackCoroutines();
-    }
-    public void StopAllAttackCoroutines()
-    {
-        // 親コルーチンを止める
-        if (currentCombo != null)
-        {
-            StopCoroutine(currentCombo);
-            currentCombo = null;
-        }
-
-        // 子コルーチンを全部止める
-        foreach (var c in runcoro)
-        {
-            if (c != null)
-                StopCoroutine(c);
-        }
-
-        // リストをクリア
-        runcoro.Clear();
-    }
+    
 
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -414,7 +334,7 @@ public class Boss : MonoBehaviour
         GameObject[] ghost=new GameObject[9];
         Ghost[] ghostSc=new Ghost[9];
         int[] ghostlota = new int[] { 180, 135, 225, 45, 315, 180, 90, 270, 0 };
-        float[] speed = new float[] { 0.5f, 1.5f, 1.5f, 1.5f, 1.5f, 1f, 1f, 1f, 1f };
+        int[] speed = new int[] { 1, 3, 3, 3, 3, 2, 2, 2, 2 };
         Vector3[] startPos = new Vector3[]
         {
             new Vector3 (0,0,0),
@@ -490,25 +410,6 @@ public class Boss : MonoBehaviour
             Destroy(shooter[i]);
         }
         CanonOn();
-    }
-    //砲を消さずに弾をいっぱい召喚---------------------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator AttackShot2(float et)
-    {
-        GameObject[] shooter = new GameObject[4];
-        Vector3[] startPos = new Vector3[]
-        {
-            new Vector3(0f, 2f, 13f),
-            new Vector3(0f, 2f, -13f)
-        };
-        for (int i = 0; i < 2; i++)
-        {
-            shooter[i] = Instantiate(Shooter, startPos[i], Quaternion.identity);
-        }
-        yield return new WaitForSeconds(et);
-        for (int i = 0; i < 2; i++)
-        {
-            Destroy(shooter[i]);
-        }
     }
     //床全消し--------------------------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackAllBreak(float st,float et)
@@ -1373,13 +1274,7 @@ public class Boss : MonoBehaviour
     //１ブロック破壊--------------------------------------------------------------------------------------------------
     private IEnumerator Attack1Field(float st,float et)
     {
-        int rand = 0;
-        while (true)
-        {
-            rand = Random.Range(1, 17);
-            // 重複チェック
-            if (fi[rand - 1].fiOn) { break; }
-        }
+        int rand=Random.Range(1, 17);
         Vector3 startPos = Field[rand - 1].transform.position;
         startPos.y = 50f;
         Attack(startPos, AOE1Field, 0,st);
