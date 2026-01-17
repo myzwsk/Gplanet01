@@ -33,4 +33,22 @@ public class Slide : MonoBehaviour
         }
 
     }
+    void OnCollisionEnter(Collision collision)
+    {
+       
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // プレイヤーの親をこの「動く床」に設定する
+            collision.transform.SetParent(transform);
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // 親子関係を解消する
+            collision.transform.SetParent(null);
+        }
+    }
 }
