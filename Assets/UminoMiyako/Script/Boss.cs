@@ -37,6 +37,7 @@ public class Boss : MonoBehaviour
     public Slider slider;
     public TextMeshProUGUI text;
 
+    private bool go = true;
     private float cooldown = 0;
     private BossHp bosshp;
     private field[] fi = new field[16];
@@ -47,16 +48,10 @@ public class Boss : MonoBehaviour
         public GameObject fiPre;
         public BossField fiSc;
     }
-    public List<AttackCoro> Nfunc = new List<AttackCoro>();
-    public List<AttackCoro> G2func = new List<AttackCoro>();
-    public List<AttackCoro> G3func = new List<AttackCoro>();
-    public List<AttackCoro> G4func = new List<AttackCoro>();
+    public List<AttackCoro> func = new List<AttackCoro>();
 
     public class AttackCoro
     {
-        public string cast;
-        public float casttime;
-        public float time;
         public bool flag;
         public Func<IEnumerator> func;
     }
@@ -66,93 +61,40 @@ public class Boss : MonoBehaviour
     void Start()
     {
         bosshp = GetComponent<BossHp>();
-        Nfunc.Add(new AttackCoro
+        func.Add(new AttackCoro
         {
-            cast = "1けし",
-            casttime = 1f,
-            time = 3f,
             flag = false,
-            func = () => Attack1Field(1, 2)
+            func = () => ComboA()
         });
-        Nfunc.Add(new AttackCoro
+        func.Add(new AttackCoro
         {
-            cast = "ついび",
-            casttime = 1f,
-            time = 7f,
             flag = false,
-            func = () => AttackLockOn(1,2,3)
+            func = () => ComboB()
         });
-        Nfunc.Add(new AttackCoro
+        func.Add(new AttackCoro
         {
-            cast = "バーティカル",
-            casttime = 1f,
-            time = 5.5f,
             flag = false,
-            func = () => AttackVirtical(0.5f,5)
+            func = () => ComboC()
         });
-        Nfunc.Add(new AttackCoro
+        func.Add(new AttackCoro
         {
-            cast = "ホライゾン",
-            casttime = 1f,
-            time = 5.5f,
             flag = false,
-            func = () => AttackHrizon(0.5f, 5)
+            func = () => ComboD()
         });
-        Nfunc.Add(new AttackCoro
+        func.Add(new AttackCoro
         {
-            cast = "バー",
-            casttime = 1f,
-            time = 5f,
             flag = false,
-            func = () => AttackBar(0)
+            func = () => ComboE()
         });
-        Nfunc.Add(new AttackCoro
+        func.Add(new AttackCoro
         {
-            cast = "ぐるぐる",
-            casttime = 1f,
-            time = 12f,
             flag = false,
-            func = () => AttackStick(2, 10)
+            func = () => ComboF()
         });
-        Nfunc.Add(new AttackCoro
+        func.Add(new AttackCoro
         {
-            cast = "そとがわ",
-            casttime = 2f,
-            time = 7f,
             flag = false,
-            func = () => AttackOut(2, 5)
-        });
-        Nfunc.Add(new AttackCoro
-        {
-            cast = "そとがわ",
-            casttime = 2f,
-            time = 7f,
-            flag = false,
-            func = () => AttackOut(2, 5)
-        });
-        Nfunc.Add(new AttackCoro
-        {
-            cast = "うちがわ",
-            casttime = 2f,
-            time = 7f,
-            flag = false,
-            func = () => AttackIn(2, 5)
-        });
-        Nfunc.Add(new AttackCoro
-        {
-            cast = "レフトサイド",
-            casttime = 2f,
-            time = 7f,
-            flag = false,
-            func = () => Attack8Field(2, 5, 3)
-        });
-        Nfunc.Add(new AttackCoro
-        {
-            cast = "ライトサイド",
-            casttime = 2f,
-            time = 7f,
-            flag = false,
-            func = () => Attack8Field(2, 5, 2)
+            func = () => ComboG()
         });
         for (int i = 0; i < 16; i++)
         {
@@ -168,6 +110,36 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (go)
+        {
+            // 1. 全部 true ならリセット
+            bool allTrue = true;
+            for (int i = 0; i < func.Count; i++)
+            {
+                if (!func[i].flag)
+                {
+                    allTrue = false;
+                    break;
+                }
+            }
+            if (allTrue)
+            {
+                for (int i = 0; i < func.Count; i++)
+                {
+                    var tmp = func[i];
+                    tmp.flag = false;
+                    func[i] = tmp;
+                }
+            }
+            int r = Random.Range(0, func.Count);
+            while (func[r].flag)
+            {
+                r = Random.Range(0, func.Count);
+            }
+            currentCombo = StartCoroutine(func[r].func());
+            func[r].flag = true;
+            go = false;
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             currentCombo = StartCoroutine(ComboA());
@@ -187,6 +159,14 @@ public class Boss : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             currentCombo = StartCoroutine(ComboE());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            currentCombo = StartCoroutine(ComboF());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            currentCombo = StartCoroutine(ComboG());
         }
     }
     //コンボ用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
@@ -270,6 +250,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(10f);
         ReField();
         StopAllAttackCoroutines();
+        go = true;
     }
     private IEnumerator ComboB()
     {
@@ -300,6 +281,7 @@ public class Boss : MonoBehaviour
 
         ReField();
         StopAllAttackCoroutines();
+        go = true;
     }
     private IEnumerator ComboC()
     {
@@ -334,6 +316,7 @@ public class Boss : MonoBehaviour
 
         yield return new WaitForSeconds(6);
         StopAllAttackCoroutines();
+        go = true;
     }
     private IEnumerator ComboD()
     {
@@ -368,6 +351,7 @@ public class Boss : MonoBehaviour
         runcoro.Add(c9);
         yield return new WaitForSeconds(5);
         StopAllAttackCoroutines();
+        go = true;
     }
     private IEnumerator ComboE()
     {
@@ -380,6 +364,49 @@ public class Boss : MonoBehaviour
         runcoro.Add(c2);
         yield return new WaitForSeconds(16);
         StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator ComboF()
+    {
+        StartCoroutine(Cast("おぼえゲー", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackStealth(2, 17));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(2);
+
+        StartCoroutine(Cast("ぐるぐる", 1));
+        yield return new WaitForSeconds(1);
+        Coroutine c2 = StartCoroutine(AttackStick(1, 15));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(2);
+
+        StartCoroutine(Cast("ロックオン", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c3 = StartCoroutine(AttackLockOn(1.5F, 2, 5));
+        runcoro.Add(c3);
+
+        yield return new WaitForSeconds(3);
+        StartCoroutine(Cast("ついか", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c4 = StartCoroutine(Attack1Field(2, 7));
+        runcoro.Add(c4);
+        yield return new WaitForSeconds(8);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator ComboG()
+    {
+        StartCoroutine(Cast("これもおきに", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackThin(1.5f));
+        runcoro.Add(c1);
+        Coroutine c2 = StartCoroutine(AttackStick(1, 13));
+        runcoro.Add(c2);
+
+        yield return new WaitForSeconds(15);
+        
+        StopAllAttackCoroutines();
+        go = true;
     }
     public void StopAllAttackCoroutines()
     {
@@ -1496,15 +1523,4 @@ public class Boss : MonoBehaviour
         text.text = "のん";
 
     }
-    private IEnumerator DoAttack(AttackCoro atk)
-    {
-        // キャスト表示
-        StartCoroutine(Cast(atk.cast, atk.casttime));
-        // キャストタイム待つ
-        yield return new WaitForSeconds(atk.casttime);
-
-        // 攻撃コルーチン実行
-        StartCoroutine(atk.func());
-    }
-
 }
