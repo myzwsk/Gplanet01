@@ -5050,8 +5050,8 @@ MonoBehaviour:
   m_text: "\u3053\u306E\u3055\u304D\u306F \u304D\u305F\u306A\u3044\u307F\u305A\u304C
     \u3072\u308D\u304C\u3063\u3066\u308Bt\n\u3046\u3057\u308D\u304B\u3089 \u308F\u305F\u308C\u305D\u3046\uFF01"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 07fbf56058712af46a1b9d6dc2cc367a, type: 2}
-  m_sharedMaterial: {fileID: -8812615073701109263, guid: 07fbf56058712af46a1b9d6dc2cc367a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e097babf5789b8340bd46b632fbb8b7c, type: 2}
+  m_sharedMaterial: {fileID: -4488007932256019086, guid: e097babf5789b8340bd46b632fbb8b7c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
