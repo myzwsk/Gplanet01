@@ -96,6 +96,11 @@ public class Boss : MonoBehaviour
             flag = false,
             func = () => ComboG()
         });
+        func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => ComboH()
+        });
         for (int i = 0; i < 16; i++)
         {
             fi[i].fiOn = true;
@@ -167,6 +172,10 @@ public class Boss : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             currentCombo = StartCoroutine(ComboG());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            currentCombo = StartCoroutine(ComboH());
         }
     }
     //コンボ用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
@@ -408,6 +417,31 @@ public class Boss : MonoBehaviour
         StopAllAttackCoroutines();
         go = true;
     }
+    private IEnumerator ComboH()
+    {
+        StartCoroutine(Cast("みきわめ", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackHrizon(0.5f, 14,0));
+        runcoro.Add(c1);
+        Coroutine c2 = StartCoroutine(AttackVirtical(0.5f, 14,0));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(8);
+
+        Coroutine c3 = StartCoroutine(AttackHrizon(0.5f, 14, 1));
+        runcoro.Add(c3);
+        Coroutine c4 = StartCoroutine(AttackVirtical(0.5f, 14, 1));
+        runcoro.Add(c4);
+        yield return new WaitForSeconds(8);
+
+        Coroutine c5 = StartCoroutine(AttackHrizon(0.5f, 14, 2));
+        runcoro.Add(c5);
+        Coroutine c6 = StartCoroutine(AttackVirtical(0.5f, 14, 2));
+        runcoro.Add(c6);
+        yield return new WaitForSeconds(16);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+
     public void StopAllAttackCoroutines()
     {
         // 親コルーチンを止める
@@ -1256,18 +1290,19 @@ public class Boss : MonoBehaviour
         Attack(goPos, AOEBigCircle, 0,st);
     }
     //横の1列以外に攻撃--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackHrizon(float st,float let)
+    private IEnumerator AttackHrizon(float st,float let,float value)
     {
         int rand = Random.Range(0, 8);
         Vector3 startPos = new Vector3(15f, 3f, -10.5f);
         Vector3 goPos=new Vector3(0,0,0);
+        Vector3 letPos = new Vector3(45 * value, 0,0);
         GameObject[] nail= { null,null,null,null,null,null,null,null};
         for (int i = 0; i < 8; i++)
         {
             if (rand != i)
             {
                 goPos = new Vector3(startPos.x, startPos.y, startPos.z + (3 * i));
-                nail[i]=Instantiate(Nail, goPos, Quaternion.identity);
+                nail[i]=Instantiate(Nail, goPos, Quaternion.Euler(letPos));
             }
         }
         yield return new WaitForSeconds(let);
@@ -1289,18 +1324,19 @@ public class Boss : MonoBehaviour
         }
     }
     //縦の1列以外に攻撃--------------------------------------------------------------------------------------------------
-    private IEnumerator AttackVirtical(float st,float let)
+    private IEnumerator AttackVirtical(float st,float let,float value)
     {
         int rand = Random.Range(0, 8);
         Vector3 startPos = new Vector3(-10.5f, 3f, 15f);
         Vector3 goPos = new Vector3(0, 0, 0);
+        Vector3 letPos = new Vector3(0, 0, 45 * value);
         GameObject[] nail = { null, null, null, null, null, null, null, null };
         for (int i = 0; i < 8; i++)
         {
             if (rand != i)
             {
                 goPos = new Vector3(startPos.x + (3 * i), startPos.y, startPos.z);
-                nail[i] = Instantiate(Nail, goPos, Quaternion.identity);
+                nail[i] = Instantiate(Nail, goPos, Quaternion.Euler(letPos));
             }
         }
         yield return new WaitForSeconds(let);

@@ -263,7 +263,7 @@ public class Player : MonoBehaviour
         
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
+    /*void OnControllerColliderHit(ControllerColliderHit hit)
     {
         // 1. 衝突相手からエレベーターのスクリプトを取得
         elevator elevatorScript = hit.gameObject.GetComponent<elevator>();
@@ -295,7 +295,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
 
 }
