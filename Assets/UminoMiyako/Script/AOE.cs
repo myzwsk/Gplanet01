@@ -5,6 +5,8 @@ public class AOE : MonoBehaviour
 {
     public float time = 1f;
     public GameObject AOEeffPre;
+    public GameObject Eff;
+
     private Vector3 startScale;
     private Vector3 endScale;
     private GameObject AOEeff;
@@ -54,6 +56,10 @@ public class AOE : MonoBehaviour
         if (isTouchingPlayer)
         {
             Debug.Log("プレイヤー死亡！");
+        }
+        if (Eff != null)
+        {
+            Instantiate(Eff, transform.position, Quaternion.identity);
         }
         Destroy(AOEeff);
         Destroy(gameObject);
