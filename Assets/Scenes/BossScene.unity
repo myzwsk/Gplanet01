@@ -2651,8 +2651,12 @@ MonoBehaviour:
   - {fileID: 1929907922}
   - {fileID: 740925922}
   Effect:
-  - {fileID: 1808759447}
-  - {fileID: 176822597162087251, guid: 46009f57772e5e743bec9df57a49ed66, type: 3}
+  - EffEarlyTime: 0
+    EffPrefab: {fileID: 1808759447}
+  - EffEarlyTime: 1
+    EffPrefab: {fileID: 8378648546881499446, guid: 867c572a5be680d42a042d2349f10143, type: 3}
+  - EffEarlyTime: 0
+    EffPrefab: {fileID: 0}
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
