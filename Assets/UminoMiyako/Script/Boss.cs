@@ -128,7 +128,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (go)
+       /* if (go)
         {
             // 1. 全部 true ならリセット
             bool allTrue = true;
@@ -562,26 +562,19 @@ public class Boss : MonoBehaviour
         StopAllAttackCoroutines();
         go = true;
     }
-
-    public void StopAllAttackCoroutines()
+    private IEnumerator ComboI()
     {
-        // 親コルーチンを止める
-        if (currentCombo != null)
-        {
-            StopCoroutine(currentCombo);
-            currentCombo = null;
-        }
+        StartCoroutine(Cast("みやざわ", 2));
+        yield return new WaitForSeconds(2);
 
-        // 子コルーチンを全部止める
-        foreach (var c in runcoro)
-        {
-            if (c != null)
-                StopCoroutine(c);
-        }
+        Coroutine c1 = StartCoroutine(AttackHrizon(0.5f, 14, 0));
+        runcoro.Add(c1);
 
-        // リストをクリア
-        runcoro.Clear();
+        StopAllAttackCoroutines();
+        go = true;
     }
+
+    //ReField()
 
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1684,5 +1677,24 @@ public class Boss : MonoBehaviour
         slider.value = 0f;
         text.text = "のん";
 
+    }
+    public void StopAllAttackCoroutines()
+    {
+        // 親コルーチンを止める
+        if (currentCombo != null)
+        {
+            StopCoroutine(currentCombo);
+            currentCombo = null;
+        }
+
+        // 子コルーチンを全部止める
+        foreach (var c in runcoro)
+        {
+            if (c != null)
+                StopCoroutine(c);
+        }
+
+        // リストをクリア
+        runcoro.Clear();
     }
 }
