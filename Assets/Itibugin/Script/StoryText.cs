@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StoryText : MonoBehaviour
 {
@@ -9,12 +10,18 @@ public class StoryText : MonoBehaviour
     public string[] lines;
 
     public float speed = 600f;
-
+    
+    bool finished = false;
     Vector2 startPos = new Vector2(1200, -300);
     Vector2 targetPos = new Vector2(0, -300);
 
     int index = 0;
     bool isMoving = false;
+
+    // ★追加
+    public Image backgroundImage;
+    public StoryText storyText;
+    public Sprite lastBackground; // 箱を閉じた画像
 
     void Start()
     {
@@ -23,7 +30,6 @@ public class StoryText : MonoBehaviour
 
     void Update()
     {
-        // テキスト移動
         if (isMoving)
         {
             textUI.rectTransform.anchoredPosition =
@@ -41,7 +47,6 @@ public class StoryText : MonoBehaviour
             }
         }
 
-        // クリックで次へ
         if (!isMoving && Input.GetMouseButtonDown(0))
         {
             ShowNextLine();
@@ -50,7 +55,15 @@ public class StoryText : MonoBehaviour
 
     void ShowNextLine()
     {
-        if (index >= lines.Length) return;
+        if (index >= lines.Length)
+        {
+            if (!finished)
+            {
+                finished = true;
+               StoryText.ChangeBackground(lastBackground);
+            }
+            return;
+        }
 
         textUI.text = lines[index];
         textUI.rectTransform.anchoredPosition = startPos;
