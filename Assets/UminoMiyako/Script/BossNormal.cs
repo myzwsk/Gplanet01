@@ -65,94 +65,96 @@ public class BossNormal : MonoBehaviour
     {
         Effect[0] = null;
         bosshp = GetComponent<BossHp>();
-        /*Nfunc.Add(new AttackCoro
+        Nfunc.Add(new AttackCoro
         {
-            cast = "1けし",
-            casttime = 1f,
-            time = 3f,
             flag = false,
-            func = () => Attack1Field(1, 2)
+            func = () => NComboA()
         });
         Nfunc.Add(new AttackCoro
         {
-            cast = "ついび",
-            casttime = 1f,
-            time = 7f,
             flag = false,
-            func = () => AttackLockOn(1,2,3)
+            func = () => NComboB()
         });
         Nfunc.Add(new AttackCoro
         {
-            cast = "バーティカル",
-            casttime = 1f,
-            time = 5.5f,
             flag = false,
-            func = () => AttackVirtical(0.5f,5)
+            func = () => NComboC()
         });
         Nfunc.Add(new AttackCoro
         {
-            cast = "ホライゾン",
-            casttime = 1f,
-            time = 5.5f,
             flag = false,
-            func = () => AttackHrizon(0.5f, 5)
+            func = () => NComboD()
         });
         Nfunc.Add(new AttackCoro
         {
-            cast = "バー",
-            casttime = 1f,
-            time = 5f,
             flag = false,
-            func = () => AttackBar(0)
+            func = () => NComboE()
         });
         Nfunc.Add(new AttackCoro
         {
-            cast = "ぐるぐる",
-            casttime = 1f,
-            time = 12f,
             flag = false,
-            func = () => AttackStick(2, 10)
+            func = () => NComboF()
         });
         Nfunc.Add(new AttackCoro
         {
-            cast = "そとがわ",
-            casttime = 2f,
-            time = 7f,
             flag = false,
-            func = () => AttackOut(2, 5)
+            func = () => NComboG()
         });
         Nfunc.Add(new AttackCoro
         {
-            cast = "そとがわ",
-            casttime = 2f,
-            time = 7f,
             flag = false,
-            func = () => AttackOut(2, 5)
+            func = () => NComboH()
         });
         Nfunc.Add(new AttackCoro
         {
-            cast = "うちがわ",
-            casttime = 2f,
-            time = 7f,
             flag = false,
-            func = () => AttackIn(2, 5)
+            func = () => NComboI()
         });
         Nfunc.Add(new AttackCoro
         {
-            cast = "レフトサイド",
-            casttime = 2f,
-            time = 7f,
             flag = false,
-            func = () => Attack8Field(2, 5, 3)
+            func = () => NComboJ()
         });
-        Nfunc.Add(new AttackCoro
+        G2func.Add(new AttackCoro
         {
-            cast = "ライトサイド",
-            casttime = 2f,
-            time = 7f,
             flag = false,
-            func = () => Attack8Field(2, 5, 2)
-        });*/
+            func = () => G2ComboA()
+        });
+        G2func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G2ComboB()
+        });
+        G2func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G2ComboC()
+        });
+        G2func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G2ComboD()
+        });
+        G2func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G2ComboE()
+        });
+        G2func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G2ComboF()
+        });
+        G2func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G2ComboG()
+        });
+        G2func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G2ComboH()
+        });
         Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
         Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
         Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス,7.全消し");
@@ -202,6 +204,70 @@ public class BossNormal : MonoBehaviour
                     }
                     currentCombo = StartCoroutine(Nfunc[r].func());
                     Nfunc[r].flag = true;
+                    go = false;
+                }
+                break;
+            case BossHp.State.gear2:
+                if (go)
+                {
+                    // 1. 全部 true ならリセット
+                    bool allTrue = true;
+                    for (int i = 0; i < G2func.Count; i++)
+                    {
+                        if (!G2func[i].flag)
+                        {
+                            allTrue = false;
+                            break;
+                        }
+                    }
+                    if (allTrue)
+                    {
+                        for (int i = 0; i < G2func.Count; i++)
+                        {
+                            var tmp = G2func[i];
+                            tmp.flag = false;
+                            G2func[i] = tmp;
+                        }
+                    }
+                    int r = Random.Range(0, G2func.Count);
+                    while (G2func[r].flag)
+                    {
+                        r = Random.Range(0, G2func.Count);
+                    }
+                    currentCombo = StartCoroutine(G2func[r].func());
+                    G2func[r].flag = true;
+                    go = false;
+                }
+                break;
+            case BossHp.State.gear3:
+                if (go)
+                {
+                    // 1. 全部 true ならリセット
+                    bool allTrue = true;
+                    for (int i = 0; i < G3func.Count; i++)
+                    {
+                        if (!G3func[i].flag)
+                        {
+                            allTrue = false;
+                            break;
+                        }
+                    }
+                    if (allTrue)
+                    {
+                        for (int i = 0; i < G3func.Count; i++)
+                        {
+                            var tmp = G3func[i];
+                            tmp.flag = false;
+                            G3func[i] = tmp;
+                        }
+                    }
+                    int r = Random.Range(0, G3func.Count);
+                    while (G3func[r].flag)
+                    {
+                        r = Random.Range(0, G3func.Count);
+                    }
+                    currentCombo = StartCoroutine(G3func[r].func());
+                    G3func[r].flag = true;
                     go = false;
                 }
                 break;
@@ -313,35 +379,255 @@ public class BossNormal : MonoBehaviour
         }
         
     }
-    //normal用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
+    //gear2用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator ComboH()
+    private IEnumerator G3ComboA()
     {
-        StartCoroutine(Cast("みきわめ", 2));
-        yield return new WaitForSeconds(2);
-        Coroutine c1 = StartCoroutine(AttackHrizon(0.5f, 14, 0));
+        StartCoroutine(Cast("うちがわからタマ", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackShotIn(3, 10));
         runcoro.Add(c1);
-        Coroutine c2 = StartCoroutine(AttackVirtical(0.5f, 14, 0));
-        runcoro.Add(c2);
-        yield return new WaitForSeconds(8);
-
-        Coroutine c3 = StartCoroutine(AttackHrizon(0.5f, 14, 1));
-        runcoro.Add(c3);
-        Coroutine c4 = StartCoroutine(AttackVirtical(0.5f, 14, 1));
-        runcoro.Add(c4);
-        yield return new WaitForSeconds(8);
-
-        Coroutine c5 = StartCoroutine(AttackHrizon(0.5f, 14, 2));
-        runcoro.Add(c5);
-        Coroutine c6 = StartCoroutine(AttackVirtical(0.5f, 14, 2));
-        runcoro.Add(c6);
-        yield return new WaitForSeconds(16);
+        yield return new WaitForSeconds(14);
         StopAllAttackCoroutines();
         go = true;
     }
 
+    //gear2用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    private IEnumerator G2ComboA()
+    {
+        StartCoroutine(Cast("うちがわからタマ", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackShotIn(3, 10));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(14);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G2ComboB()
+    {
+        StartCoroutine(Cast("タイミング", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackAllBreak(3, 0.7f));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(5);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G2ComboC()
+    {
+        StartCoroutine(Cast("ステルス", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackStealth(3, 5));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(9);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G2ComboD()
+    {
+        StartCoroutine(Cast("バー", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackBar(1));
+        runcoro.Add(c1);
+        Coroutine c2 = StartCoroutine(AttackBar(3));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(2);
+        StartCoroutine(Cast("ついび", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c3 = StartCoroutine(AttackLockOn(2, 1, 3));
+        runcoro.Add(c3);
+        yield return new WaitForSeconds(2);
+        Coroutine c4 = StartCoroutine(AttackBar(2));
+        runcoro.Add(c4);
+        Coroutine c5 = StartCoroutine(AttackBar(4));
+        runcoro.Add(c5);
+        yield return new WaitForSeconds(3);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G2ComboE()
+    {
+        StartCoroutine(Cast("ぐるぐる", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackStick(2, 10));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(5);
+        StartCoroutine(Cast("レフトサイド", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c2 = StartCoroutine(Attack8Field(3, 5, 3));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G2ComboF()
+    {
+        StartCoroutine(Cast("ぐるぐる", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackStick(2, 10));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(5);
+        StartCoroutine(Cast("ライトサイド", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c2 = StartCoroutine(Attack8Field(3, 5, 2));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G2ComboG()
+    {
+        StartCoroutine(Cast("そとがわ", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackOut(2, 10));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(3);
+        StartCoroutine(Cast("ぐるぐる", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c2 = StartCoroutine(AttackStick(2, 5));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(8);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G2ComboH()
+    {
+        StartCoroutine(Cast("うちがわ", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackIn(2, 10));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(3);
+        StartCoroutine(Cast("ついび", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c2 = StartCoroutine(AttackLockOn(2, 2, 2));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(8);
+        StopAllAttackCoroutines();
+        go = true;
+    }
 
+    //normal用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    private IEnumerator NComboA()
+    {
+        StartCoroutine(Cast("エリアけすよ", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(Attack1Field(2, 100));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(2);
+        Coroutine c2 = StartCoroutine(Attack1Field(2, 100));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(2);
+        Coroutine c3 = StartCoroutine(Attack1Field(2, 100));
+        runcoro.Add(c3);
+        yield return new WaitForSeconds(5);
+        ReField();
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator NComboB()
+    {
+        StartCoroutine(Cast("ついび", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackLockOn(2, 2, 3));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(13);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator NComboC()
+    {
+        StartCoroutine(Cast("バーティカル", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackVirtical(0.5f, 5,0));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(6);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator NComboD()
+    {
+        StartCoroutine(Cast("ホライゾン", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackHrizon(0.5f, 5, 0));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(6);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator NComboE()
+    {
+        StartCoroutine(Cast("バー", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackBar(1));
+        runcoro.Add(c1);
+        Coroutine c2 = StartCoroutine(AttackBar(3));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(4);
+        Coroutine c3 = StartCoroutine(AttackBar(2));
+        runcoro.Add(c3);
+        Coroutine c4 = StartCoroutine(AttackBar(4));
+        runcoro.Add(c4);
+        yield return new WaitForSeconds(6);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator NComboF()
+    {
+        StartCoroutine(Cast("ぐるぐる", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackStick(2, 10));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(15);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator NComboG()
+    {
+        StartCoroutine(Cast("そとがわ", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackOut(2, 5));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(8);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator NComboH()
+    {
+        StartCoroutine(Cast("うちがわ", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackIn(2, 5));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(8);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator NComboI()
+    {
+        StartCoroutine(Cast("レフトサイド", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(Attack8Field(2, 5, 3));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(8);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator NComboJ()
+    {
+        StartCoroutine(Cast("ライトサイド", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(Attack8Field(2, 5, 2));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(8);
+        StopAllAttackCoroutines();
+        go = true;
+    }
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //お化け--------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -547,7 +833,6 @@ public class BossNormal : MonoBehaviour
         // 回転終了後に消すなら
         Destroy(Bar);
     }
-
     //移動してくるバー----------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackBar(int value)
     {
