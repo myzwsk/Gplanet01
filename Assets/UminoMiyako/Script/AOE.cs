@@ -4,6 +4,7 @@ using UnityEngine;
 public class AOE : MonoBehaviour
 {
     public float time = 1f;
+    public float Efftime = 0;
     public GameObject AOEeffPre;
     public GameObject Eff;
 
@@ -11,6 +12,7 @@ public class AOE : MonoBehaviour
     private Vector3 endScale;
     private GameObject AOEeff;
     private bool isTouchingPlayer = false;
+    private bool EffFlag = false;
     private float count = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,6 +31,14 @@ public class AOE : MonoBehaviour
             count += Time.deltaTime;
             float t = count / time;
             AOEeff.transform.localScale = Vector3.Lerp(startScale, endScale, t);
+            if (count >= time - Efftime && EffFlag == false)
+            {
+                if (Eff != null)
+                {
+                    EffFlag = true;
+                    Instantiate(Eff, transform.position, Quaternion.identity);
+                }
+            }
         }
         else
         {
@@ -57,7 +67,7 @@ public class AOE : MonoBehaviour
         {
             Debug.Log("プレイヤー死亡！");
         }
-        if (Eff != null)
+        if (Eff != null&&EffFlag==false)
         {
             Instantiate(Eff, transform.position, Quaternion.identity);
         }
