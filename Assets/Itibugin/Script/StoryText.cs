@@ -60,7 +60,7 @@ public class StoryText : MonoBehaviour
             if (!finished)
             {
                 finished = true;
-               StoryText.ChangeBackground(lastBackground);
+               //StoryText.ChangeBackground(lastBackground);
             }
             return;
         }
