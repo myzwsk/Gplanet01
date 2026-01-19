@@ -171,6 +171,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2161829449307735734, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2357307127349287299, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3113639350540441454, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3593489370696155772, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761858960152293857, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865501961808365063, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677809097403940079, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500597359330413777, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947629378787554936, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754973183424320083, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -478,6 +518,10 @@ PrefabInstance:
     - target: {fileID: 176822597162087251, guid: 46009f57772e5e743bec9df57a49ed66, type: 3}
       propertyPath: m_Name
       value: Crystals crossfade
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215030772492927087, guid: 46009f57772e5e743bec9df57a49ed66, type: 3}
+      propertyPath: looping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8729863298076563650, guid: 46009f57772e5e743bec9df57a49ed66, type: 3}
       propertyPath: m_LocalPosition.x
@@ -877,7 +921,7 @@ Transform:
   m_GameObject: {fileID: 337736208}
   serializedVersion: 2
   m_LocalRotation: {x: -0.32479298, y: -0.29510468, z: 0.10760572, w: -0.8921008}
-  m_LocalPosition: {x: -6.082, y: 8.276, z: -4.367}
+  m_LocalPosition: {x: -19.02, y: 8.276, z: -4.367}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -986,7 +1030,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8018772970214966197, guid: 709b0bd6b0b625249a98409dd7a87343, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2090215081}
   m_SourcePrefab: {fileID: 100100000, guid: 709b0bd6b0b625249a98409dd7a87343, type: 3}
 --- !u!4 &537893704 stripped
 Transform:
@@ -3188,6 +3235,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 369384710366812295, guid: c4af6be39e87b634d9e26d8ce65b529b, type: 3}
   m_PrefabInstance: {fileID: 153111122}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2090215076 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8018772970214966197, guid: 709b0bd6b0b625249a98409dd7a87343, type: 3}
+  m_PrefabInstance: {fileID: 537893703}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2090215081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090215076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &2108829650
 GameObject:
   m_ObjectHideFlags: 0

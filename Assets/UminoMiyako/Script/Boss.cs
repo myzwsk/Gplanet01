@@ -33,7 +33,7 @@ public class Boss : MonoBehaviour
     public GameObject[] Field;
     public GameObject[] EffectField;
     public GameObject[] Canon;
-    public GameObject[] Effect;
+    public EffectClass[] Effect;
     public LayerMask targetLayerMask;
     public Slider slider;
     public TextMeshProUGUI text;
@@ -48,6 +48,12 @@ public class Boss : MonoBehaviour
         public bool fiOn;
         public GameObject fiPre;
         public BossField fiSc;
+    }
+    [System.Serializable]
+    public class EffectClass
+    {
+        public float EffEarlyTime;
+        public GameObject EffPrefab;
     }
     public List<AttackCoro> func = new List<AttackCoro>();
 
@@ -103,6 +109,11 @@ public class Boss : MonoBehaviour
             flag = false,
             func = () => ComboH()
         });
+        Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
+        Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
+        Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス,7.全消し");
+        Debug.Log("Pキー :\n1.四方に弾召喚,2.内側に弾召喚,3.お化け召喚");
+        Debug.Log("Oキー （コンボ）:\n1.,2.,3.,4.,5.,6.,7.,8.");
         for (int i = 0; i < 16; i++)
         {
             fi[i].fiOn = true;
@@ -147,37 +158,144 @@ public class Boss : MonoBehaviour
             func[r].flag = true;
             go = false;
         }*/
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.O))
         {
-            currentCombo = StartCoroutine(ComboA());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                currentCombo = StartCoroutine(ComboA());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                currentCombo = StartCoroutine(ComboB());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                currentCombo = StartCoroutine(ComboC());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                currentCombo = StartCoroutine(ComboD());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                currentCombo = StartCoroutine(ComboE());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                currentCombo = StartCoroutine(ComboF());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                currentCombo = StartCoroutine(ComboG());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                currentCombo = StartCoroutine(ComboH());
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            currentCombo = StartCoroutine(ComboB());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackThin(1));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(Attack1Field(1, 5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                StartCoroutine(Attack8Field(3, 5, 0));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                StartCoroutine(AttackLockOn(1, 1, 1));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                StartCoroutine(AttackVirtical(1, 5,0));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                StartCoroutine(AttackHrizon(1, 5,0));
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKey(KeyCode.RightShift))
         {
-            currentCombo = StartCoroutine(ComboC());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackOut(1, 5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(AttackIn(1, 5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                StartCoroutine(AttackStar(1));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                StartCoroutine(AttackStar2(1, 2, 1, 2));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                StartCoroutine(AttackSword(1, 1, 2, 2, 3));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                StartCoroutine(AttackSword2(1, 1, 3, 2, 5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                StartCoroutine(AttackSword3(1, 1, 2, 2, 5));
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
-            currentCombo = StartCoroutine(ComboD());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackPush(3));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(AttackPull(3));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                AttackDonut(3);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                StartCoroutine(AttackBar(0));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                StartCoroutine(AttackStick(2, 10));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                StartCoroutine(AttackStealth(1, 5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                StartCoroutine(AttackAllBreak(1, 1));
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKey(KeyCode.P))
         {
-            currentCombo = StartCoroutine(ComboE());
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            currentCombo = StartCoroutine(ComboF());
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            currentCombo = StartCoroutine(ComboG());
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            currentCombo = StartCoroutine(ComboH());
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                StartCoroutine(AttackShot4(5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                StartCoroutine(AttackShotIn(1, 5));
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                StartCoroutine(AttackGhost(3, 15));
+            }
         }
     }
     //コンボ用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1505,7 +1623,8 @@ public class Boss : MonoBehaviour
             spawnPrefab=Instantiate(prefab, hit.point, finalRotation);
             if (Effect[EffectNumber] != null)
             {
-                spawnPrefab.GetComponent<AOE>().Eff = Effect[EffectNumber];
+                spawnPrefab.GetComponent<AOE>().Efftime = Effect[EffectNumber].EffEarlyTime;
+                spawnPrefab.GetComponent<AOE>().Eff = Effect[EffectNumber].EffPrefab;
             }
             spawnPrefab.GetComponent<AOE>().time = t;
         }
