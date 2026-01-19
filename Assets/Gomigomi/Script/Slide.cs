@@ -9,6 +9,7 @@ public class Slide : MonoBehaviour
     public float Speed = 0;//回転スピード
 
     public bool Circular = false;//円移動ならｔ
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,21 +34,21 @@ public class Slide : MonoBehaviour
         }
 
     }
+    // プレイヤーが乗ったとき
     void OnCollisionEnter(Collision collision)
     {
-       
         if (collision.gameObject.CompareTag("Player"))
         {
-            // プレイヤーの親をこの「動く床」に設定する
-            collision.transform.SetParent(transform);
+            // 第2引数に true を入れることで、見た目の大きさを維持したまま親子になれます
+            collision.transform.SetParent(transform, true);
         }
     }
 
+    // プレイヤーが離れたとき
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // 親子関係を解消する
             collision.transform.SetParent(null);
         }
     }
