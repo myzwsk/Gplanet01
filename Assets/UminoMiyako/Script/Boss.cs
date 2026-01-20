@@ -192,6 +192,14 @@ public class Boss : MonoBehaviour
             {
                 currentCombo = StartCoroutine(ComboH());
             }
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                currentCombo = StartCoroutine(ComboI());
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                currentCombo = StartCoroutine(ComboJ());
+            }
         }
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -566,16 +574,81 @@ public class Boss : MonoBehaviour
     {
         StartCoroutine(Cast("みやざわ", 2));
         yield return new WaitForSeconds(2);
-
-        Coroutine c1 = StartCoroutine(AttackHrizon(0.5f, 14, 0));
+        Coroutine c1 = StartCoroutine(AttackStealth(1, 8));
         runcoro.Add(c1);
-
+        yield return new WaitForSeconds(1);
+        StartCoroutine(Cast("みきわめ", 3));
+        Coroutine c2 = StartCoroutine(AttackVirtical(1, 2, 0));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(1.5f);
+        StartCoroutine(Cast("みきわめ", 4.5f));
+        Coroutine c3 = StartCoroutine(AttackVirtical(1, 3.5f, 1));
+        runcoro.Add(c3);
+        yield return new WaitForSeconds(4);
+        StartCoroutine(Cast("おしだし", 2));
+        Coroutine c4 = StartCoroutine(AttackPush(2));
+        runcoro.Add(c4);
+        yield return new WaitForSeconds(2);
+        StartCoroutine(Cast("そとけし", 1.5f));
+        Coroutine c5 = StartCoroutine(AttackOut(1.5f, 1));
+        runcoro.Add(c5);
+        yield return new WaitForSeconds(1);
+        StartCoroutine(Cast("ひきよせ", 3));
+        Coroutine c6 = StartCoroutine(AttackPull(3));
+        runcoro.Add(c6);
+        yield return new WaitForSeconds(5);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator ComboJ()
+    {
+        StartCoroutine(Cast("みやざわわ", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackOut(1, 5));
+        runcoro.Add(c1);
+        StartCoroutine(Cast("ロックばー", 2));
+        yield return new WaitForSeconds(1);
+        Coroutine c2 = StartCoroutine(AttackLockOn(1, 1.5f, 4));
+        runcoro.Add(c2);
+        Coroutine c3 = StartCoroutine(AttackBar(1));
+        runcoro.Add(c3);
+        yield return new WaitForSeconds(1);
+        Coroutine c4 = StartCoroutine(AttackBar(2));
+        runcoro.Add(c4);
+        yield return new WaitForSeconds(1);
+        Coroutine c5 = StartCoroutine(AttackBar(4));
+        runcoro.Add(c5);
+        yield return new WaitForSeconds(1);
+        Coroutine c6 = StartCoroutine(AttackBar(3));
+        runcoro.Add(c6);
+        yield return new WaitForSeconds(3);
+        StartCoroutine(Cast("だんまく", 2));
+        Coroutine c7 = StartCoroutine(AttackShotIn(1.5f, 10));
+        runcoro.Add(c7);
+        yield return new WaitForSeconds(2);
+        StartCoroutine(Cast("ぜんけし", 1));
+        Coroutine c8 = StartCoroutine(AttackAllBreak(1, 0.8f));
+        runcoro.Add(c8);
+        yield return new WaitForSeconds(2);
+        StartCoroutine(Cast("ぜんけし", 1));
+        Coroutine c9 = StartCoroutine(AttackAllBreak(1, 1));
+        runcoro.Add(c9);
+        yield return new WaitForSeconds(1);
+        StartCoroutine(Cast("はんめんはかい", 1));
+        Coroutine c10 = StartCoroutine(AttackThin(1));
+        runcoro.Add(c10);
+        yield return new WaitForSeconds(1);
+        Coroutine c11 = StartCoroutine(Attack8Field(3, 5, 0));
+        runcoro.Add(c11);
+        yield return new WaitForSeconds(10);
+        ReField();
         StopAllAttackCoroutines();
         go = true;
     }
 
     //ReField()
-
+    //Coroutine c = ;
+    //runcoro.Add(c);
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -13,8 +13,9 @@ public class SmoothFollowCamera : MonoBehaviour
     public float lookHeight = 2.2f;
 
     [Header("Vertical Clamp")]
-    public float minPitch = -20f; 
-    public float maxPitch = 40f;  
+    public float minPitch = -20f; // 下を見る限界
+    public float maxPitch = 40f;  // 上を見る限界
+
     float currentYaw;
     float currentPitch;
 
