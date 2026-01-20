@@ -4,24 +4,30 @@ using UnityEngine.UI;
 
 public class StoryText : MonoBehaviour
 {
+    [Header("Text")]
     public TextMeshProUGUI textUI;
-
-    [TextArea(2, 4)]
+    [Header("Story")]
+    [TextArea(2, 5)]
     public string[] lines;
+    public Sprite[] backgrounds;
+    [Header("Move")]
+    public float speed = 300f;
+    public Vector2 startPos = new Vector2(-800, 0);
+    public float stopX = 0f;
+    [Header("Fade Settings")]
+    public int[] fadeLines; // フェードさせたい行番号（0始まり）
 
-    public float speed = 600f;
-    
-    bool finished = false;
-    Vector2 startPos = new Vector2(1200, -300);
-    Vector2 targetPos = new Vector2(0, -300);
+    [Header("Background Change (Last Line)")]
+    public BackGround backGround;
+    public Sprite lastBackground;
+    [Header("Background Change Timing")]
+    public int changeAtLine = 3; // ← ここで指定（0始まり）
+    [Header("End Scene")]
+    public Screenfade screenfade;
 
     int index = 0;
     bool isMoving = false;
-
-    // ★追加
-    public Image backgroundImage;
-    public StoryText storyText;
-    public Sprite lastBackground; // 箱を閉じた画像
+    bool finished = false;
 
     void Start()
     {
@@ -30,25 +36,22 @@ public class StoryText : MonoBehaviour
 
     void Update()
     {
+        // テキスト移動
         if (isMoving)
         {
-            textUI.rectTransform.anchoredPosition =
-                Vector2.MoveTowards(
-                    textUI.rectTransform.anchoredPosition,
-                    targetPos,
-                    speed * Time.deltaTime
-                );
+            textUI.rectTransform.anchoredPosition +=
+                Vector2.right * speed * Time.deltaTime;
 
-            if (Vector2.Distance(
-                textUI.rectTransform.anchoredPosition,
-                targetPos) < 1f)
+            if (textUI.rectTransform.anchoredPosition.x >= stopX)
             {
                 isMoving = false;
             }
         }
 
-        if (!isMoving && Input.GetMouseButtonDown(0))
+        // クリックで次へ
+        if (Input.GetMouseButtonDown(0))
         {
+            if (isMoving || finished) return;
             ShowNextLine();
         }
     }
@@ -57,18 +60,50 @@ public class StoryText : MonoBehaviour
     {
         if (index >= lines.Length)
         {
-            if (!finished)
+            finished = true;
+
+            // ★ 最後までいったら画面フェードアウト
+            if (screenfade != null)
             {
-                finished = true;
-               //StoryText.ChangeBackground(lastBackground);
+                screenfade.FadeOutAndLoad();
             }
+
             return;
         }
 
         textUI.text = lines[index];
         textUI.rectTransform.anchoredPosition = startPos;
 
+        if (backGround != null)
+        {
+            // ★ 指定Lineで lastBackground に変更
+            if (index == changeAtLine && lastBackground != null)
+            {
+                backGround.ChangeBackground(lastBackground);
+            }
+            // ★ 通常背景
+            else if (backgrounds != null &&
+                     index < backgrounds.Length &&
+                     backgrounds[index] != null)
+            {
+                if (ShouldFade(index))
+                    backGround.ChangeBackground(backgrounds[index]);
+                else
+                    backGround.ChangeBackgroundImmediate(backgrounds[index]);
+            }
+        }
+
         index++;
         isMoving = true;
+    }
+    bool ShouldFade(int lineIndex)
+    {
+        if (fadeLines == null) return false;
+
+        foreach (int i in fadeLines)
+        {
+            if (i == lineIndex) return true;
+        }
+        return false;
     }
 }
