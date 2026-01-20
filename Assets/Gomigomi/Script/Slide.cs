@@ -2,6 +2,8 @@
 
 public class Slide : MonoBehaviour
 {
+    public Vector3 moveAmount;
+    private Vector3 lastPosition;
     private Vector3 initialPosition;
     public float sX=0;
     public float sY=0;
@@ -14,6 +16,7 @@ public class Slide : MonoBehaviour
     void Start()
     {
         initialPosition = transform.position;
+        lastPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -32,24 +35,7 @@ public class Slide : MonoBehaviour
             transform.position = new Vector3(Mathf.Sin(Time.time) * sX + initialPosition.x, Mathf.Sin(Time.time) * sY + initialPosition.y, Mathf.Sin(Time.time) * sZ + initialPosition.z);
 
         }
-
-    }
-    // プレイヤーが乗ったとき
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // 第2引数に true を入れることで、見た目の大きさを維持したまま親子になれます
-            collision.transform.SetParent(transform, true);
-        }
-    }
-
-    // プレイヤーが離れたとき
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.transform.SetParent(null);
-        }
+        moveAmount = transform.position - lastPosition; 
+        lastPosition = transform.position;
     }
 }
