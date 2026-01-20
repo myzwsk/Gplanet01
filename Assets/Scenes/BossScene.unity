@@ -2652,9 +2652,9 @@ MonoBehaviour:
   - {fileID: 740925922}
   Effect:
   - EffEarlyTime: 0
-    EffPrefab: {fileID: 0}
-  - EffEarlyTime: 0
-    EffPrefab: {fileID: 0}
+    EffPrefab: {fileID: 1483746304}
+  - EffEarlyTime: 1
+    EffPrefab: {fileID: 8378648546881499446, guid: 867c572a5be680d42a042d2349f10143, type: 3}
   - EffEarlyTime: 0
     EffPrefab: {fileID: 0}
   targetLayerMask:
@@ -2743,7 +2743,13 @@ MonoBehaviour:
   Canon:
   - {fileID: 1929907922}
   - {fileID: 740925922}
-  Effect: []
+  Effect:
+  - EffEarlyTime: 0
+    EffPrefab: {fileID: 1483746304}
+  - EffEarlyTime: 1
+    EffPrefab: {fileID: 8378648546881499446, guid: 867c572a5be680d42a042d2349f10143, type: 3}
+  - EffEarlyTime: 0
+    EffPrefab: {fileID: 0}
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -4026,6 +4032,11 @@ PrefabInstance:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 673589348195466076, guid: 623ad173f0612ec40ab7769f5c8c4ec2, type: 3}
   m_PrefabInstance: {fileID: 1529295765}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1483746304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1407444084511628761, guid: efe899177400f0f4cb2efff008c20816, type: 3}
+  m_PrefabInstance: {fileID: 618809303}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1508032261
 GameObject:

@@ -32,7 +32,7 @@ public class BossNormal : MonoBehaviour
     public GameObject[] Field;
     public GameObject[] EffectField;
     public GameObject[] Canon;
-    public GameObject[] Effect;
+    public EffectClass[] Effect;
     public LayerMask targetLayerMask;
     public Slider slider;
     public TextMeshProUGUI text;
@@ -47,6 +47,12 @@ public class BossNormal : MonoBehaviour
         public bool fiOn;
         public GameObject fiPre;
         public BossField fiSc;
+    }
+    [System.Serializable]
+    public class EffectClass
+    {
+        public float EffEarlyTime;
+        public GameObject EffPrefab;
     }
     public List<AttackCoro> Nfunc = new List<AttackCoro>();
     public List<AttackCoro> G2func = new List<AttackCoro>();
@@ -437,14 +443,14 @@ public class BossNormal : MonoBehaviour
         yield return new WaitForSeconds(2);
         StartCoroutine(Cast("ついび", 2));
         yield return new WaitForSeconds(2);
-        Coroutine c3 = StartCoroutine(AttackLockOn(2, 1, 3));
+        Coroutine c3 = StartCoroutine(AttackLockOn(2, 2, 3));
         runcoro.Add(c3);
         yield return new WaitForSeconds(2);
         Coroutine c4 = StartCoroutine(AttackBar(2));
         runcoro.Add(c4);
         Coroutine c5 = StartCoroutine(AttackBar(4));
         runcoro.Add(c5);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
         StopAllAttackCoroutines();
         go = true;
     }
@@ -1554,7 +1560,7 @@ public class BossNormal : MonoBehaviour
             startPos = obj.transform.position;
         }
         startPos.y = 50;
-        Attack(startPos, AOECircle, 0,st, 0);
+        Attack(startPos, AOECircle, 0,st, 1);
     }
     //外から内　内から外--------------------------------------------------------------------------------------------------
     private IEnumerator AttackThin(float st)
@@ -1641,7 +1647,8 @@ public class BossNormal : MonoBehaviour
             spawnPrefab = Instantiate(prefab, hit.point, finalRotation);
             if (Effect[EffectNumber] != null)
             {
-                spawnPrefab.GetComponent<AOE>().Eff = Effect[EffectNumber];
+                spawnPrefab.GetComponent<AOE>().Efftime = Effect[EffectNumber].EffEarlyTime;
+                spawnPrefab.GetComponent<AOE>().Eff = Effect[EffectNumber].EffPrefab;
             }
             spawnPrefab.GetComponent<AOE>().time = t;
         }
