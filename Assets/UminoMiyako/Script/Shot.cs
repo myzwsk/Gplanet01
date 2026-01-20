@@ -22,7 +22,8 @@ public class Shot: MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("プレイヤー死亡");
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        
     }
 }
