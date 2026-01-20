@@ -28,7 +28,8 @@ public class StoryText : MonoBehaviour
     int index = 0;
     bool isMoving = false;
     bool finished = false;
-
+    bool inputLocked = false;
+    bool waitingForFade = false;
     void Start()
     {
         ShowNextLine();
@@ -36,6 +37,8 @@ public class StoryText : MonoBehaviour
 
     void Update()
     {
+        if (inputLocked) return;
+
         // テキスト移動
         if (isMoving)
         {
@@ -43,45 +46,46 @@ public class StoryText : MonoBehaviour
                 Vector2.right * speed * Time.deltaTime;
 
             if (textUI.rectTransform.anchoredPosition.x >= stopX)
-            {
                 isMoving = false;
-            }
         }
 
-        // クリックで次へ
+        // クリック
         if (Input.GetMouseButtonDown(0))
         {
-            if (isMoving || finished) return;
+            if (isMoving) return;
+
+            // ★ すでに最後を表示し終わっていたらフェード
+            if (index >= lines.Length)
+            {
+                inputLocked = true;
+
+                if (screenfade != null)
+                    screenfade.FadeOutAndLoad();
+
+                return;
+            }
+
             ShowNextLine();
         }
     }
 
     void ShowNextLine()
     {
-        if (index >= lines.Length)
-        {
-            finished = true;
+        // ★ すでにフェード開始してたら何もしない
+        if (waitingForFade) return;
 
-            // ★ 最後までいったら画面フェードアウト
-            if (screenfade != null)
-            {
-                screenfade.FadeOutAndLoad();
-            }
-
-            return;
-        }
-
+        // ★ これから表示する行が「最後」
+        bool isLastLine = (index == lines.Length - 1);
         textUI.text = lines[index];
         textUI.rectTransform.anchoredPosition = startPos;
 
+        // 背景
         if (backGround != null)
         {
-            // ★ 指定Lineで lastBackground に変更
             if (index == changeAtLine && lastBackground != null)
             {
                 backGround.ChangeBackground(lastBackground);
             }
-            // ★ 通常背景
             else if (backgrounds != null &&
                      index < backgrounds.Length &&
                      backgrounds[index] != null)
