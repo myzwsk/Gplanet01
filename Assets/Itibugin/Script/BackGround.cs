@@ -12,7 +12,12 @@ public class BackGround : MonoBehaviour
     {
         StartCoroutine(FadeRoutine(nextSprite));
     }
-
+    public void ChangeBackgroundImmediate(Sprite newSprite)
+    {
+        StopAllCoroutines();
+        bgImage.color = new Color(1, 1, 1, 1);
+        bgImage.sprite = newSprite;
+    }
     IEnumerator FadeRoutine(Sprite next)
     {
         // フェードアウト
