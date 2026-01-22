@@ -36,8 +36,8 @@ public class BossNormal : MonoBehaviour
     public LayerMask targetLayerMask;
     public Slider slider;
     public TextMeshProUGUI text;
+    public bool go = false;
 
-    private bool go = true;
     private float cooldown = 0;
     private BossHp bosshp;
     private field[] fi = new field[16];
@@ -66,6 +66,7 @@ public class BossNormal : MonoBehaviour
     }
     private Coroutine currentCombo = default(Coroutine);
     private List<Coroutine> runcoro = new List<Coroutine>();
+    private List<GameObject> objList= new List<GameObject>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -305,6 +306,7 @@ public class BossNormal : MonoBehaviour
             {
                 StartCoroutine(AttackHrizon(1,5,0));
             }
+            
         }
         if (Input.GetKey(KeyCode.RightShift))
         {
@@ -385,7 +387,7 @@ public class BossNormal : MonoBehaviour
         }
         
     }
-    //gear2用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
+    //gear3用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator G3ComboA()
@@ -662,6 +664,7 @@ public class BossNormal : MonoBehaviour
         for(int i = 0; i < ghost.Length; i++)
         {
             ghost[i] = Instantiate(Ghost, startPos[i], Quaternion.Euler(0, ghostlota[i], 0));
+            objList.Add(ghost[i]);
             ghostSc[i] = ghost[i].GetComponent<Ghost>();
             ghostSc[i].Speed = speed[i];
             if (i <= 4) { ghostSc[i].Circular = true; }
@@ -675,6 +678,7 @@ public class BossNormal : MonoBehaviour
         yield return new WaitForSeconds(et);
         for (int i = 0; i < ghost.Length;i++)
         {
+            objList.Remove(ghost[i]);
             Destroy(ghost[i]);
         }
     }
@@ -696,7 +700,9 @@ public class BossNormal : MonoBehaviour
         GameObject shooter = default;
         startPos = new Vector3(0f, 2f, 0f);
         shooter = Instantiate(Shooter, startPos, Quaternion.identity);
+        objList.Add(shooter);
         yield return new WaitForSeconds(et);
+        objList.Remove(shooter);
         Destroy(shooter);
         ReField();
     }
@@ -715,13 +721,36 @@ public class BossNormal : MonoBehaviour
         for(int i = 0; i < 4; i++)
         {
             shooter[i] = Instantiate(Shooter, startPos[i], Quaternion.identity);
+            objList.Add(shooter[i]);
         }
         yield return new WaitForSeconds(et);
         for(int i = 0; i < 4; i++)
         {
+            objList.Remove(shooter[i]);
             Destroy(shooter[i]);
         }
         CanonOn();
+    }
+    //砲を消さずに弾をいっぱい召喚---------------------------------------------------------------------------------------------------------------------------------------
+    private IEnumerator AttackShot2(float et)
+    {
+        GameObject[] shooter = new GameObject[4];
+        Vector3[] startPos = new Vector3[]
+        {
+            new Vector3(0f, 2f, 13f),
+            new Vector3(0f, 2f, -13f)
+        };
+        for (int i = 0; i < 2; i++)
+        {
+            shooter[i] = Instantiate(Shooter, startPos[i], Quaternion.identity);
+            objList.Add(shooter[i]);
+        }
+        yield return new WaitForSeconds(et);
+        for (int i = 0; i < 2; i++)
+        {
+            objList.Remove(shooter[i]);
+            Destroy(shooter[i]);
+        }
     }
     //床全消し--------------------------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackAllBreak(float st,float et)
@@ -824,7 +853,7 @@ public class BossNormal : MonoBehaviour
         Attack(startPos, AOEThin, 0,st, 0);
         yield return new WaitForSeconds(st);
         GameObject Bar = Instantiate(BLOCKBarLong, startPos, Quaternion.identity);
-
+        objList.Add(Bar);
         float duration = et;      // 回転させる時間（秒）
         float elapsed = 0f;       // 経過時間
 
@@ -835,7 +864,7 @@ public class BossNormal : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;    // 次のフレームまで待つ
         }
-
+        objList.Remove(Bar);
         // 回転終了後に消すなら
         Destroy(Bar);
     }
@@ -873,6 +902,7 @@ public class BossNormal : MonoBehaviour
                 Bar = Instantiate(BLOCKBar, startPos, Quaternion.Euler(0, 90, 0));
                 break;
         }
+        objList.Add(Bar);
         while (elapsed<time)
         {
             float t = elapsed / time;
@@ -881,6 +911,7 @@ public class BossNormal : MonoBehaviour
             yield return null;
         }
         Bar.transform.position = endPos;
+        objList.Remove(Bar);
         Destroy(Bar);
     }
     //ドーナッツ範囲------------------------------------------------------------------------------------------------------------------------------
@@ -1104,12 +1135,16 @@ public class BossNormal : MonoBehaviour
                 Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j],st2, 0);
             }
         }
-
+        for (int i = 0; i < 4; i++)
+        {
+            objList.Add(sword[i]);
+        }
         //外周エリア再出現
         yield return new WaitForSeconds(et);
 
         for (int i = 0; i < 4; i++)
         {
+            objList.Remove(sword[i]);
             Destroy(sword[i]);
         }
         ReField();
@@ -1222,7 +1257,10 @@ public class BossNormal : MonoBehaviour
                 rand = next[Random.Range(0, 4)];
             }
         }
-        
+        for (int i = 0; i < 4; i++)
+        {
+            objList.Add(sword[i]);
+        }
         yield return new WaitForSeconds(let);
         for(int j = 0; j < 2; j++)
         {
@@ -1238,6 +1276,7 @@ public class BossNormal : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
+            objList.Remove(sword[i]);
             Destroy(sword[i]);
         }
         ReField();
@@ -1335,6 +1374,10 @@ public class BossNormal : MonoBehaviour
                 rota = 0;
                 break;
         }
+        for (int i = 0; i < 2; i++)
+        {
+            objList.Add(sword[i]);
+        }
         yield return new WaitForSeconds(let);
         for(int i = 0; i < 2; i++)
         {
@@ -1345,6 +1388,7 @@ public class BossNormal : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
+            objList.Remove(sword[i]);
             Destroy(sword[i]);
         }
         ReField();
@@ -1390,6 +1434,7 @@ public class BossNormal : MonoBehaviour
             float z = center.z + Mathf.Sin(angle) * 5;
             goPos = new Vector3(x, center.y, z);
             StarMana[i] = Instantiate(Star[i], goPos, Quaternion.identity);
+            objList.Add(StarMana[i]);
             StarSc[i] = StarMana[i].GetComponent<Star>();
             StarSc[i].angle = angle;
             if (startAngleDegrees > 180) startAngleDegrees -= 180;
@@ -1399,8 +1444,11 @@ public class BossNormal : MonoBehaviour
             StarMana[0] != null && StarMana[1] != null &&
                 Vector3.Distance(StarMana[0].transform.position, StarMana[1].transform.position) < 0.1f);
         goPos = StarMana[0].transform.position;
-        Destroy(StarMana[0]);
-        Destroy(StarMana[1]);
+        for(int i = 0; i < 2; i++)
+        {
+            objList.Remove(StarMana[i]);
+            Destroy(StarMana[i]);
+        }
         Attack(goPos, AOEBigCircle, 0,st2, 0);
         yield return new WaitForSeconds(et);
         if (FieldScript != null)
@@ -1427,6 +1475,7 @@ public class BossNormal : MonoBehaviour
             float z = center.z + Mathf.Sin(angle) * 5;
             goPos = new Vector3(x, center.y, z);
             StarMana[i]= Instantiate(Star[i], goPos, Quaternion.identity);
+            objList.Add(StarMana[i]);
             StarSc[i]=StarMana[i].GetComponent<Star>();
             StarSc[i].angle = angle;
             if (startAngleDegrees > 180) startAngleDegrees -= 180;
@@ -1436,8 +1485,11 @@ public class BossNormal : MonoBehaviour
             StarMana[0] != null && StarMana[1] != null &&
                 Vector3.Distance(StarMana[0].transform.position, StarMana[1].transform.position) < 0.1f);
         goPos = StarMana[0].transform.position;
-        Destroy(StarMana[0]);
-        Destroy(StarMana[1]);
+        for (int i = 0; i < 2; i++)
+        {
+            objList.Remove(StarMana[i]);
+            Destroy(StarMana[i]);
+        }
         Attack(goPos, AOEBigCircle, 0,st, 0);
     }
     //横の1列以外に攻撃--------------------------------------------------------------------------------------------------
@@ -1454,6 +1506,7 @@ public class BossNormal : MonoBehaviour
             {
                 goPos = new Vector3(startPos.x, startPos.y, startPos.z + (3 * i));
                 nail[i] = Instantiate(Nail, goPos, Quaternion.Euler(letPos));
+                objList.Add(nail[i]);
             }
         }
         yield return new WaitForSeconds(let);
@@ -1470,6 +1523,7 @@ public class BossNormal : MonoBehaviour
         {
             if (rand != i)
             {
+                objList.Remove(nail[i]);
                 Destroy(nail[i]);
             }
         }
@@ -1488,6 +1542,7 @@ public class BossNormal : MonoBehaviour
             {
                 goPos = new Vector3(startPos.x + (3 * i), startPos.y, startPos.z);
                 nail[i] = Instantiate(Nail, goPos, Quaternion.Euler(letPos));
+                objList.Add(nail[i]);
             }
         }
         yield return new WaitForSeconds(let);
@@ -1504,6 +1559,7 @@ public class BossNormal : MonoBehaviour
         {
             if (rand != i)
             {
+                objList.Remove(nail[i]);
                 Destroy(nail[i]);
             }
         }
@@ -1709,7 +1765,7 @@ public class BossNormal : MonoBehaviour
         text.text = "のん";
 
     }
-    public void StopAllAttackCoroutines()
+    private void StopAllAttackCoroutines()
     {
         // 親コルーチンを止める
         if (currentCombo != null)
@@ -1727,5 +1783,21 @@ public class BossNormal : MonoBehaviour
 
         // リストをクリア
         runcoro.Clear();
+    }
+    public void BossAttackAllReset()
+    {
+        StopAllAttackCoroutines();
+        for (int i = 0; i < 16; i++)
+        {
+            fi[i].fiSc.ObjectReStealth();
+        }
+        CanonOn();
+        foreach (var obj in objList)
+        {
+            if (obj != null)
+                Destroy(obj);
+        }
+        objList.Clear();
+        ReField();
     }
 }
