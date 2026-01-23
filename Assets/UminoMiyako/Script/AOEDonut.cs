@@ -2,6 +2,7 @@
 
 public class AOEDonut : MonoBehaviour
 {
+    public int damage = 1;
     public bool isHitCol1 = false;
     public bool isHitCol2 = false;
     public float time = 1f;
@@ -11,6 +12,7 @@ public class AOEDonut : MonoBehaviour
     private GameObject AOEeff;
     private bool isTouchingPlayer = false;
     private float count = 0;
+    private BattleMana hp;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,6 +20,7 @@ public class AOEDonut : MonoBehaviour
         endScale = transform.localScale;
         AOEeff = Instantiate(AOEeffPre, transform.position, transform.localRotation);
         AOEeff.transform.localScale = startScale;
+        hp = FindAnyObjectByType<BattleMana>();
     }
 
     // Update is called once per frame
@@ -40,6 +43,10 @@ public class AOEDonut : MonoBehaviour
 
         if (isHitCol1 && !isHitCol2)
         {
+            if (hp != null)
+            {
+                hp.PDamage(damage);
+            }
             Debug.Log("プレイヤー死亡！");
         }
         else

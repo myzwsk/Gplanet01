@@ -3,16 +3,20 @@
 public class Ghost : MonoBehaviour
 {
     private Vector3 initialPosition;
+    public int damage = 1;
     public float sX=0;
     public float sY=0;
     public float sZ=0;
     public float Speed = 0;//回転スピード
 
     public bool Circular = false;//円移動ならｔ
+
+    private BattleMana hp;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         initialPosition = transform.position;
+        hp = FindAnyObjectByType<BattleMana>();
     }
 
     // Update is called once per frame
@@ -38,6 +42,11 @@ public class Ghost : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("プレイヤー死亡");
+
+            if (hp != null)
+            {
+                hp.PDamage(damage);
+            }
         }
     }
 }

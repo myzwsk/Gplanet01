@@ -149,5 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc68414d2e6fb5d449d04dfb61e97339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 5
   time: 1
+  Efftime: 0
   AOEeffPre: {fileID: 8652941978574177043, guid: d2357ebdfaa90c642a821948ba51f346, type: 3}
+  Eff: {fileID: 0}

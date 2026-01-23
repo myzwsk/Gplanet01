@@ -47,6 +47,7 @@ public class RespawnBox : MonoBehaviour
     void EmergePlayer()
     {
         // プレイヤーをアクティブ化（出現）
+        playerInstance.GetComponent<PlayerHealth>().isDie = false;
         playerInstance.SetActive(true);
 
         // プレイヤーに上向きの初速を与え、飛び出させる（任意）

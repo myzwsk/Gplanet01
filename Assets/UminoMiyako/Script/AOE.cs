@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AOE : MonoBehaviour
 {
+    public int damage = 1;
     public float time = 1f;
     public float Efftime = 0;
     public GameObject AOEeffPre;
@@ -14,6 +15,7 @@ public class AOE : MonoBehaviour
     private bool isTouchingPlayer = false;
     private bool EffFlag = false;
     private float count = 0;
+    private BattleMana hp;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,6 +23,7 @@ public class AOE : MonoBehaviour
         endScale= transform.localScale;
         AOEeff = Instantiate(AOEeffPre, transform.position, transform.localRotation);
         AOEeff.transform.localScale=startScale;
+        hp = FindAnyObjectByType<BattleMana>();
     }
 
     // Update is called once per frame
@@ -66,6 +69,10 @@ public class AOE : MonoBehaviour
         if (isTouchingPlayer)
         {
             Debug.Log("プレイヤー死亡！");
+            if (hp != null)
+            {
+                hp.PDamage(damage);
+            }
         }
         if (Eff != null&&EffFlag==false)
         {

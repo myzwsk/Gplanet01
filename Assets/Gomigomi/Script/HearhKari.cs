@@ -4,6 +4,7 @@ public class PlayerHealth : MonoBehaviour
 {
     // リスポーン時に出現させるポッドのプレハブをInspectorで設定
     public GameObject respawnPodPrefab;
+    public bool isDie=false;
 
     // プレイヤーが死亡エリアに触れたときの処理（3D用）
     private void OnTriggerEnter(Collider other)
@@ -18,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     // プレイヤーの死亡とリスポーンポッド生成の処理
     public void DieAndRespawn()
     {
+        isDie = true;
         // ポッドプレハブが設定されているか確認
         if (respawnPodPrefab == null)
         {
@@ -58,6 +60,7 @@ public class PlayerHealth : MonoBehaviour
     // エラー時やデバッグ用の強制リスポーン関数（ポッドを使わない場合）
     private void ForceImmediateRespawn()
     {
+        isDie=false;
         transform.position = CheckPointManager.lastCheckpointPosition;
         gameObject.SetActive(true);
         Debug.LogWarning("Fallback: Player Respawned Immediately due to error.");

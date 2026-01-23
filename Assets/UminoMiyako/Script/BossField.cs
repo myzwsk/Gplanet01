@@ -4,11 +4,22 @@ public class BossField : MonoBehaviour
 {
     public void ObjectStealth()
     {
-        GetComponent<Renderer>().enabled = false;
+        Renderer r = GetComponent<Renderer>();
+
+        if (r.enabled == true)   // すでに表示中なら非表示にする
+        {
+            r.enabled = false;
+        }
     }
+
     public void ObjectReStealth()
     {
-        GetComponent<Renderer>().enabled = true;
+        Renderer r = GetComponent<Renderer>();
+
+        if (r.enabled == false)  // すでに非表示なら表示にする
+        {
+            r.enabled = true;
+        }
     }
     public void ObjectTrue()
     {

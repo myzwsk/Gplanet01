@@ -151,6 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc68414d2e6fb5d449d04dfb61e97339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
   time: 1
+  Efftime: 0
   AOEeffPre: {fileID: 5871946227932424150, guid: d40c21c616fd6484b87889e4b5fecc86, type: 3}
   Eff: {fileID: 584207449403360073, guid: b1ae5055f08b8284d9e996465d1d37e3, type: 3}

@@ -1814,6 +1814,7 @@ public class Boss : MonoBehaviour
         StopAllAttackCoroutines();
         for (int i = 0; i < 16; i++)
         {
+
             fi[i].fiSc.ObjectReStealth();
         }
         CanonOn();
