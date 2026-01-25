@@ -9,12 +9,15 @@ public class GameManager : MonoBehaviour
     public Transform miniGamePoint;
     public Camera mainCamera;
 
+    [Header("Paths")]
+    public GameObject[] paths;   // ★追加
+
     Vector3 returnPlayerPos;
     Vector3 returnCameraPos;
     Quaternion returnCameraRot;
 
     CharacterController cc;
-    SmoothFollowCamera cameraFollow;   // ← カメラ追従スクリプト
+    SmoothFollowCamera cameraFollow;
 
     public bool isMiniGame = false;
 
@@ -34,25 +37,20 @@ public class GameManager : MonoBehaviour
     {
         if (isMiniGame) return;
 
-        // 元の状態を保存
         returnPlayerPos = player.position;
         returnCameraPos = mainCamera.transform.position;
         returnCameraRot = mainCamera.transform.rotation;
 
-        // カメラ追従を止める（固定）
         if (cameraFollow != null)
             cameraFollow.enabled = false;
 
-        // Player テレポート（CharacterController対策）
         if (cc != null) cc.enabled = false;
         player.position = miniGamePoint.position;
         if (cc != null) cc.enabled = true;
 
-        // カメラを固定位置へ
         mainCamera.transform.position = cameraPos;
 
         isMiniGame = true;
-        Debug.Log("StartMiniGame");
     }
 
     // ===== ミニゲーム終了 =====
@@ -60,21 +58,27 @@ public class GameManager : MonoBehaviour
     {
         if (!isMiniGame) return;
 
-        // Player を元の場所へ戻す
         if (cc != null) cc.enabled = false;
         player.position = returnPlayerPos;
         Physics.SyncTransforms();
         if (cc != null) cc.enabled = true;
 
-        // カメラを元の状態へ
         mainCamera.transform.position = returnCameraPos;
         mainCamera.transform.rotation = returnCameraRot;
 
-        // カメラ追従を再開
         if (cameraFollow != null)
             cameraFollow.enabled = true;
 
         isMiniGame = false;
-        Debug.Log("FinishMiniGame");
+    }
+
+    // ===== 道を全部出す =====
+    public void ShowAllPaths()
+    {
+        foreach (var p in paths)
+        {
+            if (p != null)
+                p.SetActive(true);
+        }
     }
 }
