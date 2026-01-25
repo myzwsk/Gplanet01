@@ -488,6 +488,36 @@ public class BossNormal : MonoBehaviour
         StopAllAttackCoroutines();
         go = true;
     }
+    private IEnumerator G4ComboC()
+    {
+        StartCoroutine(Cast("うちがわからタマ", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackShotIn(3, 15));
+        runcoro.Add(c1);
+        StartCoroutine(Cast("ぐるぐる", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c2 = StartCoroutine(AttackStick(2, 10));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(14);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G4ComboD()
+    {
+        StartCoroutine(Cast("たてよこ", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackVirtical(0.5f, 5, 0));
+        runcoro.Add(c1);
+        Coroutine c2 = StartCoroutine(AttackHrizon(0.5f, 5, 0));
+        runcoro.Add(c2);
+        StartCoroutine(Cast("タイミング", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c3 = StartCoroutine(AttackAllBreak(2, 0.7f));
+        runcoro.Add(c3);
+        yield return new WaitForSeconds(3);
+        StopAllAttackCoroutines();
+        go = true;
+    }
 
     //gear3用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -540,7 +570,7 @@ public class BossNormal : MonoBehaviour
         runcoro.Add(c1);
         Coroutine c2 = StartCoroutine(AttackHrizon(0.5f, 5, 0));
         runcoro.Add(c2);
-        yield return new WaitForSeconds(17);
+        yield return new WaitForSeconds(7);
         StopAllAttackCoroutines();
         go = true;
     }
