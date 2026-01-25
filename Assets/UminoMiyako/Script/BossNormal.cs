@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using System;
 using Random = UnityEngine.Random;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 
 public class BossNormal : MonoBehaviour
@@ -162,6 +163,51 @@ public class BossNormal : MonoBehaviour
             flag = false,
             func = () => G2ComboH()
         });
+        G2func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G2ComboI()
+        });
+        G3func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G3ComboA()
+        });
+        G3func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G3ComboB()
+        });
+        G3func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G3ComboC()
+        });
+        G3func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G3ComboD()
+        });
+        G3func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G3ComboE()
+        });
+        G3func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G3ComboF()
+        });
+        G4func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G4ComboA()
+        });
+        G4func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G4ComboB()
+        });
         Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
         Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
         Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス,7.全消し");
@@ -278,6 +324,38 @@ public class BossNormal : MonoBehaviour
                     go = false;
                 }
                 break;
+            case BossHp.State.gear4:
+                if (go)
+                {
+                    // 1. 全部 true ならリセット
+                    bool allTrue = true;
+                    for (int i = 0; i < G4func.Count; i++)
+                    {
+                        if (!G4func[i].flag)
+                        {
+                            allTrue = false;
+                            break;
+                        }
+                    }
+                    if (allTrue)
+                    {
+                        for (int i = 0; i < G4func.Count; i++)
+                        {
+                            var tmp = G4func[i];
+                            tmp.flag = false;
+                            G4func[i] = tmp;
+                        }
+                    }
+                    int r = Random.Range(0, G4func.Count);
+                    while (G4func[r].flag)
+                    {
+                        r = Random.Range(0, G4func.Count);
+                    }
+                    currentCombo = StartCoroutine(G4func[r].func());
+                    G4func[r].flag = true;
+                    go = false;
+                }
+                break;
         }
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -387,16 +465,104 @@ public class BossNormal : MonoBehaviour
         }
         
     }
+    //gear4用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    private IEnumerator G4ComboA()
+    {
+        StartCoroutine(Cast("よちょうみてね", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackSword2(2, 1, 2, 2, 4));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(12);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G4ComboB()
+    {
+        StartCoroutine(Cast("スター", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackStar2(3,2,2,3));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(16);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+
     //gear3用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator G3ComboA()
     {
-        StartCoroutine(Cast("うちがわからタマ", 3));
+        StartCoroutine(Cast("スター", 3));
         yield return new WaitForSeconds(3);
-        Coroutine c1 = StartCoroutine(AttackShotIn(3, 10));
+        Coroutine c1 = StartCoroutine(AttackStar(2));
         runcoro.Add(c1);
-        yield return new WaitForSeconds(14);
+        yield return new WaitForSeconds(10);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G3ComboB()
+    {
+        StartCoroutine(Cast("たまいっぱい", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackShot2(10));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(11);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G3ComboC()
+    {
+        StartCoroutine(Cast("よちょうみてね", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackSword(2, 1, 2, 2, 4));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(12);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G3ComboD()
+    {
+        StartCoroutine(Cast("そとから", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackThin(2));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(17);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G3ComboE()
+    {
+        StartCoroutine(Cast("たてよこ", 3));
+        yield return new WaitForSeconds(3);
+        Coroutine c1 = StartCoroutine(AttackVirtical(0.5f, 5, 0));
+        runcoro.Add(c1);
+        Coroutine c2 = StartCoroutine(AttackHrizon(0.5f, 5, 0));
+        runcoro.Add(c2);
+        yield return new WaitForSeconds(17);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G3ComboF()
+    {
+        StartCoroutine(Cast("ぐるぐる", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackStick(2, 10));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(3);
+        StartCoroutine(Cast("バー", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c2 = StartCoroutine(AttackBar(1));
+        runcoro.Add(c2);
+        Coroutine c3 = StartCoroutine(AttackBar(3));
+        runcoro.Add(c3);
+        yield return new WaitForSeconds(4);
+        Coroutine c4 = StartCoroutine(AttackBar(2));
+        runcoro.Add(c4);
+        Coroutine c5 = StartCoroutine(AttackBar(4));
+        runcoro.Add(c5);
+        yield return new WaitForSeconds(6);
         StopAllAttackCoroutines();
         go = true;
     }
@@ -515,6 +681,16 @@ public class BossNormal : MonoBehaviour
         Coroutine c2 = StartCoroutine(AttackLockOn(2, 2, 2));
         runcoro.Add(c2);
         yield return new WaitForSeconds(8);
+        StopAllAttackCoroutines();
+        go = true;
+    }
+    private IEnumerator G2ComboI()
+    {
+        StartCoroutine(Cast("おしだす", 2));
+        yield return new WaitForSeconds(2);
+        Coroutine c1 = StartCoroutine(AttackPush(3));
+        runcoro.Add(c1);
+        yield return new WaitForSeconds(4);
         StopAllAttackCoroutines();
         go = true;
     }
