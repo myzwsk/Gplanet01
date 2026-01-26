@@ -27,7 +27,7 @@ public class RespawnBox : MonoBehaviour
             rb.angularVelocity = Vector3.zero; // 角速度（回転の勢い）リセット
         }
 
-        // 🌟【修正点 1】位置と回転を CheckPointManager の情報でリセット
+        //位置と回転を CheckPointManager の情報でリセット
         // プレイヤーをチェックポイントの「手前」の座標に配置
         playerInstance.transform.position = CheckPointManager.lastCheckpointPosition;
         // プレイヤーをチェックポイントの「正しい向き」に設定
@@ -37,10 +37,7 @@ public class RespawnBox : MonoBehaviour
         //playerInstance.transform.position = transform.position;
         playerInstance.SetActive(false);
 
-        // ここで扉が開く、ポッドが割れるなどのアニメーションを開始（Animatorで設定）
-        // GetComponent<Animator>().Play("PodOpen"); 
-
-        // アニメーションの終了後（または一定時間後）にプレイヤーを出現させる
+        //一定時間後にプレイヤーを出現させる
         Invoke("EmergePlayer", 1.5f); // 1.5秒後に実行
     }
 

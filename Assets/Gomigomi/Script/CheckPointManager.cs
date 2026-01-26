@@ -2,12 +2,11 @@
 
 public class CheckPointManager : MonoBehaviour
 {
-    // ★この static 変数が、全スクリプトから共有されるリスポーン座標です。
-    public static Vector3 lastCheckpointPosition;
-    //リスポーン位置のオフセット
-    public Vector3 respawnOffset = new Vector3(0f, 0f, -2.0f);
-    //リスポーン時の回転（向き）を保存する変数
-    public static Quaternion lastCheckpointRotation;
+    
+    public static Vector3 lastCheckpointPosition;// 全スクリプトから共有されるリスポーン座標
+    public Vector3 respawnOffset = new Vector3(0f, 0f, -2.0f); //リスポーン位置のオフセット
+    public static Quaternion lastCheckpointRotation; //リスポーン時の回転（向き）を保存する変数
+
 
     void Start()
     {
@@ -36,6 +35,8 @@ public class CheckPointManager : MonoBehaviour
                 rb.angularVelocity = Vector3.zero; // 角速度（回転の勢い）をリセット
             }
             SetCheckpoint(); // 位置と回転をまとめて設定
+
+           
 
             Debug.Log("Checkpoint Reached! New Respawn Point: " + lastCheckpointPosition);
 
