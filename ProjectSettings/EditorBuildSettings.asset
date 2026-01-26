@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/KidsRoomScene.unity
     guid: 937ce4cced253814cbc8d048b70e97f8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/KariScene.unity
     guid: d50309a8ef363a74bb4b39e6e318b866
   - enabled: 1
