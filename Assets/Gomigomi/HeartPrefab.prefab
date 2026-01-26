@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db1ca623406b1941b2e916f8a2cabbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GetScore: 100
+  GetScore: 10
 --- !u!82 &-1104355280010902452
 AudioSource:
   m_ObjectHideFlags: 0
