@@ -2,7 +2,7 @@
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
-    public int GetScore=100;
+    public int GetScore=10;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,7 +14,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         //Debug.Log("!!!!!!!");
-        if (other.CompareTag("Player")|| other.CompareTag("player"))
+        if (other.CompareTag("Player")/*|| other.CompareTag("player")*/)
         {
             
             ScoreManager.Score+=GetScore;
