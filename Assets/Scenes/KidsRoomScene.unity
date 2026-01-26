@@ -10171,7 +10171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 627169158}
   fadeDuration: 1
-  nextSceneName: kariScene
+  nextSceneName: BathRoomScene
   targetTag: Key
   textDisplayTime: 2
 --- !u!1 &713932721 stripped
