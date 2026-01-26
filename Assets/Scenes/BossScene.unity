@@ -1805,7 +1805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8538952775747437565, guid: efe899177400f0f4cb2efff008c20816, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -56.01
+      value: -47.01
       objectReference: {fileID: 0}
     - target: {fileID: 8538952775747437565, guid: efe899177400f0f4cb2efff008c20816, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3077,8 +3077,8 @@ MonoBehaviour:
     EffPrefab: {fileID: 1483746304}
   - EffEarlyTime: 1
     EffPrefab: {fileID: 8378648546881499446, guid: 867c572a5be680d42a042d2349f10143, type: 3}
-  - EffEarlyTime: 0
-    EffPrefab: {fileID: 0}
+  - EffEarlyTime: 2
+    EffPrefab: {fileID: 4767092632947958445, guid: adbd8c256c2022843b90b64265fc5c63, type: 3}
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -3129,7 +3129,7 @@ MonoBehaviour:
   AOEDonut: {fileID: 5871946227932424150, guid: f4b8522087327bc48aeaa2ad5b7360c9, type: 3}
   BLOCKBar: {fileID: 8652941978574177043, guid: 6be70e6638496724d8ad46a76c5f05da, type: 3}
   BLOCKBarLong: {fileID: 8652941978574177043, guid: 008bdef3e3f088b47b3e8c9e8d90e877, type: 3}
-  Nail: {fileID: 1209158394735692994, guid: abae1d2aac4770140854e4a9fb33e5ac, type: 3}
+  Nail: {fileID: 5607819269926399345, guid: 46ba0bd746dd19f4789783c8c7131b00, type: 3}
   Shooter: {fileID: 1046813888383740078, guid: 4629a0dbd968ffc4eb596d80682b2ebf, type: 3}
   Ghost: {fileID: 498253721416304272, guid: 90f4c7333c0ecaf448fac6cc5b6925be, type: 3}
   Star:
@@ -3177,8 +3177,16 @@ MonoBehaviour:
     EffPrefab: {fileID: 1483746304}
   - EffEarlyTime: 1
     EffPrefab: {fileID: 8378648546881499446, guid: 867c572a5be680d42a042d2349f10143, type: 3}
+  - EffEarlyTime: 0.1
+    EffPrefab: {fileID: 8400424712307853490, guid: 366377810aaf4fc4ab2be725a54c5712, type: 3}
+  - EffEarlyTime: 1
+    EffPrefab: {fileID: 4767092632947958445, guid: adbd8c256c2022843b90b64265fc5c63, type: 3}
+  - EffEarlyTime: 1
+    EffPrefab: {fileID: 6441873369525384307, guid: 0f3d407feb92ebb49b98d0157de5008a, type: 3}
   - EffEarlyTime: 0
-    EffPrefab: {fileID: 0}
+    EffPrefab: {fileID: 161766660727748596, guid: 05ce920d629922a4eb4795ef7494ce5c, type: 3}
+  - EffEarlyTime: 0
+    EffPrefab: {fileID: 5034656251238326012, guid: 9de2fa19f0390d44491264d9cab8cec5, type: 3}
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -5397,7 +5405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1362073726}
-  mouseSensitivity: 0.5
+  mouseSensitivity: 3
   gamepadSensitivity: 70
   distance: 15
   smoothSpeed: 10

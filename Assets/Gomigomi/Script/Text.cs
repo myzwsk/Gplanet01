@@ -4,6 +4,7 @@ public class Text : MonoBehaviour
 {
     [SerializeField] private GameObject uiObj1;//表示させたいUIobj
     [SerializeField] private GameObject uiObj2;//表示させたいUIobj
+    internal string text;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
