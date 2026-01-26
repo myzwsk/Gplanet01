@@ -8,6 +8,7 @@ public class BattleMana : MonoBehaviour
     public int maxHp = 300;
     public int Hp = 0;
     public int maxBullet = 5;
+    public int fallDamage = 10;
     public float bulletCool = 5;
     public Slider slider;
     public TextMeshProUGUI text;
@@ -64,6 +65,7 @@ public class BattleMana : MonoBehaviour
             deathSc.isDie = false;
             if (!rest.activeSelf)
             {
+                Hp -= fallDamage;
                 rest.SetActive(true);
             }
             if (Hp == 0)
@@ -116,9 +118,7 @@ public class BattleMana : MonoBehaviour
         {
             if (battle)
             {
-                bulletcount += GameObject.FindGameObjectsWithTag("Object01").Length;
-                bulletcount += GameObject.FindGameObjectsWithTag("Object02").Length;
-                bulletcount += GameObject.FindGameObjectsWithTag("Object03").Length;
+                bulletcount = FindObjectsOfType<DontSleep>().Length;
                 if (bulletcount < maxBullet)
                 {
                     SummonAboveTarget();

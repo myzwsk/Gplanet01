@@ -5,15 +5,18 @@ public class BathroomEventController : MonoBehaviour
 {
     [Header("Objects")]
     public GameObject bathroomLight;
-    public ParticleSystem showerParticle;   // ★ ParticleSystem 本体
+    public ParticleSystem showerParticle;
     public GameObject bathWater;
-    public GameObject path;
+    public Transform path;   // ★ 道（1個でもGroupでもOK）
 
     [Header("Water Settings")]
     public float verticalSpeed = 10f;
     public float horizontalSpeed = 3f;
     public float horizontalDelay = 0.5f;
     public Vector3 targetWaterScale = new Vector3(35f, 35f, 13f);
+
+    [Header("Path Sync")]
+    public float pathYOffset = 0.1f;   // 水面より少し上
 
     [Header("Shower Settings")]
     public float showerMinRate = 200f;
@@ -33,7 +36,7 @@ public class BathroomEventController : MonoBehaviour
         {
             var emission = showerParticle.emission;
             emission.enabled = true;
-            emission.rateOverTime = new ParticleSystem.MinMaxCurve(showerMinRate);
+            emission.rateOverTime = showerMinRate;
             showerParticle.Play();
         }
 
@@ -50,7 +53,7 @@ public class BathroomEventController : MonoBehaviour
         }
 
         if (path != null)
-            path.SetActive(true);
+            path.gameObject.SetActive(true);
     }
 
     IEnumerator FillBath()
@@ -66,12 +69,14 @@ public class BathroomEventController : MonoBehaviour
         {
             float waterRate = Mathf.InverseLerp(0.01f, targetWaterScale.y, scale.y);
 
+            // 水：縦
             scale.y = Mathf.MoveTowards(
                 scale.y,
                 targetWaterScale.y,
                 verticalSpeed * Time.unscaledDeltaTime
             );
 
+            // 水：横
             if (elapsed >= horizontalDelay)
             {
                 scale.x = Mathf.MoveTowards(
@@ -89,13 +94,24 @@ public class BathroomEventController : MonoBehaviour
 
             bathWater.transform.localScale = scale;
 
-            // ★ 安全な Emission 操作
+            // ★ 水面の高さを計算
+            if (path != null)
+            {
+                float waterSurfaceY =
+                    bathWater.transform.position.y +
+                    bathWater.transform.localScale.y * 0.5f;
+
+                Vector3 p = path.position;
+                p.y = waterSurfaceY + pathYOffset;
+                path.position = p;
+            }
+
+            // シャワー強度同期
             if (showerParticle != null)
             {
                 var emission = showerParticle.emission;
-                emission.rateOverTime = new ParticleSystem.MinMaxCurve(
-                    Mathf.Lerp(showerMinRate, showerMaxRate, waterRate)
-                );
+                emission.rateOverTime =
+                    Mathf.Lerp(showerMinRate, showerMaxRate, waterRate);
             }
 
             elapsed += Time.unscaledDeltaTime;

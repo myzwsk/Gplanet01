@@ -4,6 +4,7 @@ using UnityEngine;
 public class AOE : MonoBehaviour
 {
     public int damage = 1;
+    public int EffLota = 0;
     public float time = 1f;
     public float Efftime = 0;
     public GameObject AOEeffPre;
@@ -39,7 +40,7 @@ public class AOE : MonoBehaviour
                 if (Eff != null)
                 {
                     EffFlag = true;
-                    Instantiate(Eff, transform.position, Quaternion.identity);
+                    Instantiate(Eff, transform.position, Quaternion.Euler(0,90*EffLota,0));
                 }
             }
         }
@@ -76,7 +77,7 @@ public class AOE : MonoBehaviour
         }
         if (Eff != null&&EffFlag==false)
         {
-            Instantiate(Eff, transform.position, Quaternion.identity);
+            Instantiate(Eff, transform.position, Quaternion.Euler(0, 90 * EffLota, 0));
         }
         Destroy(AOEeff);
         Destroy(gameObject);
