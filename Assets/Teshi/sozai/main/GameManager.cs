@@ -67,7 +67,10 @@ public class GameManager : MonoBehaviour
         mainCamera.transform.rotation = returnCameraRot;
 
         if (cameraFollow != null)
+        {
             cameraFollow.enabled = true;
+            cameraFollow.enableFollow = true; // ★ これが決定打
+        }
 
         isMiniGame = false;
     }
