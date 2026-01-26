@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BulletSpawner : MonoBehaviour
 {
@@ -11,13 +12,19 @@ public class BulletSpawner : MonoBehaviour
     void Update()
     {
         transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
-        // 範囲内にプレイヤーがいて、かつ発射間隔を満たしていたら
-        if (playerInRange && Time.time >= nextFireTime)
+
+        // playerInRange が true かつ、相手（player）がまだ壊れていないか確認
+        if (playerInRange)
         {
-            ShootSixDirections();
-            nextFireTime = Time.time + fireRate;
+            // もしプレイヤーが破壊されて null になっていたら、フラグを折る
+            // （タグで判定している場合は、生存確認用の工夫が必要です）
+
+            if (Time.time >= nextFireTime)
+            {
+                ShootSixDirections();
+                nextFireTime = Time.time + fireRate;
+            }
         }
-        
     }
     void ShootSixDirections()
     {
@@ -39,14 +46,20 @@ public class BulletSpawner : MonoBehaviour
     }
 
     // プレイヤーが入った判定（Playerタグがついている前提）
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player")) playerInRange = true;
+        if (other.CompareTag("Player"))
+        {
+            // プレイヤーがアクティブ（死亡していない）時だけフラグを立てる
+            playerInRange = other.gameObject.activeInHierarchy;
+        }
     }
 
-    // プレイヤーが出た判定
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player")) playerInRange = false;
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+        }
     }
 }
