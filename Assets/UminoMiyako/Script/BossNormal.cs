@@ -208,6 +208,16 @@ public class BossNormal : MonoBehaviour
             flag = false,
             func = () => G4ComboB()
         });
+        G4func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G4ComboC()
+        });
+        G4func.Add(new AttackCoro
+        {
+            flag = false,
+            func = () => G4ComboD()
+        });
         Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
         Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
         Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス,7.全消し");

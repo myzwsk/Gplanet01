@@ -9,32 +9,42 @@ public class BossCamera : MonoBehaviour
     public float distance = 5f;
     public float smoothSpeed = 10f;
 
-    private Vector2 lookInput;
+    private Vector2 lookInputRaw; // 生の入力値（deltaTime を掛けない）
     private float yaw = 0f;
     private float pitch = 20f;
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        Vector2 input = context.ReadValue<Vector2>();
+        if (context.performed)
+        {
+            Vector2 input = context.ReadValue<Vector2>();
+            var device = context.control?.device;
 
-        // デバイスごとに処理を分ける
-        if (context.control.device is Mouse)
-        {
-            // マウスはピクセル移動量なのでそのまま使う
-            lookInput = input * mouseSensitivity;
+            if (device is Mouse)
+            {
+                lookInputRaw = input * mouseSensitivity;
+            }
+            else if (device is Gamepad)
+            {
+                lookInputRaw = input * gamepadSensitivity;
+            }
         }
-        else if (context.control.device is Gamepad)
+        else if (context.canceled)
         {
-            // スティックは -1〜1 の値なので deltaTime を掛ける
-            lookInput = input * gamepadSensitivity * Time.deltaTime;
+            // 入力が止まったらゼロにする
+            lookInputRaw = Vector2.zero;
         }
     }
 
+
     void LateUpdate()
     {
+        // deltaTime をここで掛ける（フレームレート非依存）
+        Vector2 look = lookInputRaw * Time.deltaTime;
+
         // 入力を回転に変換
-        yaw += lookInput.x;
-        pitch -= lookInput.y;
+        yaw += look.x;
+        pitch -= look.y;
 
         // 下に行かないように制限
         pitch = Mathf.Clamp(pitch, 0f, 60f);

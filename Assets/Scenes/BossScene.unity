@@ -772,8 +772,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u306E\u3093"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 07fbf56058712af46a1b9d6dc2cc367a, type: 2}
-  m_sharedMaterial: {fileID: -8812615073701109263, guid: 07fbf56058712af46a1b9d6dc2cc367a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e097babf5789b8340bd46b632fbb8b7c, type: 2}
+  m_sharedMaterial: {fileID: -4488007932256019086, guid: e097babf5789b8340bd46b632fbb8b7c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1791,6 +1791,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2534022115488478093, guid: efe899177400f0f4cb2efff008c20816, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
     - target: {fileID: 8538952775747437565, guid: efe899177400f0f4cb2efff008c20816, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2775,8 +2779,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "tin\u30DC\u30B9tin"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 07fbf56058712af46a1b9d6dc2cc367a, type: 2}
-  m_sharedMaterial: {fileID: -8812615073701109263, guid: 07fbf56058712af46a1b9d6dc2cc367a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e097babf5789b8340bd46b632fbb8b7c, type: 2}
+  m_sharedMaterial: {fileID: -4488007932256019086, guid: e097babf5789b8340bd46b632fbb8b7c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3095,8 +3099,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   Hp: 0
+  text: {fileID: 967375169}
   slider: {fileID: 1585690429}
   state: 0
+  name:
+  - "\u304B\u3093\u305F\u3093"
+  - "\u3075\u3064\u3046"
+  - "\u3080\u305A\u304B\u3057\u3044"
+  - "\u30C7\u30A3\u30D5\u30A3\u30AB\u30EB\u30C8"
 --- !u!114 &1004575516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5387,7 +5397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1362073726}
-  mouseSensitivity: 0.1
+  mouseSensitivity: 0.5
   gamepadSensitivity: 70
   distance: 15
   smoothSpeed: 10
