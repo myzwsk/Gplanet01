@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BathRiseController : MonoBehaviour
 {
-    public Transform riseGroup;   // BathRiseGroup
+    public Transform riseGroup;  
     public float startY = -2f;
     public float endY = 0f;
     public float riseSpeed = 0.5f;
