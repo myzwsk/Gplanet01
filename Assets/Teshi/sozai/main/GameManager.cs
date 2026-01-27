@@ -9,15 +9,10 @@ public class GameManager : MonoBehaviour
     public Transform miniGamePoint;
     public Camera mainCamera;
 
-    [Header("Paths")]
-    public GameObject[] paths;   // ★追加
-
     Vector3 returnPlayerPos;
-    Vector3 returnCameraPos;
-    Quaternion returnCameraRot;
 
     CharacterController cc;
-    SmoothFollowCamera cameraFollow;
+    SimpleFollowCamera cameraFollow;
 
     public bool isMiniGame = false;
 
@@ -29,28 +24,29 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         cc = player.GetComponent<CharacterController>();
-        cameraFollow = mainCamera.GetComponent<SmoothFollowCamera>();
+        cameraFollow = mainCamera.GetComponent<SimpleFollowCamera>();
     }
 
     // ===== ミニゲーム開始 =====
-    public void StartMiniGame(Vector3 cameraPos)
+    public void StartMiniGame()
     {
         if (isMiniGame) return;
 
+        // プレイヤー位置を保存
         returnPlayerPos = player.position;
-        returnCameraPos = mainCamera.transform.position;
-        returnCameraRot = mainCamera.transform.rotation;
 
+        // カメラ追従停止
         if (cameraFollow != null)
-            cameraFollow.enabled = false;
+            cameraFollow.follow = false;
 
+        // プレイヤー移動（CharacterController対策）
         if (cc != null) cc.enabled = false;
         player.position = miniGamePoint.position;
+        Physics.SyncTransforms();
         if (cc != null) cc.enabled = true;
 
-        mainCamera.transform.position = cameraPos;
-
         isMiniGame = true;
+        Debug.Log("StartMiniGame");
     }
 
     // ===== ミニゲーム終了 =====
@@ -58,30 +54,17 @@ public class GameManager : MonoBehaviour
     {
         if (!isMiniGame) return;
 
+        // プレイヤーを元の位置へ
         if (cc != null) cc.enabled = false;
         player.position = returnPlayerPos;
         Physics.SyncTransforms();
         if (cc != null) cc.enabled = true;
 
-        mainCamera.transform.position = returnCameraPos;
-        mainCamera.transform.rotation = returnCameraRot;
-
+        // カメラ追従再開
         if (cameraFollow != null)
-        {
-            cameraFollow.enabled = true;
-            cameraFollow.enableFollow = true; // ★ これが決定打
-        }
+            cameraFollow.follow = true;
 
         isMiniGame = false;
-    }
-
-    // ===== 道を全部出す =====
-    public void ShowAllPaths()
-    {
-        foreach (var p in paths)
-        {
-            if (p != null)
-                p.SetActive(true);
-        }
+        Debug.Log("FinishMiniGame");
     }
 }
