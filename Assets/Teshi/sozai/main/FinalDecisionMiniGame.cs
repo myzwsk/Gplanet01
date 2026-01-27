@@ -33,8 +33,9 @@ public class FinalDecisionMiniGame : MonoBehaviour
 
     public void OnNo()
     {
-        gameObject.SetActive(false);
-        firstMiniGamePanel.SetActive(true);
+        Debug.Log("いいえ → 最初からやり直し");
+
+        MiniGameResetManager.Instance.ResetAllMiniGames();
     }
 
     void UpdateMessage()

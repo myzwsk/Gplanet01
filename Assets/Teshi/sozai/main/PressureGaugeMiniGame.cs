@@ -26,7 +26,7 @@ public class PressureMiniGame : MonoBehaviour
     {
         greenStartX = greenZone.anchoredPosition.x;
         needleStartX = needle.anchoredPosition.x;
-        UpdatePhase();
+        ResetGame();
     }
 
     void Update()
@@ -154,5 +154,24 @@ public class PressureMiniGame : MonoBehaviour
             needleSpeed = 550f;
             Debug.Log("Phase3：緑が高速");
         }
+    }
+    public void ResetGame()
+    {
+        phase = 1;
+        stopped = false;
+
+        greenRight = true;
+        needleRight = true;
+
+        // 位置を初期位置に戻す
+        greenZone.anchoredPosition =
+            new Vector2(greenStartX, greenZone.anchoredPosition.y);
+
+        needle.anchoredPosition =
+            new Vector2(needleStartX, needle.anchoredPosition.y);
+
+        UpdatePhase();
+
+        Debug.Log("PressureMiniGame Reset");
     }
 }

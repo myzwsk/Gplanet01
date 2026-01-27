@@ -195,6 +195,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66132213}
   m_CullTransparentMesh: 1
+--- !u!1 &343637722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 343637724}
+  m_Layer: 0
+  m_Name: StoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &343637724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343637722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.13686204, y: 0.52871686, z: -1.180613}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &597439265
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +376,7 @@ GameObject:
   - component: {fileID: 1031698118}
   - component: {fileID: 1031698117}
   - component: {fileID: 1031698122}
+  - component: {fileID: 1031698123}
   m_Layer: 5
   m_Name: FlowingText
   m_TagString: Untagged
@@ -367,16 +399,18 @@ MonoBehaviour:
   textUI: {fileID: 597439266}
   lines:
   - "\u30DE\u30DE\u300C5\u6B73\u306E\u304A\u8A95\u751F\u65E5\u304A\u3081\u3067\u3068\u3046\uFF01\uFF01\uFF01\u300D"
-  - "\u3053\u3069\u3082\u300C\u3042\u308A\u304C\u3068\u3046\uFF01\u30DE\u30DE\u300D"
+  - "\u30B5\u30E0\u300C\u3042\u308A\u304C\u3068\u3046\uFF01\u30DE\u30DE\u300D"
   - "\u30DE\u30DE\u300C\u306F\u3044\uFF01\u8A95\u751F\u65E5\u30D7\u30EC\u30BC\u30F3\u30C8\u3088\uFF01\uFF01\uFF01\u300D"
-  - "\u3053\u3069\u3082\u300C\u3084\u3063\u305F\u30FC\uFF01\u3053\u3082\u308C\u3073\u306E\u65B0\u3057\u3044\u306C\u3044\u3050\u308B\u307F\u3060\uFF01\u300D"
-  - "\u30DE\u30DE\u300C\u3053\u308C\u3067\u4E09\u5339\u305D\u308D\u3063\u305F\u308F\u306D\u30FC\u3053\u306E\u5B50\u306E\u540D\u524D\u306F\u4F55\u306B\u3059\u308B\u306E\uFF1F\u300D"
-  - "\u3053\u3069\u3082\u300C\u3093\u30FC...\u305D\u308C\u3058\u3083\u3042\uFF01\u300D"
+  - "\u30B5\u30E0\u300C\u3084\u3063\u305F\u30FC\uFF01\u3053\u3082\u308C\u3073\u306E\u65B0\u3057\u3044\u306C\u3044\u3050\u308B\u307F\u3060\uFF01\u300D"
+  - "\u30DE\u30DE\u300C\u3075\u3075\uFF3E\uFF3E\u3053\u308C\u3067\u4E09\u5339\u305D\u308D\u3063\u305F\u308F\u306D\uFF5E\n\u3000\u3000\u3053\u306E\u5B50\u306E\u540D\u524D\u306F\u4F55\u306B\u3059\u308B\u306E\uFF1F\u300D"
+  - "\u30B5\u30E0\u300C\u3093\u30FC...\u305D\u308C\u3058\u3083\u3042\uFF01\u300D"
+  - "\u30B5\u30E0\u300C\u30E9\u30A4\u304F\u3093\uFF01\n\u3000\u3000\u30DF\u30ED\u304F\u3093\u3068\u30B7\u30E7\u30AB\u304F\u3093\u3082\u3044\u3063\u3057\u3087\u306B\u3042\u305D\u3076\u305E\uFF5E\uFF01\u300D"
   backgrounds:
   - {fileID: 21300000, guid: 5f507f9b8ce79ed4e85b9767572bc483, type: 3}
   - {fileID: 21300000, guid: 5f507f9b8ce79ed4e85b9767572bc483, type: 3}
   - {fileID: 21300000, guid: a4fc758abaad49f4093b9a9f7dca65a2, type: 3}
   - {fileID: 21300000, guid: a4fc758abaad49f4093b9a9f7dca65a2, type: 3}
+  - {fileID: 21300000, guid: 9c7bfd0415a358d45baa9fca384c1f70, type: 3}
   - {fileID: 21300000, guid: 9c7bfd0415a358d45baa9fca384c1f70, type: 3}
   - {fileID: 21300000, guid: 9c7bfd0415a358d45baa9fca384c1f70, type: 3}
   speed: 1200
@@ -485,6 +519,88 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgImage: {fileID: 66132215}
   fadeTime: 2
+--- !u!114 &1031698123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031698116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
+    m_ActionName: 'Player/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6b444451-8a00-4d00-a97e-f47457f736a8
+    m_ActionName: 'Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
+    m_ActionName: 'Player/Attack[/XInputControllerWindows/buttonWest,/Mouse/leftButton,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 852140f2-7766-474d-8707-702459ba45f3
+    m_ActionName: 'Player/Interact[/Keyboard/e,/XInputControllerWindows/buttonNorth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 27c5f898-bc57-4ee1-8800-db469aca5fe3
+    m_ActionName: 'Player/Catch[/XInputControllerWindows/rightShoulder,/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f1ba0d36-48eb-4cd5-b651-1c94a6531f70
+    m_ActionName: 'Player/Jump[/XInputControllerWindows/buttonSouth,/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2776c80d-3c14-4091-8c56-d04ced07a2b0
+    m_ActionName: 'Player/Previous[/Keyboard/1,/XInputControllerWindows/dpad/left]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba
+    m_ActionName: 'Player/Next[/Keyboard/2,/XInputControllerWindows/dpad/right]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 641cd816-40e6-41b4-8c3d-04687c349290
+    m_ActionName: 'Player/Sprint[/Keyboard/leftShift,/XInputControllerWindows/leftStickPress]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1031698117}
+        m_TargetAssemblyTypeName: StoryText, Assembly-CSharp
+        m_MethodName: OnAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: acbf2f09-2c57-4694-85cc-8cceb72bbe71
+    m_ActionName: 'Player/Action[/XInputControllerWindows/buttonEast,/Keyboard/enter]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1496080003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,3 +1135,4 @@ SceneRoots:
   - {fileID: 2018556110}
   - {fileID: 1031698121}
   - {fileID: 1496080006}
+  - {fileID: 343637724}

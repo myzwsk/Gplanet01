@@ -32,7 +32,7 @@ public class BathroomEventController : MonoBehaviour
 
         bathWater.SetActive(true);
         path.SetActive(false);   // ★最初は道を消す
-
+        showerController.StartShower();
         StartCoroutine(FillBath());
     }
 
@@ -58,16 +58,16 @@ public class BathroomEventController : MonoBehaviour
                 Debug.Log("水がたまった → 道を表示");
             }
             // 水が満タンになったらシャワー停止
-            if (showerController != null)
-            {
-                showerController.StopShower();
-                Debug.Log("水が満タン → シャワー停止");
-            }
+            
 
 
             yield return null;
         }
-
+        if (showerController != null)
+        {
+            showerController.StopShower();
+            Debug.Log("水が満タン → シャワー停止");
+        }
         bathWater.transform.localScale = targetWaterScale;
     }
 }

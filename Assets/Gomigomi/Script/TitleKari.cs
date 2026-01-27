@@ -7,14 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class TitleKari : MonoBehaviour
 {
-    // フェードアウト用のCanvas Groupコンポーネントをインスペクタから設定
+    // フェードアウト用Canvas Groupコンポーネントをインスペクタから設定
     [SerializeField] private CanvasGroup fadePanel;
-    // フェードにかける時間（秒）
-    [SerializeField] private float fadeDuration = 1.0f;
-    // 遷移先のシーン名
-    [SerializeField] private string nextSceneName = "NextLevelScene";
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private float fadeDuration = 1.0f;              // フェードにかける時間（秒）
+    [SerializeField] private string nextSceneName = "NextLevelScene";// 遷移先のシーン名
+     void Start()
     {
         
     }
