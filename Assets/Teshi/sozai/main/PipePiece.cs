@@ -25,6 +25,13 @@ public class PipePiece : MonoBehaviour, IPointerClickHandler
         currentRotation = (currentRotation + 90) % 360;
         rect.localEulerAngles = new Vector3(0, 0, currentRotation);
     }
+    public void RandomizeRotation()
+    {
+        int[] angles = { 0, 90, 180, 270 };
+        currentRotation = angles[Random.Range(0, angles.Length)];
+        rect.localEulerAngles = new Vector3(0, 0, currentRotation);
+    }
+
 
     public bool IsCorrect()
     {

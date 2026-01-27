@@ -4,9 +4,13 @@ public class PipeGameManager : MonoBehaviour
 {
     public PipePiece[] pipes;
 
-    [Header("Next")]
-    public GameObject pipeGamePanel;    // MiniGame2Panel
-    public GameObject finalGamePanel;   // MiniGame3Panel
+    public GameObject pipeGamePanel;
+    public GameObject finalGamePanel;
+
+    void OnEnable()
+    {
+        ResetGame();
+    }
 
     void Update()
     {
@@ -16,23 +20,28 @@ public class PipeGameManager : MonoBehaviour
         }
     }
 
-    public void CheckClear()
+    void CheckClear()
     {
         foreach (var pipe in pipes)
         {
             if (!pipe.IsCorrect())
-            {
-                Debug.Log("まだつながってない");
                 return;
-            }
         }
 
-        Debug.Log("配管ミニゲーム クリア！");
+        Debug.Log("配管ミニゲーム クリア");
 
-        // ★ 配管ミニゲームを消す
         pipeGamePanel.SetActive(false);
-
-        // ★ 最終ミニゲームを出す
         finalGamePanel.SetActive(true);
+    }
+
+    // ★ 追加：完全リセット
+    public void ResetGame()
+    {
+        foreach (var pipe in pipes)
+        {
+            pipe.RandomizeRotation();
+        }
+
+        Debug.Log("PipeGame Reset");
     }
 }
