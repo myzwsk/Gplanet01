@@ -12,6 +12,8 @@ public class CheckPointManager : MonoBehaviour
     [Header("演出の設定")]
     [SerializeField] private GameObject fireEffect; //炎アセット
     [SerializeField] private UnityEngine.Light CPLight; //ライト
+    [SerializeField] private AudioSource audioSource; // 音を鳴らすコンポーネント
+    [SerializeField] private AudioClip igniteSound;   // 鳴らしたい音ファイル
     public float activeIntensity = 3.0f; // 普段の明るさ
     public float flashIntensity = 10.0f; // 「ぼっ」と点いた瞬間の一瞬の眩しさ
     public float flashSpeed = 20.0f;     // 眩しさが戻る速さ
@@ -97,6 +99,12 @@ public class CheckPointManager : MonoBehaviour
         {
             CPLight.enabled = true;
             CPLight.intensity = flashIntensity;
+        }
+
+        // 3. 音を鳴らす処理
+        if (audioSource != null && igniteSound != null)
+        {
+            audioSource.PlayOneShot(igniteSound);
         }
     }
 

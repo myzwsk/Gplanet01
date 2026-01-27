@@ -9910,6 +9910,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2206904364062432871, guid: d1db3bdc56d46bb4ea5f5703298e8526, type: 3}
   m_PrefabInstance: {fileID: 1395369555}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &657306437 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: -2337268473176933556, guid: d1db3bdc56d46bb4ea5f5703298e8526, type: 3}
+  m_PrefabInstance: {fileID: 1395369555}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &686333767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15497,6 +15502,10 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0.061502814
       objectReference: {fileID: 0}
+    - target: {fileID: 3584260512566869480, guid: d1db3bdc56d46bb4ea5f5703298e8526, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 657306437}
     - target: {fileID: 4043421208379334074, guid: d1db3bdc56d46bb4ea5f5703298e8526, type: 3}
       propertyPath: ShapeModule.enabled
       value: 0
