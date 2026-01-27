@@ -1806,19 +1806,19 @@ public class Boss : MonoBehaviour
     }
     private void CanonOff()
     {
-        BossField[] canonSc = new BossField[2];
+        Canon[] canonSc = new Canon[2];
         for (int i = 0; i < 2; i++)
         {
-            canonSc[i] = Canon[i].GetComponent<BossField>();
+            canonSc[i] = Canon[i].GetComponent<Canon>();
             canonSc[i].ObjectFalse();
         }
     }
     private void CanonOn()
     {
-        BossField[] canonSc = new BossField[2];
+        Canon[] canonSc = new Canon[2];
         for (int i = 0; i < 2; i++)
         {
-            canonSc[i] = Canon[i].GetComponent<BossField>();
+            canonSc[i] = Canon[i].GetComponent<Canon>();
             canonSc[i].ObjectTrue();
         }
     }

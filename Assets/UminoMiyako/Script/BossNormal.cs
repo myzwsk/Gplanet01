@@ -221,7 +221,7 @@ public class BossNormal : MonoBehaviour
         Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
         Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
         Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス,7.全消し");
-        Debug.Log("Pキー :\n1.四方に弾召喚,2.内側に弾召喚,3.お化け召喚");
+        Debug.Log("Pキー :\n1.上下に弾召喚,2.内側に弾召喚,3.お化け召喚");
         for (int i = 0; i < 16; i++)
         {
             fi[i].fiOn = true;
@@ -236,7 +236,7 @@ public class BossNormal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*switch (bosshp.state)
+        switch (bosshp.state)
         {
             case BossHp.State.normal:
                 if (go)
@@ -366,7 +366,7 @@ public class BossNormal : MonoBehaviour
                     go = false;
                 }
                 break;
-        }*/
+        }
         if (Input.GetKey(KeyCode.LeftShift))
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -462,7 +462,7 @@ public class BossNormal : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                StartCoroutine(AttackShot4(5));
+                StartCoroutine(AttackShot2(5));
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
@@ -492,7 +492,7 @@ public class BossNormal : MonoBehaviour
     {
         StartCoroutine(Cast("スター", 3));
         yield return new WaitForSeconds(3);
-        Coroutine c1 = StartCoroutine(AttackStar2(3,2,2,3));
+        Coroutine c1 = StartCoroutine(AttackStar2(3,2,0.75f,3));
         runcoro.Add(c1);
         yield return new WaitForSeconds(16);
         StopAllAttackCoroutines();
@@ -524,7 +524,7 @@ public class BossNormal : MonoBehaviour
         yield return new WaitForSeconds(2);
         Coroutine c3 = StartCoroutine(AttackAllBreak(2, 0.7f));
         runcoro.Add(c3);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
         StopAllAttackCoroutines();
         go = true;
     }
@@ -536,7 +536,7 @@ public class BossNormal : MonoBehaviour
     {
         StartCoroutine(Cast("スター", 3));
         yield return new WaitForSeconds(3);
-        Coroutine c1 = StartCoroutine(AttackStar(2));
+        Coroutine c1 = StartCoroutine(AttackStar(1));
         runcoro.Add(c1);
         yield return new WaitForSeconds(10);
         StopAllAttackCoroutines();
@@ -651,7 +651,7 @@ public class BossNormal : MonoBehaviour
         yield return new WaitForSeconds(2);
         StartCoroutine(Cast("ついび", 2));
         yield return new WaitForSeconds(2);
-        Coroutine c3 = StartCoroutine(AttackLockOn(2, 2, 3));
+        Coroutine c3 = StartCoroutine(AttackLockOn(1.5f, 2, 3));
         runcoro.Add(c3);
         yield return new WaitForSeconds(2);
         Coroutine c4 = StartCoroutine(AttackBar(2));
@@ -718,7 +718,7 @@ public class BossNormal : MonoBehaviour
         yield return new WaitForSeconds(3);
         StartCoroutine(Cast("ついび", 2));
         yield return new WaitForSeconds(2);
-        Coroutine c2 = StartCoroutine(AttackLockOn(2, 2, 2));
+        Coroutine c2 = StartCoroutine(AttackLockOn(1.5f, 2, 2));
         runcoro.Add(c2);
         yield return new WaitForSeconds(8);
         StopAllAttackCoroutines();
@@ -876,8 +876,12 @@ public class BossNormal : MonoBehaviour
             spawnPrefab = Instantiate(AOEDonut, hit.point, Quaternion.identity);
             spawnPrefab.GetComponent<AOEDonut>().time =st;
         }
-        yield return new WaitForSeconds(st);
-        for(int i = 0; i < ghost.Length; i++)
+        yield return new WaitForSeconds(st- Effect[10].EffEarlyTime);
+        Instantiate(Effect[10].EffPrefab, new Vector3(0, 0.8f, 0), Quaternion.Euler(0,0,0));
+        Instantiate(Effect[10].EffPrefab, new Vector3(0, 0.8f, 0), Quaternion.Euler(0, 0, 0));
+        Instantiate(Effect[10].EffPrefab, new Vector3(0, 0.8f, 0), Quaternion.Euler(0, 0, 0));
+        yield return new WaitForSeconds(Effect[10].EffEarlyTime);
+        for (int i = 0; i < ghost.Length; i++)
         {
             ghost[i] = Instantiate(Ghost, startPos[i], Quaternion.Euler(0, ghostlota[i], 0));
             objList.Add(ghost[i]);
@@ -980,6 +984,7 @@ public class BossNormal : MonoBehaviour
             Attack(startPos, AOE1Field, 0,st, 0, 0);
         }
         yield return new WaitForSeconds(st);
+        Instantiate(Effect[9].EffPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         DestroyField(All);
         yield return new WaitForSeconds(et);
         ReField();
@@ -1022,7 +1027,7 @@ public class BossNormal : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             startPos = fi[OutField[i]-1].fiPre.transform.position;
-            Attack(startPos, AOE1Field, 0,st, 0, 0);
+            Attack(startPos, AOE1Field, 0,st, 6, 0);
         }
         yield return new WaitForSeconds(st);
         for(int i = 0; i < 16; i++)
@@ -1195,7 +1200,7 @@ public class BossNormal : MonoBehaviour
         Vector3 center = Vector3.zero;
         Vector3 goPos = new Vector3(center.x, 50, center.z);
         CharacterController[] players = FindObjectsOfType<CharacterController>();
-        Attack(goPos, AOEPush, 0,st, 0, 0);
+        Attack(goPos, AOEPush, 0,st, 8, 0);
         yield return new WaitForSeconds(st);
         foreach (var controller in players)
         {
@@ -1242,7 +1247,7 @@ public class BossNormal : MonoBehaviour
         {
             startPos = Field[(Out[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,st, 0, 0);
+            Attack(startPos, AOE1Field, 0,st, 6, 0);
         }
         for (int i = 0; i < 2; i++)
         {
@@ -1279,8 +1284,7 @@ public class BossNormal : MonoBehaviour
                     startPos = new Vector3(goPos.x, 50f, goPos.z - 6);
                     for (int i = 0; i < 2; i++)
                     {
-                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
-                        attackPos[i + (j * 2)] = startPos;
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.Euler(0, 0, 0)); attackPos[i + (j * 2)] = startPos;
                         attackPos2[i + (j * 2)] = new Vector3(startPos.x, startPos.y, 0);
                         goPos.x += 6f;
                         startPos.x += 6f;
@@ -1293,8 +1297,7 @@ public class BossNormal : MonoBehaviour
                     startPos = new Vector3(goPos.x - 6, 50f, goPos.z);
                     for (int i = 0; i < 2; i++)
                     {
-                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
-                        attackPos[i + (j * 2)] = startPos;
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.Euler(0,270, 0)); attackPos[i + (j * 2)] = startPos;
                         attackPos2[i + (j * 2)] = new Vector3(0, startPos.y, startPos.z);
                         goPos.z -= 6f;
                         startPos.z -= 6f;
@@ -1307,8 +1310,7 @@ public class BossNormal : MonoBehaviour
                     startPos = new Vector3(goPos.x + 6, 50f, goPos.z);
                     for (int i = 0; i < 2; i++)
                     {
-                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
-                        attackPos[i + (j * 2)] = startPos;
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.Euler(0, 90, 0)); attackPos[i + (j * 2)] = startPos;
                         attackPos2[i + (j * 2)] = new Vector3(0, startPos.y, startPos.z);
                         goPos.z -= 6f;
                         startPos.z -= 6f;
@@ -1321,8 +1323,7 @@ public class BossNormal : MonoBehaviour
                     startPos = new Vector3(goPos.x, 50f, goPos.z + 6);
                     for (int i = 0; i < 2; i++)
                     {
-                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
-                        attackPos[i + (j * 2)] = startPos;
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.Euler(0, 180, 0)); attackPos[i + (j * 2)] = startPos;
                         attackPos2[i + (j * 2)] = new Vector3(startPos.x, startPos.y, 0);
                         goPos.x += 6f;
                         startPos.x += 6f;
@@ -1347,8 +1348,32 @@ public class BossNormal : MonoBehaviour
         {
             for (int i = 0; i < 2; i++)
             {
-                Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j],st2, 0, 0);
-                Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j],st2, 0, 0);
+                if (rand % 4 == 0 || rand % 4 == 3)
+                {
+                    if (j == 0)
+                    {
+                        Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 0);
+                        Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 0);
+                    }
+                    else
+                    {
+                        Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 1);
+                        Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 1);
+                    }
+                }
+                else
+                {
+                    if (j == 1)
+                    {
+                        Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 1);
+                        Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 1);
+                    }
+                    else
+                    {
+                        Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 0);
+                        Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 0);
+                    }
+                }
             }
         }
         for (int i = 0; i < 4; i++)
@@ -1381,7 +1406,7 @@ public class BossNormal : MonoBehaviour
         {
             startPos = Field[(Out[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,st, 0, 0);
+            Attack(startPos, AOE1Field, 0,st, 6, 0);
         }
         yield return new WaitForSeconds(st);
         DestroyField(Out);
@@ -1411,8 +1436,7 @@ public class BossNormal : MonoBehaviour
                     startPos = new Vector3(goPos.x, 50f, goPos.z - 6);
                     for (int i = 0; i < 2; i++)
                     {
-                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
-                        attackPos[i + (j * 2)] = startPos;
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.Euler(0, 0, 0)); attackPos[i + (j * 2)] = startPos;
                         attackPos2[i + (j * 2)] = new Vector3(startPos.x, startPos.y, 0);
                         goPos.x += 6f;
                         startPos.x += 6f;
@@ -1425,8 +1449,7 @@ public class BossNormal : MonoBehaviour
                     startPos = new Vector3(goPos.x - 6, 50f, goPos.z);
                     for (int i = 0; i < 2; i++)
                     {
-                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
-                        attackPos[i + (j * 2)] = startPos;
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.Euler(0, 270, 0)); attackPos[i + (j * 2)] = startPos;
                         attackPos2[i + (j * 2)] = new Vector3(0, startPos.y, startPos.z);
                         goPos.z -= 6f;
                         startPos.z -= 6f;
@@ -1439,8 +1462,7 @@ public class BossNormal : MonoBehaviour
                     startPos = new Vector3(goPos.x + 6, 50f, goPos.z);
                     for (int i = 0; i < 2; i++)
                     {
-                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
-                        attackPos[i + (j * 2)] = startPos;
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.Euler(0, 90, 0)); attackPos[i + (j * 2)] = startPos;
                         attackPos2[i + (j * 2)] = new Vector3(0, startPos.y, startPos.z);
                         goPos.z -= 6f;
                         startPos.z -= 6f;
@@ -1453,8 +1475,7 @@ public class BossNormal : MonoBehaviour
                     startPos = new Vector3(goPos.x, 50f, goPos.z + 6);
                     for (int i = 0; i < 2; i++)
                     {
-                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.identity);
-                        attackPos[i + (j * 2)] = startPos;
+                        sword[i + (j * 2)] = Instantiate(Nail, goPos, Quaternion.Euler(0, 180, 0)); attackPos[i + (j * 2)] = startPos;
                         attackPos2[i + (j * 2)] = new Vector3(startPos.x, startPos.y, 0);
                         goPos.x += 6f;
                         startPos.x += 6f;
@@ -1482,8 +1503,32 @@ public class BossNormal : MonoBehaviour
         {
             for (int i = 0; i < 2; i++)
             {
-                Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j],st2, 0, 0);
-                Attack(attackPos2[i+(j*2)], AOEThinHalf, rota[j],st2, 0, 0);
+                if (rand % 4 == 0 || rand % 4 == 3)
+                {
+                    if (j == 0)
+                    {
+                        Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 0);
+                        Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 0);
+                    }
+                    else
+                    {
+                        Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 1);
+                        Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 1);
+                    }
+                }
+                else
+                {
+                    if (j == 1)
+                    {
+                        Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 1);
+                        Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 1);
+                    }
+                    else
+                    {
+                        Attack(attackPos[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 0);
+                        Attack(attackPos2[i + (j * 2)], AOEThinHalf, rota[j], st2, 5, 0);
+                    }
+                }
             }
         }
         
@@ -1492,8 +1537,8 @@ public class BossNormal : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            objList.Remove(sword[i]);
             Destroy(sword[i]);
+            objList.Remove(sword[i]);
         }
         ReField();
         CanonOn();
@@ -1512,7 +1557,7 @@ public class BossNormal : MonoBehaviour
         {
             startPos = Field[(Out[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,st, 0, 0);
+            Attack(startPos, AOE1Field, 0,st, 6, 0);
         }
         yield return new WaitForSeconds(st);
         DestroyField(Out);
@@ -1531,6 +1576,7 @@ public class BossNormal : MonoBehaviour
         Vector3 goPos = Vector3.zero;
         GameObject[] sword = new GameObject[2];
         Vector3[] attackPos=new Vector3[2];
+        Vector3[] attackPos2 = new Vector3[2];
         switch (rand % 4)
         {
             case 0:
@@ -1539,9 +1585,9 @@ public class BossNormal : MonoBehaviour
                 startPos = new Vector3(goPos.x, 50f, goPos.z - 6);
                 for (int i = 0; i < 2; i++)
                 {
-                    sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
-                    Attack(startPos, AOEThinHalf, 0,let, 0, 0);
+                    sword[i] = Instantiate(Nail, goPos, Quaternion.Euler(0,0,0));
                     attackPos[i] = new Vector3(startPos.x, startPos.y, 0);
+                    attackPos2[i] = startPos;
                     goPos.x += 6f;
                     startPos.x += 6f;
                 }
@@ -1553,9 +1599,9 @@ public class BossNormal : MonoBehaviour
                 startPos = new Vector3(goPos.x - 6, 50f, goPos.z);
                 for (int i = 0; i < 2; i++)
                 {
-                    sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
-                    Attack(startPos, AOEThinHalf, 90,let, 0, 0);
+                    sword[i] = Instantiate(Nail, goPos, Quaternion.Euler(0, 90, 0));
                     attackPos[i]= new Vector3(0,startPos.y,startPos.z);
+                    attackPos2[i] = startPos;
                     goPos.z -= 6f;
                     startPos.z -= 6f;
                 }
@@ -1567,9 +1613,9 @@ public class BossNormal : MonoBehaviour
                 startPos = new Vector3(goPos.x + 6, 50f, goPos.z);
                 for (int i = 0; i < 2; i++)
                 {
-                    sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
-                    Attack(startPos, AOEThinHalf, 90,let, 0, 0);
+                    sword[i] = Instantiate(Nail, goPos, Quaternion.Euler(0, 270, 0));
                     attackPos[i] = new Vector3(0, startPos.y, startPos.z);
+                    attackPos2[i] = startPos;
                     goPos.z -= 6f;
                     startPos.z -= 6f;
                 }
@@ -1577,13 +1623,13 @@ public class BossNormal : MonoBehaviour
                 break;
             case 3:
                 goPos = new Vector3(-4.5f, 3f, -30f);
-                if (rand >= 4) goPos.z += 3f;
+                if (rand >= 4) goPos.x += 3f;
                 startPos = new Vector3(goPos.x, 50f, goPos.z + 6);
                 for (int i = 0; i < 2; i++)
                 {
-                    sword[i] = Instantiate(Nail, goPos, Quaternion.identity);
-                    Attack(startPos, AOEThinHalf, 0,let, 0, 0);
+                    sword[i] = Instantiate(Nail, goPos, Quaternion.Euler(0, 180, 0));
                     attackPos[i] = new Vector3(startPos.x, startPos.y, 0);
+                    attackPos2[i] = startPos;
                     goPos.x += 6f;
                     startPos.x += 6f;
                 }
@@ -1597,7 +1643,16 @@ public class BossNormal : MonoBehaviour
         yield return new WaitForSeconds(let);
         for(int i = 0; i < 2; i++)
         {
-            Attack(attackPos[i], AOEThinHalf, rota,st2, 0, 0);
+            if (rand % 4 == 0 || rand % 4 == 3)
+            {
+                Attack(attackPos[i], AOEThinHalf, rota, st2, 5, 0);
+                Attack(attackPos2[i], AOEThinHalf, rota, st2, 5, 0);
+            }
+            else
+            {
+                Attack(attackPos[i], AOEThinHalf, rota, st2, 5, 1);
+                Attack(attackPos2[i], AOEThinHalf, rota, st2, 5, 1);
+            }
         }
         //外周エリア再出現
         yield return new WaitForSeconds(et);
@@ -1629,7 +1684,7 @@ public class BossNormal : MonoBehaviour
         {
             startPos = Field[(In[i] - 1)].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0,st, 0, 0);
+            Attack(startPos, AOE1Field, 0,st, 6, 0);
         }
         yield return new WaitForSeconds(st);
         BossField[] FieldScript = { null, null, null, null, null, null, null, null, null, null, null, null };
@@ -1665,7 +1720,7 @@ public class BossNormal : MonoBehaviour
             objList.Remove(StarMana[i]);
             Destroy(StarMana[i]);
         }
-        Attack(goPos, AOEBigCircle, 0,st2, 0, 0);
+        Attack(goPos, AOEBigCircle, 0,st2, 7, 0);
         yield return new WaitForSeconds(et);
         if (FieldScript != null)
         {
@@ -1706,7 +1761,8 @@ public class BossNormal : MonoBehaviour
             objList.Remove(StarMana[i]);
             Destroy(StarMana[i]);
         }
-        Attack(goPos, AOEBigCircle, 0,st, 0, 0);
+
+        Attack(goPos, AOEBigCircle, 0,st, 7, 0);
     }
     //横の1列以外に攻撃--------------------------------------------------------------------------------------------------
     private IEnumerator AttackHrizon(float st, float let, float value)
@@ -1714,7 +1770,7 @@ public class BossNormal : MonoBehaviour
         int rand = Random.Range(0, 8);
         Vector3 startPos = new Vector3(15f, 3f, -10.5f);
         Vector3 goPos = new Vector3(0, 0, 0);
-        Vector3 letPos = new Vector3(45 * value, 0, 0);
+        Vector3 letPos = new Vector3(45 * value, 90, 0);
         GameObject[] nail = { null, null, null, null, null, null, null, null };
         for (int i = 0; i < 8; i++)
         {
@@ -1961,19 +2017,19 @@ public class BossNormal : MonoBehaviour
     }
     private void CanonOff()
     {
-        BossField[] canonSc = new BossField[2];
+        Canon[] canonSc = new Canon[2];
         for(int i = 0; i < 2; i++)
         {
-            canonSc[i] = Canon[i].GetComponent<BossField>();
+            canonSc[i] = Canon[i].GetComponent<Canon>();
             canonSc[i].ObjectFalse();
         }
     }
     private void CanonOn()
     {
-        BossField[] canonSc = new BossField[2];
+        Canon[] canonSc = new Canon[2];
         for (int i = 0; i < 2; i++)
         {
-            canonSc[i] = Canon[i].GetComponent<BossField>();
+            canonSc[i] = Canon[i].GetComponent<Canon>();
             canonSc[i].ObjectTrue();
         }
     }
@@ -2016,6 +2072,11 @@ public class BossNormal : MonoBehaviour
         for (int i = 0; i < 16; i++)
         {
             fi[i].fiSc.ObjectReStealth();
+        }
+        for (int i = 0; i < 16; i++)
+        {
+            fi[i].fiSc.ObjectTrue();
+            fi[i].fiOn = true;
         }
         for (int i = 0; i < 16; i++)
         {

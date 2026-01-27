@@ -68,7 +68,7 @@ public class BattleMana : MonoBehaviour
                 Hp -= fallDamage;
                 rest.SetActive(true);
             }
-            if (Hp == 0)
+            if (Hp <= 0)
             {
                 if (diesp)
                 {
