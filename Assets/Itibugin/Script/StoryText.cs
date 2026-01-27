@@ -38,10 +38,8 @@ public class StoryText : MonoBehaviour
     
     public void OnAction(InputAction.CallbackContext context)//PadのB
     {
-        Debug.Log("Bボタンが押されました１１１");
         if (context.performed)// <-performed（ボタンが深く押された瞬間
         {
-            Debug.Log("Bボタンが押されました２２２２");
             NextAction();
         }
     }
