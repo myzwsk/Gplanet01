@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class StoryText : MonoBehaviour
@@ -34,7 +35,16 @@ public class StoryText : MonoBehaviour
     {
         ShowNextLine();
     }
-
+    
+    public void OnAction(InputAction.CallbackContext context)//PadのB
+    {
+        Debug.Log("Bボタンが押されました１１１");
+        if (context.performed)// <-performed（ボタンが深く押された瞬間
+        {
+            Debug.Log("Bボタンが押されました２２２２");
+            NextAction();
+        }
+    }
     void Update()
     {
         if (inputLocked) return;
@@ -52,20 +62,7 @@ public class StoryText : MonoBehaviour
         // クリック
         if (Input.GetMouseButtonDown(0))
         {
-            if (isMoving) return;
-
-            // ★ すでに最後を表示し終わっていたらフェード
-            if (index >= lines.Length)
-            {
-                inputLocked = true;
-
-                if (screenfade != null)
-                    screenfade.FadeOutAndLoad();
-
-                return;
-            }
-
-            ShowNextLine();
+            NextAction();
         }
     }
 
@@ -109,5 +106,23 @@ public class StoryText : MonoBehaviour
             if (i == lineIndex) return true;
         }
         return false;
+    }
+    void NextAction()
+    {
+
+        if (isMoving) return;
+
+        // ★ すでに最後を表示し終わっていたらフェード
+        if (index >= lines.Length)
+        {
+            inputLocked = true;
+
+            if (screenfade != null)
+                screenfade.FadeOutAndLoad();
+
+            return;
+        }
+
+        ShowNextLine();
     }
 }
