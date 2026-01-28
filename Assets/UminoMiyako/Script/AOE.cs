@@ -7,8 +7,10 @@ public class AOE : MonoBehaviour
     public int EffLota = 0;
     public float time = 1f;
     public float Efftime = 0;
+    public float SEdelay = 0;
     public GameObject AOEeffPre;
     public GameObject Eff;
+    public AudioSource SE;
 
     private Vector3 startScale;
     private Vector3 endScale;
@@ -41,6 +43,10 @@ public class AOE : MonoBehaviour
                 {
                     EffFlag = true;
                     Instantiate(Eff, transform.position, Quaternion.Euler(0,90*EffLota,0));
+                    if (SE != null)
+                    {
+                        SE.PlayDelayed(SEdelay);
+                    }
                 }
             }
         }
@@ -78,6 +84,10 @@ public class AOE : MonoBehaviour
         if (Eff != null&&EffFlag==false)
         {
             Instantiate(Eff, transform.position, Quaternion.Euler(0, 90 * EffLota, 0));
+            if (SE != null)
+            {
+                SE.PlayDelayed(SEdelay);
+            }
         }
         Destroy(AOEeff);
         Destroy(gameObject);

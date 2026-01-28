@@ -16,6 +16,8 @@ using UnityEngine.Rendering;
 
 public class BossNormal : MonoBehaviour
 {
+
+    public AudioSource[] SE;
     public GameObject AOE1Field;
     public GameObject AOE8Field;
     public GameObject AOECircle;
@@ -68,6 +70,7 @@ public class BossNormal : MonoBehaviour
     private Coroutine currentCombo = default(Coroutine);
     private List<Coroutine> runcoro = new List<Coroutine>();
     private List<GameObject> objList= new List<GameObject>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -236,7 +239,7 @@ public class BossNormal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*switch (bosshp.state)
+        switch (bosshp.state)
         {
             case BossHp.State.normal:
                 if (go)
@@ -366,7 +369,7 @@ public class BossNormal : MonoBehaviour
                     go = false;
                 }
                 break;
-        }*/
+        }
         if (Input.GetKey(KeyCode.LeftShift))
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -474,6 +477,7 @@ public class BossNormal : MonoBehaviour
             }
         }
         
+       
     }
     //gear4用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -975,6 +979,7 @@ public class BossNormal : MonoBehaviour
     //床全消し--------------------------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackAllBreak(float st,float et)
     {
+    
         Vector3 startPos = default;
         int[] All = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
         for(int i = 0; i < 16; i++)
@@ -983,11 +988,14 @@ public class BossNormal : MonoBehaviour
             startPos.y = 50;
             Attack(startPos, AOE1Field, 0,st, 0, 0);
         }
+
         yield return new WaitForSeconds(st);
         Instantiate(Effect[9].EffPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        
         DestroyField(All);
         yield return new WaitForSeconds(et);
         ReField();
+        
     }
     //床複数破壊かつ床透明化--------------------------------------------------------------------------------------------------------------------------------------
     private IEnumerator AttackStealth(float st,float et)
@@ -1201,6 +1209,7 @@ public class BossNormal : MonoBehaviour
         Vector3 goPos = new Vector3(center.x, 50, center.z);
         CharacterController[] players = FindObjectsOfType<CharacterController>();
         Attack(goPos, AOEPush, 0,st, 8, 0);
+      
         yield return new WaitForSeconds(st);
         foreach (var controller in players)
         {
@@ -1733,6 +1742,7 @@ public class BossNormal : MonoBehaviour
     //星が重なった場所から攻撃--------------------------------------------------------------------------------------------------
     private IEnumerator AttackStar(float st)
     {
+       
         int rand = Random.Range(0, 361);
         float startAngleDegrees = rand;
         GameObject[] StarMana = { null, null };
@@ -1752,6 +1762,7 @@ public class BossNormal : MonoBehaviour
             if (startAngleDegrees > 180) startAngleDegrees -= 180;
             else startAngleDegrees += 180;
         }
+        
         yield return new WaitUntil(() =>
             StarMana[0] != null && StarMana[1] != null &&
                 Vector3.Distance(StarMana[0].transform.position, StarMana[1].transform.position) < 0.1f);
@@ -1825,6 +1836,7 @@ public class BossNormal : MonoBehaviour
             if (rand != i)
             {
                 Attack(startPos, AOEThin, 0, st, 5, 0);
+                
             }
             startPos.x += 3;
         }
@@ -1901,7 +1913,6 @@ public class BossNormal : MonoBehaviour
         Vector3 startPosD = new Vector3(0f, 50f, 10.5f);
         for(int i = 0; i < 8; i++)
         {
-           
             Attack(startPosU, AOEThin,90,st, 2, 1);
             Attack(startPosL, AOEThin,0,st, 2,0);
             Attack(startPosR, AOEThin,0,st, 2, 2);
@@ -2095,4 +2106,6 @@ public class BossNormal : MonoBehaviour
         objList.Clear();
         ReField();
     }
+
+  
 }

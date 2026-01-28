@@ -1626,6 +1626,7 @@ public class Boss : MonoBehaviour
                 Destroy(nail[i]);
             }
         }
+        
     }
     //外周破壊--------------------------------------------------------------------------------------------------
     private IEnumerator AttackOut(float st, float et)
