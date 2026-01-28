@@ -97,6 +97,7 @@ public class BattleMana : MonoBehaviour
             teleSc.istele = false;
             if (rest.activeSelf)
             {
+                GetComponent<AudioSource>().Play();
                 rest.SetActive(false);
             }
             if (bossSc.enabled)

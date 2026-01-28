@@ -64,7 +64,6 @@ public class Teleporter : MonoBehaviour
         OnPlayer = false;
         var cc = player.GetComponent<CharacterController>();
         if (cc != null) cc.enabled = false;
-
         player.position = telePosition;
 
         if (cc != null) cc.enabled = true;
