@@ -14,7 +14,7 @@ public class BathroomEventController : MonoBehaviour
     [Header("Shower Control")]
     public ShowerController showerController;
 
-
+    public SimpleFollowCamera cam;
     bool isPlayed = false;
     bool pathShown = false;
 
@@ -32,6 +32,7 @@ public class BathroomEventController : MonoBehaviour
 
         bathWater.SetActive(true);
         path.SetActive(false);   // ★最初は道を消す
+        cam.EnableFixedCamera();
         showerController.StartShower();
         StartCoroutine(FillBath());
     }
@@ -65,9 +66,16 @@ public class BathroomEventController : MonoBehaviour
         }
         if (showerController != null)
         {
+            StartCoroutine(DelayDisableCamera());
             showerController.StopShower();
             Debug.Log("水が満タン → シャワー停止");
         }
         bathWater.transform.localScale = targetWaterScale;
     }
+    IEnumerator DelayDisableCamera()
+    {
+        yield return new WaitForSeconds(2f);
+        cam.DisableFixedCamera();
+    }
+
 }
