@@ -15,6 +15,12 @@ public class SimpleFollowCamera : MonoBehaviour
 
     public bool follow = true;
 
+    // ★ 外部から固定モードを切り替える
+    public bool isFixedCamera = false;
+
+    // ★ 固定位置＆角度（Inspector で指定）
+    public Transform fixedPoint;
+
     float yaw;
     float pitch;
 
@@ -32,7 +38,20 @@ public class SimpleFollowCamera : MonoBehaviour
     {
         if (!follow || target == null) return;
 
-        // ===== マウス入力 =====
+        // ============================
+        // ★ 固定カメラモード
+        // ============================
+        if (isFixedCamera && fixedPoint != null)
+        {
+            transform.position = fixedPoint.position;
+            transform.rotation = fixedPoint.rotation; // ← 角度も完全固定
+            return;
+        }
+
+        // ============================
+        // ★ 通常の追従カメラ
+        // ============================
+
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
@@ -42,7 +61,6 @@ public class SimpleFollowCamera : MonoBehaviour
 
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
 
-        // ===== 位置追従 =====
         Vector3 desiredPos = target.position + rotation * offset;
         transform.position = Vector3.Lerp(
             transform.position,
@@ -50,7 +68,19 @@ public class SimpleFollowCamera : MonoBehaviour
             smooth * Time.deltaTime
         );
 
-        // ===== 視線 =====
         transform.LookAt(target.position + Vector3.up * 1.5f);
+    }
+
+    // ============================
+    // ★ 外部から呼び出す関数
+    // ============================
+    public void EnableFixedCamera()
+    {
+        isFixedCamera = true;
+    }
+
+    public void DisableFixedCamera()
+    {
+        isFixedCamera = false;
     }
 }
