@@ -3114,7 +3114,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 260990603675834805, guid: d02d1271198ce904d81a1c5351ecc6fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.3
+      value: -6.2
       objectReference: {fileID: 0}
     - target: {fileID: 260990603675834805, guid: d02d1271198ce904d81a1c5351ecc6fe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9053,6 +9053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraFollowScript: {fileID: 380838109}
   newOffset: {x: 6, y: 4, z: 0}
+  smoothSpeed: 5
 --- !u!1001 &570594330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15173,7 +15174,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 260990603675834805, guid: d02d1271198ce904d81a1c5351ecc6fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.3
+      value: -6.2
       objectReference: {fileID: 0}
     - target: {fileID: 260990603675834805, guid: d02d1271198ce904d81a1c5351ecc6fe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22060,7 +22061,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 260990603675834805, guid: d02d1271198ce904d81a1c5351ecc6fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.3
+      value: -6.2
       objectReference: {fileID: 0}
     - target: {fileID: 260990603675834805, guid: d02d1271198ce904d81a1c5351ecc6fe, type: 3}
       propertyPath: m_LocalPosition.y
