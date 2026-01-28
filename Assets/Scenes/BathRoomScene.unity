@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 45047011}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -36, y: -33, z: -2}
+  m_LocalPosition: {x: -37.76, y: -32.04, z: -2}
   m_LocalScale: {x: 3, y: 1, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -851,6 +851,7 @@ MonoBehaviour:
   - {fileID: 1484672702}
   - {fileID: 1766133665}
   - {fileID: 1358331547}
+  - {fileID: 1358331547}
   pipeGamePanel: {fileID: 1306100116}
   finalGamePanel: {fileID: 402357705}
 --- !u!4 &111395789
@@ -1285,6 +1286,7 @@ GameObject:
   - component: {fileID: 154062161}
   - component: {fileID: 154062160}
   - component: {fileID: 154062163}
+  - component: {fileID: 154062164}
   m_Layer: 0
   m_Name: Path11
   m_TagString: Untagged
@@ -1393,6 +1395,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5093704db6fe77146b3e8dbcc8169173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &154062164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154062158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912f8714af993814b8f86e9c213af306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startDelay: 5
+  cool: 3
+  speed: 10
+  rotateSpeed: 180
+  Pos2: {x: 0, y: 2, z: 0}
+  Lota2: {x: 0, y: 0, z: -90}
+  Pos3: {x: 7, y: 2, z: 0}
 --- !u!1 &156996906
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,10 +2094,14 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 28718a3af2c5c7944b32fe6eb2b414ee, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0d4474ab0bd45de4d9d34e976e197868, type: 2}
+      objectReference: {fileID: 2100000, guid: 7b9c9b1efed239943adeb381a6102532, type: 2}
     - target: {fileID: 919132149155446097, guid: 28718a3af2c5c7944b32fe6eb2b414ee, type: 3}
       propertyPath: m_Name
       value: BathtubMask
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 28718a3af2c5c7944b32fe6eb2b414ee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 28718a3af2c5c7944b32fe6eb2b414ee, type: 3}
       propertyPath: m_TagString
@@ -3015,7 +3040,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &603365123
 Transform:
   m_ObjectHideFlags: 0
@@ -3564,6 +3589,8 @@ GameObject:
   - component: {fileID: 789693317}
   - component: {fileID: 789693316}
   - component: {fileID: 789693319}
+  - component: {fileID: 789693321}
+  - component: {fileID: 789693320}
   m_Layer: 0
   m_Name: Path8
   m_TagString: Untagged
@@ -3672,6 +3699,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5093704db6fe77146b3e8dbcc8169173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &789693320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789693314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e29a87afbe8bd5a4ba3aaa15e05cf69f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startDelay: 5
+  cool: 3
+  speed: 15
+  lotadire: 1
+  rotateDuration: 2
+  rotateAxis: {x: 0, y: 1, z: 0}
+--- !u!136 &789693321
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789693314}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.7
+  m_Height: 10
+  m_Direction: 1
+  m_Center: {x: -0.00000047683716, y: 0, z: 0}
 --- !u!1 &813040276
 GameObject:
   m_ObjectHideFlags: 0
@@ -4230,7 +4298,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c0776710185a9a5479eb8809dd79030b, type: 2}
+  - {fileID: 2100000, guid: e4dbcb7bacacb1a43b8d605a49715f8b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6406,7 +6474,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+  - {fileID: 2100000, guid: c0776710185a9a5479eb8809dd79030b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
