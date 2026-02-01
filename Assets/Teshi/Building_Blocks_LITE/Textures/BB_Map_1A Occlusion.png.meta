@@ -1,22 +1,6 @@
 fileFormatVersion: 2
-guid: 8fa66a5c74765d947a00f44490bbaeaa
-labels:
-- game
-- bricks
-- magic
-- hardsurface
-- mobile
-- lowpoly
-- building
-- fantasy
-- handpainted
-- defence
-- moba
-- stylize
-- stylized
-- mage
-- tower
-timeCreated: 1452788359
+guid: 9ea8a15894d0dcb44a4f28b613742ec1
+timeCreated: 1473278297
 licenseType: Store
 TextureImporter:
   fileIDToRecycleName: {}
@@ -33,13 +17,13 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 8
+  cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
@@ -58,22 +42,23 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 0
-  textureType: -1
+  textureType: 0
   buildTargetSettings: []
   spriteSheet:
     sprites: []
+    outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 53793
-  packageName: Awesome Stylized Mage Tower
+  productId: 71297
+  packageName: Block Creator LITE
   packageVersion: 1.0
-  assetPath: Assets/Tower/Textures/texture.png
-  uploadId: 98091
+  assetPath: Assets/Building_Blocks_LITE/Textures/BB_Map_1A Occlusion.png
+  uploadId: 136438
