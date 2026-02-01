@@ -6,12 +6,10 @@ public class MiniGameResetManager : MonoBehaviour
 
     [Header("Panels")]
     public GameObject pressureGamePanel;
-    public GameObject pipeGamePanel;
     public GameObject finalGamePanel;
 
     [Header("MiniGame Scripts")]
     public PressureMiniGame pressureMiniGame;
-    public PipeGameManager pipeGameManager;
 
     void Awake()
     {
@@ -25,16 +23,21 @@ public class MiniGameResetManager : MonoBehaviour
     {
         Debug.Log("=== ミニゲーム完全リセット ===");
 
-        // ① Panel 状態を正解に戻す
-        pressureGamePanel.SetActive(true);
-        pipeGamePanel.SetActive(false);
-        finalGamePanel.SetActive(false);
+        // ① Panel 状態リセット
+        if (pressureGamePanel != null)
+            pressureGamePanel.SetActive(true);
 
-        // ② 各ミニゲーム内部リセット
+        if (finalGamePanel != null)
+            finalGamePanel.SetActive(false);
+
+        // ② 水圧ゲージ内部リセット
         if (pressureMiniGame != null)
+        {
             pressureMiniGame.ResetGame();
-
-        if (pipeGameManager != null)
-            pipeGameManager.ResetGame();
+        }
+        else
+        {
+            Debug.LogError("PressureMiniGame が設定されていません");
+        }
     }
 }

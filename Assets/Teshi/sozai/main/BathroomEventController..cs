@@ -5,7 +5,7 @@ public class BathroomEventController : MonoBehaviour
 {
     [Header("Objects")]
     public GameObject bathWater;
-    public GameObject path;   // 出したい道
+    public GameObject path;
 
     [Header("Water Settings")]
     public float verticalSpeed = 10f;
@@ -14,7 +14,9 @@ public class BathroomEventController : MonoBehaviour
     [Header("Shower Control")]
     public ShowerController showerController;
 
-    public SimpleFollowCamera cam;
+    [Header("Shower Sound")]
+    public AudioClip showerLoopSE;
+
     bool isPlayed = false;
     bool pathShown = false;
 
@@ -31,9 +33,17 @@ public class BathroomEventController : MonoBehaviour
         );
 
         bathWater.SetActive(true);
-        path.SetActive(false);   // ★最初は道を消す
-        cam.EnableFixedCamera();
-        showerController.StartShower();
+        path.SetActive(false);
+        pathShown = false;
+
+        // シャワー開始（見た目）
+        if (showerController != null)
+            showerController.StartShower();
+
+        // ★ シャワー音スタート
+        if (showerLoopSE != null && SEManager.Instance != null)
+            SEManager.Instance.PlayLoopSE(showerLoopSE, 0.6f);
+
         StartCoroutine(FillBath());
     }
 
@@ -51,31 +61,27 @@ public class BathroomEventController : MonoBehaviour
 
             bathWater.transform.localScale = scale;
 
-            // ★ 水がたまったら道を出す
-            if (!pathShown && scale.y >= targetWaterScale.y * 1.0f)
+            // ★ 水が十分たまったら道を出す
+            if (!pathShown && scale.y >= targetWaterScale.y)
             {
                 pathShown = true;
                 path.SetActive(true);
                 Debug.Log("水がたまった → 道を表示");
             }
-            // 水が満タンになったらシャワー停止
-            
-
 
             yield return null;
         }
-        if (showerController != null)
-        {
-            StartCoroutine(DelayDisableCamera());
-            showerController.StopShower();
-            Debug.Log("水が満タン → シャワー停止");
-        }
-        bathWater.transform.localScale = targetWaterScale;
-    }
-    IEnumerator DelayDisableCamera()
-    {
-        yield return new WaitForSeconds(2f);
-        cam.DisableFixedCamera();
-    }
 
+        // ★ 満タン処理
+        bathWater.transform.localScale = targetWaterScale;
+
+        if (showerController != null)
+            showerController.StopShower();
+
+        // ★ シャワー音停止（重要）
+        if (SEManager.Instance != null)
+            SEManager.Instance.StopLoopSE();
+
+        Debug.Log("水が満タン → シャワー停止");
+    }
 }

@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
         }
     }
 
-   
+
 
     void Update()
     {
@@ -91,8 +91,8 @@ public class Player : MonoBehaviour
         // 入力をカメラ基準に変換
         Vector3 targetDirection = camForward * moveInput.y + camRight * moveInput.x;
         Vector3 currentHorizontalVelocity = new Vector3(velocity.x, 0, velocity.z);
-        
-       
+
+
         if (animator != null)
         {
             // Speedパラメーターの更新
@@ -194,9 +194,9 @@ public class Player : MonoBehaviour
         }
         if (!hand.isGrabbing)
         {
-                animator.SetBool("IsGrabbingIdle", false);
-                animator.SetBool("IsPushing", false);
-                animator.SetBool("IsPulling", false);
+            animator.SetBool("IsGrabbingIdle", false);
+            animator.SetBool("IsPushing", false);
+            animator.SetBool("IsPulling", false);
         }
         velocity.x = currentHorizontalVelocity.x;
         velocity.z = currentHorizontalVelocity.z;
@@ -250,7 +250,7 @@ public class Player : MonoBehaviour
         AudioSource hitAudio = other.GetComponent<AudioSource>();
         if (other.CompareTag("Bubble")) // バブル取得時
         {
-            
+
             hitAudio.Play();
             // バブルの見た目を消す (MeshRendererとColliderを無効化)
             other.GetComponent<MeshRenderer>().enabled = false;
@@ -260,7 +260,7 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject, hitAudio.clip.length);
         }
 
-        
+
     }
 
     /*void OnControllerColliderHit(ControllerColliderHit hit)

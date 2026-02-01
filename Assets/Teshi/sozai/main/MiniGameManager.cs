@@ -3,25 +3,26 @@
 public class MiniGameManager : MonoBehaviour
 {
     [Header("Clear Settings")]
-    public int clearTarget = 3;          // 何回クリアでOKか
+    public int clearTarget = 3;
     int clearCount = 0;
 
-    [Header("State")]
-    public bool isAllCleared = false;    // 全クリア済みか
+    public bool isAllCleared = false;
 
     [Header("Bathroom Event")]
     public BathroomEventController bathroomEvent;
 
-    // ★ ミニゲーム1回クリア時に呼ばれる
+    // ★ ミニゲーム1つクリアしたら呼ぶ
     public void OnMiniGameCleared()
     {
-        // すでに全クリアなら何もしない
         if (isAllCleared) return;
 
         clearCount++;
         Debug.Log("MiniGame Clear Count: " + clearCount);
 
-        // 目標回数に達したら
+        // 次のミニゲームを表示
+        GameManager.Instance.ShowNextMiniGame();
+
+        // 全部クリア判定
         if (clearCount >= clearTarget)
         {
             isAllCleared = true;
@@ -29,23 +30,22 @@ public class MiniGameManager : MonoBehaviour
         }
     }
 
-    // ★ 全クリア時の処理（STEP4）
     void AllClear()
     {
         Debug.Log("ALL MINI GAMES CLEARED!");
 
-        // 風呂場演出を開始
         if (bathroomEvent != null)
         {
+            Debug.Log("BathroomEventController 呼ぶ");
             bathroomEvent.PlayBathroomEvent();
         }
         else
         {
-            Debug.LogWarning("BathroomEventController が設定されていません");
+            Debug.LogError("BathroomEventController が設定されていません");
         }
     }
 
-    // （任意）デバッグ用：最初からやり直したい時
+    // デバッグ用
     public void ResetProgress()
     {
         clearCount = 0;

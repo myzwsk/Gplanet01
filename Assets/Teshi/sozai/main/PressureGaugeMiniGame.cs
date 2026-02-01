@@ -6,10 +6,18 @@ public class PressureMiniGame : MonoBehaviour
     public RectTransform greenZone;
     public RectTransform needle;
 
-    [Header("Next MiniGame")]
-    public GameObject nextMiniGamePanel;
+    [Header("Progress")]
+    public int requiredSuccess = 6;
+    int successCount = 0;
 
-    int phase = 1;
+    [Header("Next Game")]
+    public GameObject finalDecisionMiniGame;
+
+    [Header("SE")]
+    public AudioSource audioSource;
+    public AudioClip successSE;
+    public AudioClip failSE;
+    public AudioClip finalSuccessSE;
 
     float greenMoveSpeed = 0f;
     float needleSpeed = 200f;
@@ -21,157 +29,205 @@ public class PressureMiniGame : MonoBehaviour
     bool greenRight = true;
     bool needleRight = true;
     bool stopped = false;
+    bool isVertical = false;
 
     void Start()
     {
+        // ★ AudioSource 自動取得（入れ忘れ防止）
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
         greenStartX = greenZone.anchoredPosition.x;
         needleStartX = needle.anchoredPosition.x;
-        ResetGame();
+        ResetRound();
+        UpdateDifficulty();
     }
 
     void Update()
     {
-        if (!stopped)
-        {
-            MoveNeedle();
-        }
+        if (stopped) return;
 
-        if (phase >= 2 && !stopped)
-        {
+        MoveNeedle();
+
+        if (successCount >= 2)
             MoveGreenZone();
-        }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !stopped)
-        {
+        if (Input.GetKeyDown(KeyCode.Space))
             StopNeedle();
-        }
     }
 
+    // ===== 針移動 =====
     void MoveNeedle()
     {
         Vector2 pos = needle.anchoredPosition;
-        pos.x += (needleRight ? 1 : -1) * needleSpeed * Time.deltaTime;
 
-        if (pos.x > needleStartX + range)
+        if (!isVertical)
+            pos.x += (needleRight ? 1 : -1) * needleSpeed * Time.deltaTime;
+        else
+            pos.y += (needleRight ? 1 : -1) * needleSpeed * Time.deltaTime;
+
+        float limit = range;
+
+        if (!isVertical)
         {
-            pos.x = needleStartX + range;
-            needleRight = false;
+            if (pos.x > needleStartX + limit) { pos.x = needleStartX + limit; needleRight = false; }
+            if (pos.x < needleStartX - limit) { pos.x = needleStartX - limit; needleRight = true; }
         }
-        else if (pos.x < needleStartX - range)
+        else
         {
-            pos.x = needleStartX - range;
-            needleRight = true;
+            if (pos.y > limit) { pos.y = limit; needleRight = false; }
+            if (pos.y < -limit) { pos.y = -limit; needleRight = true; }
         }
 
         needle.anchoredPosition = pos;
     }
 
+    // ===== 緑ゾーン移動 =====
     void MoveGreenZone()
     {
         Vector2 pos = greenZone.anchoredPosition;
-        pos.x += (greenRight ? 1 : -1) * greenMoveSpeed * Time.deltaTime;
 
-        if (pos.x > greenStartX + range)
+        if (!isVertical)
+            pos.x += (greenRight ? 1 : -1) * greenMoveSpeed * Time.deltaTime;
+        else
+            pos.y += (greenRight ? 1 : -1) * greenMoveSpeed * Time.deltaTime;
+
+        if (!isVertical)
         {
-            pos.x = greenStartX + range;
-            greenRight = false;
+            if (pos.x > greenStartX + range) { pos.x = greenStartX + range; greenRight = false; }
+            if (pos.x < greenStartX - range) { pos.x = greenStartX - range; greenRight = true; }
         }
-        else if (pos.x < greenStartX - range)
+        else
         {
-            pos.x = greenStartX - range;
-            greenRight = true;
+            if (pos.y > range) { pos.y = range; greenRight = false; }
+            if (pos.y < -range) { pos.y = -range; greenRight = true; }
         }
 
         greenZone.anchoredPosition = pos;
     }
 
+    // ===== 判定 =====
     void StopNeedle()
     {
         stopped = true;
 
-        float needleX = needle.anchoredPosition.x;
-        float greenMin = greenZone.anchoredPosition.x - greenZone.rect.width / 2f;
-        float greenMax = greenZone.anchoredPosition.x + greenZone.rect.width / 2f;
+        float needlePos = isVertical ? needle.anchoredPosition.y : needle.anchoredPosition.x;
+        float greenCenter = isVertical ? greenZone.anchoredPosition.y : greenZone.anchoredPosition.x;
+        float halfSize = (isVertical ? greenZone.rect.height : greenZone.rect.width) * 0.5f;
 
-        if (needleX >= greenMin && needleX <= greenMax)
+        if (needlePos >= greenCenter - halfSize && needlePos <= greenCenter + halfSize)
         {
-            Debug.Log($"Phase {phase} 成功！");
-            Invoke(nameof(NextPhase), 0.4f);
+            OnSuccess();
         }
         else
         {
-            Debug.Log("失敗！");
-            Invoke(nameof(ResetNeedle), 0.4f);
+            // ★ 失敗SE
+            if (audioSource != null && failSE != null)
+                audioSource.PlayOneShot(failSE);
+
+            ResetRound();
         }
     }
 
-    void ResetNeedle()
+    // ===== 成功処理 =====
+    void OnSuccess()
     {
-        needle.anchoredPosition =
-            new Vector2(needleStartX, needle.anchoredPosition.y);
-        stopped = false;
-    }
-
-    void NextPhase()
-    {
-        phase++;
-        stopped = false;
-
-        if (phase > 3)
+        // ★ 通常成功SE（最終以外）
+        if (audioSource != null && successSE != null && successCount + 1 < requiredSuccess)
         {
-            Debug.Log("水圧ゲージミニゲーム クリア！");
+            audioSource.PlayOneShot(successSE);
+        }
 
-            // 今のミニゲームを消す
-            gameObject.SetActive(false);
+        successCount++;
+        Debug.Log($"SUCCESS {successCount}/{requiredSuccess}");
 
-            // 次のミニゲームへ
-            if (nextMiniGamePanel != null)
-                nextMiniGamePanel.SetActive(true);
-
+        if (successCount >= requiredSuccess)
+        {
+            FinishGame(); // ← 最終SEはここで鳴らす
             return;
         }
 
-        UpdatePhase();
+        UpdateDifficulty();
+        ResetRound();
     }
 
-    void UpdatePhase()
+    // ===== 難易度（あなたの数値そのまま）=====
+    void UpdateDifficulty()
     {
-        if (phase == 1)
+        greenMoveSpeed = 0f;
+        needleSpeed = 200f;
+
+        if (successCount >= 1 && successCount < 2)
         {
-            greenMoveSpeed = 0f;
-            needleSpeed = 200f;
-            Debug.Log("Phase1：緑は動かない");
+            greenMoveSpeed = 80f;
+            needleSpeed = 260f;
         }
-        else if (phase == 2)
+        else if (successCount >= 2 && successCount < 3)
         {
-            greenMoveSpeed = 60f;
-            needleSpeed = 230f;
-            Debug.Log("Phase2：緑がゆっくり動く");
+            greenMoveSpeed = 80f;
+            needleSpeed = 260f;
         }
-        else if (phase == 3)
+        else if (successCount >= 3 && successCount < 4)
         {
-            greenMoveSpeed = 350f;   
-            needleSpeed = 550f;
-            Debug.Log("Phase3：緑が高速");
+            greenMoveSpeed = 250f;
+            needleSpeed = 470f;
+        }
+        else if (successCount >= 4 && successCount < 5)
+        {
+            greenMoveSpeed = 600f;
+            needleSpeed = 20f;
+        }
+        else if (successCount >= 5 && successCount < 6)
+        {
+            greenMoveSpeed = 520f;
+            needleSpeed = 400f;
         }
     }
+
+    // ===== ラウンドリセット =====
+    void ResetRound()
+    {
+        stopped = false;
+        needleRight = true;
+        greenRight = true;
+
+        if (!isVertical)
+        {
+            needle.anchoredPosition = new Vector2(needleStartX, needle.anchoredPosition.y);
+            greenZone.anchoredPosition = new Vector2(greenStartX, greenZone.anchoredPosition.y);
+        }
+        else
+        {
+            needle.anchoredPosition = Vector2.zero;
+            greenZone.anchoredPosition = Vector2.zero;
+        }
+    }
+
     public void ResetGame()
     {
-        phase = 1;
-        stopped = false;
+        successCount = 0;
+        isVertical = false;
 
-        greenRight = true;
-        needleRight = true;
+        GetComponent<RectTransform>().localRotation = Quaternion.identity;
 
-        // 位置を初期位置に戻す
-        greenZone.anchoredPosition =
-            new Vector2(greenStartX, greenZone.anchoredPosition.y);
-
-        needle.anchoredPosition =
-            new Vector2(needleStartX, needle.anchoredPosition.y);
-
-        UpdatePhase();
+        UpdateDifficulty();
+        ResetRound();
 
         Debug.Log("PressureMiniGame Reset");
+    }
+
+    // ===== クリア =====
+    void FinishGame()
+    {
+        Debug.Log("水圧ゲージ 完全クリア");
+
+        // ★ 最終クリアSE（ここが本命）
+        if (finalSuccessSE != null)
+            SEManager.Instance.PlaySE(finalSuccessSE);
+
+        gameObject.SetActive(false);
+
+        if (finalDecisionMiniGame != null)
+            finalDecisionMiniGame.SetActive(true);
     }
 }
