@@ -12,6 +12,7 @@ public class bearanimation : MonoBehaviour
         anim.SetBool("level 2", false);
         anim.SetBool("level 3", false);
         anim.SetBool("level 4", false);
+        anim.SetBool("Destroy", false);
     }
 
     // Update is called once per frame
@@ -27,9 +28,6 @@ public class bearanimation : MonoBehaviour
         {
             anim.SetBool("level 3", true);
             anim.SetBool("level 2", false);
-
-
-
         }
 
         if (BossHp.state == BossHp.State.gear4)
@@ -38,14 +36,19 @@ public class bearanimation : MonoBehaviour
             anim.SetBool("level 3", false);
         }
 
-    }
+        if(BossHp.state == BossHp.State.normal) 
+        {
+            anim.SetBool("level 2", false);
+            anim.SetBool("level 3", false);
+            anim.SetBool("level 4", false);
+        }
 
 
-    void LateUpdate()
-    {
-        // Z座標を強制的に0に固定し続ける
-        Vector3 pos = transform.position;
-        pos.z = 181f;
-        transform.position = pos;
+        if(BossHp.Hp <= 0) 
+        {
+            anim.SetBool("Destroy", true);
+        }
+
     }
+
 }
