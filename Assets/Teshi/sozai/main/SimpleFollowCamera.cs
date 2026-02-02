@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SimpleFollowCamera : MonoBehaviour
 {
@@ -8,21 +9,28 @@ public class SimpleFollowCamera : MonoBehaviour
     public Vector3 offset = new Vector3(0, 2, -4);
     public float smooth = 8f;
 
-    [Header("Mouse Look")]
-    public float mouseSensitivity = 2.5f;
+    [Header("Look Sensitivity")]
+    public float mouseSensitivity = 2.5f;        // マウス感度
+    public float controllerSensitivity = 120f;   // コントローラー感度（右スティック）
+
+    [Header("Pitch Limit")]
     public float minPitch = -30f;
     public float maxPitch = 60f;
 
     public bool follow = true;
 
-    // ★ 外部から固定モードを切り替える
+    // 固定カメラ
     public bool isFixedCamera = false;
-
-    // ★ 固定位置＆角度（Inspector で指定）
     public Transform fixedPoint;
 
     float yaw;
     float pitch;
+
+    // 新 Input System の Look 入力
+    Vector2 lookInput;
+
+    // 今の入力がゲームパッドかどうか
+    bool isGamepad = false;
 
     void Start()
     {
@@ -37,26 +45,24 @@ public class SimpleFollowCamera : MonoBehaviour
     void LateUpdate()
     {
         if (!follow || target == null) return;
-        Debug.Log("固定カメラ" + isFixedCamera);
-        // ============================
-        // ★ 固定カメラモード
-        // ============================
+
+        // 固定カメラ
         if (isFixedCamera && fixedPoint != null)
         {
             transform.position = fixedPoint.position;
-            transform.rotation = fixedPoint.rotation; // ← 角度も完全固定
+            transform.rotation = fixedPoint.rotation;
             return;
         }
 
-        // ============================
-        // ★ 通常の追従カメラ
-        // ============================
+        // 入力値
+        float inputX = lookInput.x;
+        float inputY = lookInput.y;
 
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        // ★ デバイスごとに感度を切り替え
+        float sensitivity = isGamepad ? controllerSensitivity : mouseSensitivity;
 
-        yaw += mouseX * mouseSensitivity * 100f * Time.deltaTime;
-        pitch -= mouseY * mouseSensitivity * 100f * Time.deltaTime;
+        yaw += inputX * sensitivity * Time.deltaTime;
+        pitch -= inputY * sensitivity * Time.deltaTime;
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
@@ -71,9 +77,16 @@ public class SimpleFollowCamera : MonoBehaviour
         transform.LookAt(target.position + Vector3.up * 1.5f);
     }
 
-    // ============================
-    // ★ 外部から呼び出す関数
-    // ============================
+    // PlayerInput → UnityEvent で呼ばれる
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        lookInput = context.ReadValue<Vector2>();
+
+        // ★ どのデバイスからの入力か判定
+        isGamepad = context.control.device is Gamepad;
+    }
+
+    // 固定カメラ切り替え
     public void EnableFixedCamera()
     {
         isFixedCamera = true;

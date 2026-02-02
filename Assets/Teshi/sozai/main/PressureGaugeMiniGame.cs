@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PressureMiniGame : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class PressureMiniGame : MonoBehaviour
 
     void Start()
     {
+
         // ★ AudioSource 自動取得（入れ忘れ防止）
         if (audioSource == null)
             audioSource = GetComponent<AudioSource>();
@@ -52,8 +54,7 @@ public class PressureMiniGame : MonoBehaviour
         if (successCount >= 2)
             MoveGreenZone();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            StopNeedle();
+        
     }
 
     // ===== 針移動 =====
@@ -229,5 +230,10 @@ public class PressureMiniGame : MonoBehaviour
 
         if (finalDecisionMiniGame != null)
             finalDecisionMiniGame.SetActive(true);
+    }
+    public void OnButtom(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            StopNeedle();
     }
 }
