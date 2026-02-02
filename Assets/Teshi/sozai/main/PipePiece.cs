@@ -44,7 +44,7 @@ public class PipePiece : MonoBehaviour, IPointerClickHandler
     public void Rotate()
     {
         currentRotation = (currentRotation + 90) % 360;
-        rect.localEulerAngles = new Vector3(0, 0, currentRotation);
+        if (rect != null) rect.localEulerAngles = new Vector3(0, 0, currentRotation);
     }
 
     // ★ 初期化・リセット用
@@ -52,7 +52,7 @@ public class PipePiece : MonoBehaviour, IPointerClickHandler
     {
         int[] angles = { 0, 90, 180, 270 };
         currentRotation = angles[Random.Range(0, angles.Length)];
-        rect.localEulerAngles = new Vector3(0, 0, currentRotation);
+        if (rect != null) rect.localEulerAngles = new Vector3(0, 0, currentRotation);
     }
 
     public bool IsCorrect()
