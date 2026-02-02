@@ -3268,6 +3268,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed13a34fcaf910f4ea5ee574b18393cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SE:
+  - {fileID: 0}
+  - {fileID: 1004575517}
+  - {fileID: 1004575518}
+  - {fileID: 1004575519}
+  - {fileID: 1004575520}
+  - {fileID: 1004575521}
+  - {fileID: 1004575524}
+  - {fileID: 1004575523}
+  - {fileID: 1004575522}
+  - {fileID: 1004575525}
+  - {fileID: 1004575526}
+  - {fileID: 1004575527}
   AOE1Field: {fileID: 6474199456222402137, guid: ddeceb7c6ce315549bdfe9f7b4b54b54, type: 3}
   AOE8Field: {fileID: 8935056046330460226, guid: f3611b8e15cefec4ca3218498ffd2a8a, type: 3}
   AOECircle: {fileID: 5871946227932424150, guid: a897b3a3ad630254eb5765013a39d27d, type: 3}
