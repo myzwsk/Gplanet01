@@ -4,14 +4,10 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI ScoreText;
-    static public int Score = 0;
-
-    private escape Esc;
+    static public int Score = 10;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Esc = FindObjectOfType<escape>();
-        Score = Esc.Score;
     }
 
     // Update is called once per frame
@@ -20,7 +16,6 @@ public class ScoreManager : MonoBehaviour
 
         // テキストの表示を入れ替える
         ScoreText.text = Score.ToString();
-        Esc.Score = Score;
         //Debug.Log(ScoreText.text);
     }
 }
