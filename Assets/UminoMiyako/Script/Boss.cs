@@ -171,7 +171,7 @@ public class Boss : MonoBehaviour
             func[r].flag = true;
             go = false;
         }
-        if (Input.GetKey(KeyCode.O))
+        /*if (Input.GetKey(KeyCode.O))
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -317,7 +317,7 @@ public class Boss : MonoBehaviour
             {
                 StartCoroutine(AttackGhost(3, 15));
             }
-        }
+        }*/
     }
     //コンボ用コルーチン------------------------------------------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -643,10 +643,7 @@ public class Boss : MonoBehaviour
         Coroutine c5 = StartCoroutine(AttackOut(1.5f, 1));
         runcoro.Add(c5);
         yield return new WaitForSeconds(1.5f);
-        StartCoroutine(Cast("ひきよせ", 3));
-        Coroutine c6 = StartCoroutine(AttackPull(3));
-        runcoro.Add(c6);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         StopAllAttackCoroutines();
         go = true;
     }
