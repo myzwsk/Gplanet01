@@ -11,6 +11,8 @@ public class TeleportUI : MonoBehaviour
     [Header("Fade Setting")]
     public float fadeTime = 0.15f;
 
+    public Canon lite;
+
     private Transform player;
     private Transform destination;
 
@@ -55,7 +57,7 @@ public class TeleportUI : MonoBehaviour
         // CharacterController 対策
         CharacterController cc = player.GetComponent<CharacterController>();
         if (cc != null) cc.enabled = false;
-
+        lite.ObjectFalse();
         // 位置と向きを揃える
         player.position = destination.position;
         player.rotation = destination.rotation;
