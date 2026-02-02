@@ -3694,7 +3694,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004575509}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed13a34fcaf910f4ea5ee574b18393cb, type: 3}
   m_Name: 
@@ -3720,10 +3720,10 @@ MonoBehaviour:
   AOEThinHalf: {fileID: 8652941978574177043, guid: 83000d43b7ff18f41a396646af418ca6, type: 3}
   AOEPush: {fileID: 5871946227932424150, guid: c6d1dee8891033d438a3e299c682e831, type: 3}
   AOEDonut: {fileID: 5871946227932424150, guid: f4b8522087327bc48aeaa2ad5b7360c9, type: 3}
-  AOEAll: {fileID: 0}
+  AOEAll: {fileID: 6474199456222402137, guid: 3075ae35b7dbc7d4283b1c08080885a0, type: 3}
   BLOCKBar: {fileID: 122648, guid: 689bea55487905947a3415a89ffafbbb, type: 3}
   BLOCKBarLong: {fileID: 122648, guid: 14955da25b551cf4e9a8390feedeb214, type: 3}
-  Nail: {fileID: 1209158394735692994, guid: abae1d2aac4770140854e4a9fb33e5ac, type: 3}
+  Nail: {fileID: 5607819269926399345, guid: 46ba0bd746dd19f4789783c8c7131b00, type: 3}
   Shooter: {fileID: 1046813888383740078, guid: 4629a0dbd968ffc4eb596d80682b2ebf, type: 3}
   Ghost: {fileID: 498253721416304272, guid: 90f4c7333c0ecaf448fac6cc5b6925be, type: 3}
   Star:
@@ -3771,8 +3771,24 @@ MonoBehaviour:
     EffPrefab: {fileID: 1483746304}
   - EffEarlyTime: 1
     EffPrefab: {fileID: 8378648546881499446, guid: 867c572a5be680d42a042d2349f10143, type: 3}
-  - EffEarlyTime: 2
+  - EffEarlyTime: 0.5
+    EffPrefab: {fileID: 176822597162087251, guid: 46009f57772e5e743bec9df57a49ed66, type: 3}
+  - EffEarlyTime: 0.7
     EffPrefab: {fileID: 4767092632947958445, guid: adbd8c256c2022843b90b64265fc5c63, type: 3}
+  - EffEarlyTime: 1
+    EffPrefab: {fileID: 6441873369525384307, guid: 0f3d407feb92ebb49b98d0157de5008a, type: 3}
+  - EffEarlyTime: 0
+    EffPrefab: {fileID: 161766660727748596, guid: 05ce920d629922a4eb4795ef7494ce5c, type: 3}
+  - EffEarlyTime: 0
+    EffPrefab: {fileID: 5034656251238326012, guid: 9de2fa19f0390d44491264d9cab8cec5, type: 3}
+  - EffEarlyTime: 0
+    EffPrefab: {fileID: 4779732909293600233, guid: c26e5cb1fece288469d71a6acd6e222d, type: 3}
+  - EffEarlyTime: 0
+    EffPrefab: {fileID: 8974203713140315807, guid: 709b0bd6b0b625249a98409dd7a87343, type: 3}
+  - EffEarlyTime: 0
+    EffPrefab: {fileID: 9080140021571130472, guid: 82066d902ed0dd6488ddfd32eb994801, type: 3}
+  - EffEarlyTime: 0.5
+    EffPrefab: {fileID: 8342075076220486466, guid: 68ab15740c6327b4aad459c4312b4545, type: 3}
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -3808,7 +3824,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004575509}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64c9516494032a34f830a1d23b3ccde5, type: 3}
   m_Name: 
@@ -3834,7 +3850,7 @@ MonoBehaviour:
   AOEThinHalf: {fileID: 8652941978574177043, guid: 83000d43b7ff18f41a396646af418ca6, type: 3}
   AOEPush: {fileID: 5871946227932424150, guid: c6d1dee8891033d438a3e299c682e831, type: 3}
   AOEDonut: {fileID: 5871946227932424150, guid: f4b8522087327bc48aeaa2ad5b7360c9, type: 3}
-  AOEAll: {fileID: 0}
+  AOEAll: {fileID: 6474199456222402137, guid: 3075ae35b7dbc7d4283b1c08080885a0, type: 3}
   BLOCKBar: {fileID: 122648, guid: 689bea55487905947a3415a89ffafbbb, type: 3}
   BLOCKBarLong: {fileID: 122648, guid: 14955da25b551cf4e9a8390feedeb214, type: 3}
   Nail: {fileID: 5607819269926399345, guid: 46ba0bd746dd19f4789783c8c7131b00, type: 3}
@@ -7355,7 +7371,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
