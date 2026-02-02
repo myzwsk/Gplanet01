@@ -11,7 +11,10 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         Esc = FindObjectOfType<escape>();
-        Score = Esc.Score;
+        if (Esc != null)
+        {
+            Score = Esc.Score;
+        }
     }
 
     // Update is called once per frame
@@ -20,7 +23,10 @@ public class ScoreManager : MonoBehaviour
 
         // テキストの表示を入れ替える
         ScoreText.text = Score.ToString();
-        Esc.Score = Score;
+        if (Esc != null)
+        {
+            Esc.Score = Score;
+        }
         //Debug.Log(ScoreText.text);
     }
 }

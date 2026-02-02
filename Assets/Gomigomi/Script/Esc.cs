@@ -6,7 +6,6 @@ public class escape : MonoBehaviour
     public int Score = 0;
     private void Start()
     {
-        Score = 0;
     }
     // Update is called once per frame
     void Update()
