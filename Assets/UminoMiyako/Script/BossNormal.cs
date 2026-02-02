@@ -2114,6 +2114,4 @@ public class BossNormal : MonoBehaviour
         objList.Clear();
         ReField();
     }
-
-  
 }
