@@ -372,7 +372,7 @@ public class BossNormal : MonoBehaviour
                 }
                 break;
         }
-        if (Input.GetKey(KeyCode.LeftShift))
+        /*if (Input.GetKey(KeyCode.LeftShift))
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -477,7 +477,7 @@ public class BossNormal : MonoBehaviour
             {
                 StartCoroutine(AttackGhost(3,15));
             }
-        }
+        }*/
         
        
     }
