@@ -10,11 +10,8 @@ public class ScoreManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Esc = FindObjectOfType<escape>();
-        if (Esc != null)
-        {
-            Score = Esc.Score;
-        }
+        Esc = Object.FindFirstObjectByType<escape>();
+        Score = Esc.Score;
     }
 
     // Update is called once per frame
@@ -23,10 +20,7 @@ public class ScoreManager : MonoBehaviour
 
         // テキストの表示を入れ替える
         ScoreText.text = Score.ToString();
-        if (Esc != null)
-        {
-            Esc.Score = Score;
-        }
+        Esc.Score = Score;
         //Debug.Log(ScoreText.text);
     }
 }
