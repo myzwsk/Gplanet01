@@ -4,8 +4,8 @@ public class SEManager : MonoBehaviour
 {
     public static SEManager Instance;
 
-    AudioSource seSource;       // ワンショット用
-    AudioSource loopSource;     // ★ シャワー用（ループ）
+    AudioSource seSource;    // ワンショット専用
+    AudioSource loopSource;  // ループ専用（シャワー）
 
     void Awake()
     {
@@ -14,12 +14,10 @@ public class SEManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // 効果音用
             seSource = gameObject.AddComponent<AudioSource>();
             seSource.loop = false;
             seSource.spatialBlend = 0f;
 
-            // ★ ループ音用（シャワー）
             loopSource = gameObject.AddComponent<AudioSource>();
             loopSource.loop = true;
             loopSource.spatialBlend = 0f;
@@ -30,17 +28,21 @@ public class SEManager : MonoBehaviour
         }
     }
 
-    // 通常SE
+    // ===== ワンショットSE =====
     public void PlaySE(AudioClip clip, float volume = 1f)
     {
         if (clip == null) return;
         seSource.PlayOneShot(clip, volume);
     }
 
-    // ★ ループSE（シャワーなど）
+    // ===== ループSE（シャワー専用）=====
     public void PlayLoopSE(AudioClip clip, float volume = 1f)
     {
         if (clip == null) return;
+
+        // ★ 同じ音が鳴ってたら再生しない
+        if (loopSource.isPlaying && loopSource.clip == clip)
+            return;
 
         loopSource.clip = clip;
         loopSource.volume = volume;
@@ -49,6 +51,7 @@ public class SEManager : MonoBehaviour
 
     public void StopLoopSE()
     {
-        loopSource.Stop();
+        if (loopSource.isPlaying)
+            loopSource.Stop();
     }
 }

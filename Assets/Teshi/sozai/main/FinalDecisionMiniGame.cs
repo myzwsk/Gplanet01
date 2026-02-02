@@ -6,43 +6,43 @@ public class FinalDecisionMiniGame : MonoBehaviour
     [Header("UI")]
     public TMP_Text messageText;
     public GameObject miniGameCanvas;
-    public GameObject firstMiniGamePanel;
 
     [Header("Event")]
     public BathroomEventController bathroomEvent;
 
     [Header("SE")]
-    public AudioSource audioSource;
     public AudioClip yesSE1;
     public AudioClip yesSE2;
     public AudioClip finalYesSE;
     public AudioClip noSE;
 
     int step = 0;
+    bool isFinished = false;   // ★ 追加：終了フラグ
 
     void OnEnable()
     {
         step = 0;
+        isFinished = false;
         UpdateMessage();
-
-        // ★ AudioSource 自動取得（入れ忘れ防止）
-        if (audioSource == null)
-            audioSource = GetComponent<AudioSource>();
     }
 
     public void OnYes()
     {
+        // ★ もう終わってたら何もしない
+        if (isFinished) return;
+
         if (step == 0)
             SEManager.Instance.PlaySE(yesSE1);
         else if (step == 1)
             SEManager.Instance.PlaySE(yesSE2);
-        else if (step >= 2)
+        else if (step == 2)
             SEManager.Instance.PlaySE(finalYesSE);
 
         step++;
 
         if (step >= 3)
         {
+            isFinished = true;                 // ★ ここで完全終了
             miniGameCanvas.SetActive(false);
             bathroomEvent.PlayBathroomEvent();
             GameManager.Instance.FinishMiniGame();
@@ -52,12 +52,24 @@ public class FinalDecisionMiniGame : MonoBehaviour
         UpdateMessage();
     }
 
+    public MiniGameTrigger miniGameTrigger;
 
     public void OnNo()
     {
         SEManager.Instance.PlaySE(noSE);
-        MiniGameResetManager.Instance.ResetAllMiniGames();
+
+        GameManager.Instance.FinishMiniGame();
+
+        MiniGameResetManager.Instance.ResetAllMiniGames(false);
+
+        // ★ これを必ず呼ぶ
+        miniGameTrigger.EndMiniGame();
+
+        gameObject.SetActive(false);
     }
+
+
+
 
     void UpdateMessage()
     {

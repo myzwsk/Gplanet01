@@ -19,25 +19,24 @@ public class MiniGameResetManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void ResetAllMiniGames()
+    public void ResetAllMiniGames(bool restart)
     {
-        Debug.Log("=== ミニゲーム完全リセット ===");
+        Debug.Log("=== ミニゲームリセット ===");
 
-        // ① Panel 状態リセット
-        if (pressureGamePanel != null)
-            pressureGamePanel.SetActive(true);
-
-        if (finalGamePanel != null)
-            finalGamePanel.SetActive(false);
-
-        // ② 水圧ゲージ内部リセット
-        if (pressureMiniGame != null)
+        if (restart)
         {
+            // 再挑戦用
+            pressureGamePanel.SetActive(true);
             pressureMiniGame.ResetGame();
         }
         else
         {
-            Debug.LogError("PressureMiniGame が設定されていません");
+            // ★ 中断用（いいえ）
+            pressureGamePanel.SetActive(false);
+            pressureMiniGame.ForceStop();
         }
+
+        finalGamePanel.SetActive(false);
     }
+
 }

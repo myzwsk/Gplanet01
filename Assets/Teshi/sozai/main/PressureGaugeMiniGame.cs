@@ -30,55 +30,42 @@ public class PressureMiniGame : MonoBehaviour
     bool greenRight = true;
     bool needleRight = true;
     bool stopped = false;
-    bool isVertical = false;
+
+    // ★ 追加（超重要）
+    bool isGameActive = false;
+    bool isGameFinished = false;
 
     void Start()
     {
-
-        // ★ AudioSource 自動取得（入れ忘れ防止）
         if (audioSource == null)
             audioSource = GetComponent<AudioSource>();
 
         greenStartX = greenZone.anchoredPosition.x;
         needleStartX = needle.anchoredPosition.x;
-        ResetRound();
-        UpdateDifficulty();
+
+        ResetGame(); // ← ここでゲーム開始
     }
 
     void Update()
     {
+        // ★ 完全ガード
+        if (!isGameActive || isGameFinished) return;
         if (stopped) return;
 
         MoveNeedle();
 
         if (successCount >= 2)
             MoveGreenZone();
-
-        
     }
 
     // ===== 針移動 =====
     void MoveNeedle()
     {
         Vector2 pos = needle.anchoredPosition;
+        pos.x += (needleRight ? 1 : -1) * needleSpeed * Time.deltaTime;
 
-        if (!isVertical)
-            pos.x += (needleRight ? 1 : -1) * needleSpeed * Time.deltaTime;
-        else
-            pos.y += (needleRight ? 1 : -1) * needleSpeed * Time.deltaTime;
-
-        float limit = range;
-
-        if (!isVertical)
-        {
-            if (pos.x > needleStartX + limit) { pos.x = needleStartX + limit; needleRight = false; }
-            if (pos.x < needleStartX - limit) { pos.x = needleStartX - limit; needleRight = true; }
-        }
-        else
-        {
-            if (pos.y > limit) { pos.y = limit; needleRight = false; }
-            if (pos.y < -limit) { pos.y = -limit; needleRight = true; }
-        }
+        if (pos.x > needleStartX + range) { pos.x = needleStartX + range; needleRight = false; }
+        if (pos.x < needleStartX - range) { pos.x = needleStartX - range; needleRight = true; }
 
         needle.anchoredPosition = pos;
     }
@@ -87,24 +74,20 @@ public class PressureMiniGame : MonoBehaviour
     void MoveGreenZone()
     {
         Vector2 pos = greenZone.anchoredPosition;
+        pos.x += (greenRight ? 1 : -1) * greenMoveSpeed * Time.deltaTime;
 
-        if (!isVertical)
-            pos.x += (greenRight ? 1 : -1) * greenMoveSpeed * Time.deltaTime;
-        else
-            pos.y += (greenRight ? 1 : -1) * greenMoveSpeed * Time.deltaTime;
-
-        if (!isVertical)
-        {
-            if (pos.x > greenStartX + range) { pos.x = greenStartX + range; greenRight = false; }
-            if (pos.x < greenStartX - range) { pos.x = greenStartX - range; greenRight = true; }
-        }
-        else
-        {
-            if (pos.y > range) { pos.y = range; greenRight = false; }
-            if (pos.y < -range) { pos.y = -range; greenRight = true; }
-        }
+        if (pos.x > greenStartX + range) { pos.x = greenStartX + range; greenRight = false; }
+        if (pos.x < greenStartX - range) { pos.x = greenStartX - range; greenRight = true; }
 
         greenZone.anchoredPosition = pos;
+    }
+
+    // ===== 入力（Input System）=====
+    public void OnButtom(InputAction.CallbackContext context)
+    {
+        if (!isGameActive || isGameFinished) return;
+        if (context.started)
+            StopNeedle();
     }
 
     // ===== 判定 =====
@@ -112,9 +95,9 @@ public class PressureMiniGame : MonoBehaviour
     {
         stopped = true;
 
-        float needlePos = isVertical ? needle.anchoredPosition.y : needle.anchoredPosition.x;
-        float greenCenter = isVertical ? greenZone.anchoredPosition.y : greenZone.anchoredPosition.x;
-        float halfSize = (isVertical ? greenZone.rect.height : greenZone.rect.width) * 0.5f;
+        float needlePos = needle.anchoredPosition.x;
+        float greenCenter = greenZone.anchoredPosition.x;
+        float halfSize = greenZone.rect.width * 0.5f;
 
         if (needlePos >= greenCenter - halfSize && needlePos <= greenCenter + halfSize)
         {
@@ -122,34 +105,30 @@ public class PressureMiniGame : MonoBehaviour
         }
         else
         {
-            // ★ 失敗SE
-            if (audioSource != null && failSE != null)
+            if (audioSource && failSE)
                 audioSource.PlayOneShot(failSE);
 
             ResetRound();
         }
     }
 
-    // ===== 成功処理 =====
+    // ===== 成功 =====
     void OnSuccess()
     {
-        // ★ 通常成功SE（最終以外）
-        if (audioSource != null && successSE != null && successCount + 1 < requiredSuccess)
-        {
-            audioSource.PlayOneShot(successSE);
-        }
-
         successCount++;
         Debug.Log($"SUCCESS {successCount}/{requiredSuccess}");
 
-        if (successCount >= requiredSuccess)
+        if (successCount < requiredSuccess)
         {
-            FinishGame(); // ← 最終SEはここで鳴らす
+            if (audioSource && successSE)
+                audioSource.PlayOneShot(successSE);
+
+            UpdateDifficulty();
+            ResetRound();
             return;
         }
 
-        UpdateDifficulty();
-        ResetRound();
+        FinishGame();
     }
 
     // ===== 難易度（あなたの数値そのまま）=====
@@ -158,31 +137,11 @@ public class PressureMiniGame : MonoBehaviour
         greenMoveSpeed = 0f;
         needleSpeed = 200f;
 
-        if (successCount >= 1 && successCount < 2)
-        {
-            greenMoveSpeed = 80f;
-            needleSpeed = 260f;
-        }
-        else if (successCount >= 2 && successCount < 3)
-        {
-            greenMoveSpeed = 80f;
-            needleSpeed = 260f;
-        }
-        else if (successCount >= 3 && successCount < 4)
-        {
-            greenMoveSpeed = 250f;
-            needleSpeed = 470f;
-        }
-        else if (successCount >= 4 && successCount < 5)
-        {
-            greenMoveSpeed = 600f;
-            needleSpeed = 20f;
-        }
-        else if (successCount >= 5 && successCount < 6)
-        {
-            greenMoveSpeed = 520f;
-            needleSpeed = 400f;
-        }
+        if (successCount == 1) { greenMoveSpeed = 80f; needleSpeed = 260f; }
+        if (successCount == 2) { greenMoveSpeed = 80f; needleSpeed = 260f; }
+        if (successCount == 3) { greenMoveSpeed = 250f; needleSpeed = 470f; }
+        if (successCount == 4) { greenMoveSpeed = 600f; needleSpeed = 20f; }
+        if (successCount == 5) { greenMoveSpeed = 520f; needleSpeed = 400f; }
     }
 
     // ===== ラウンドリセット =====
@@ -192,48 +151,48 @@ public class PressureMiniGame : MonoBehaviour
         needleRight = true;
         greenRight = true;
 
-        if (!isVertical)
-        {
-            needle.anchoredPosition = new Vector2(needleStartX, needle.anchoredPosition.y);
-            greenZone.anchoredPosition = new Vector2(greenStartX, greenZone.anchoredPosition.y);
-        }
-        else
-        {
-            needle.anchoredPosition = Vector2.zero;
-            greenZone.anchoredPosition = Vector2.zero;
-        }
+        needle.anchoredPosition = new Vector2(needleStartX, needle.anchoredPosition.y);
+        greenZone.anchoredPosition = new Vector2(greenStartX, greenZone.anchoredPosition.y);
     }
 
+    // ===== 外部リセット =====
     public void ResetGame()
     {
         successCount = 0;
-        isVertical = false;
-
-        GetComponent<RectTransform>().localRotation = Quaternion.identity;
+        stopped = false;
+        isGameActive = true;
+        isGameFinished = false;
 
         UpdateDifficulty();
         ResetRound();
 
-        Debug.Log("PressureMiniGame Reset");
+        Debug.Log("PressureMiniGame Start");
     }
 
-    // ===== クリア =====
+    // ===== 完全クリア =====
     void FinishGame()
     {
+        if (isGameFinished) return;
+
+        isGameFinished = true;
+        isGameActive = false;
+
         Debug.Log("水圧ゲージ 完全クリア");
 
-        // ★ 最終クリアSE（ここが本命）
-        if (finalSuccessSE != null)
+        if (finalSuccessSE)
             SEManager.Instance.PlaySE(finalSuccessSE);
 
         gameObject.SetActive(false);
 
-        if (finalDecisionMiniGame != null)
+        if (finalDecisionMiniGame)
             finalDecisionMiniGame.SetActive(true);
     }
-    public void OnButtom(InputAction.CallbackContext context)
+    public void ForceStop()
     {
-        if (context.started)
-            StopNeedle();
+        isGameActive = false;
+        isGameFinished = true;
+        stopped = true;
+
+        Debug.Log("PressureMiniGame ForceStopped");
     }
 }
