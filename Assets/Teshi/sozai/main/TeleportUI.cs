@@ -10,6 +10,9 @@ public class TeleportUI : MonoBehaviour
 
     [Header("Fade Setting")]
     public float fadeTime = 0.15f;
+    [Header("BGM")]
+    public AudioClip nextBGM;
+    public float nextBGMVolume = 0.5f;
 
     public Canon lite;
 
@@ -51,24 +54,40 @@ public class TeleportUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        // うっすらフェードイン
+        // ★ 旧BGMを止める
+        if (BGMManager.Instance != null)
+        {
+            BGMManager.Instance.StopBGM();
+        }
+
+        // フェードイン
         yield return Fade(0f, 0.9f);
 
         // CharacterController 対策
         CharacterController cc = player.GetComponent<CharacterController>();
         if (cc != null) cc.enabled = false;
+
         lite.ObjectFalse();
+
         // 位置と向きを揃える
         player.position = destination.position;
         player.rotation = destination.rotation;
 
         if (cc != null) cc.enabled = true;
 
+        // ★ 新しいBGMを再生（ここ！）
+        if (BGMManager.Instance != null && nextBGM != null)
+        {
+            BGMManager.Instance.PlayBGM(nextBGM, nextBGMVolume);
+        }
+
         // フェードアウト
         yield return Fade(0.9f, 0f);
 
         panel.SetActive(false);
     }
+
+
 
     // フェード処理
     private IEnumerator Fade(float from, float to)

@@ -9248,6 +9248,8 @@ MonoBehaviour:
   panel: {fileID: 1446452944}
   fadeImage: {fileID: 1751979872}
   fadeTime: 0.9
+  nextBGM: {fileID: 8300000, guid: f0aed99d077fcd9428310520c7edf1ec, type: 3}
+  nextBGMVolume: 0.2
   lite: {fileID: 1922508189}
 --- !u!4 &1124774417 stripped
 Transform:
