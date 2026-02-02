@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using Unity.VisualScripting;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+//using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 using UnityEngine.Windows.Speech;
 using Unity.VisualScripting.Antlr3.Runtime;
 using static UnityEngine.Rendering.DebugUI;
@@ -1905,7 +1905,7 @@ public class BossNormal : MonoBehaviour
             startPos = obj.transform.position;
         }
         startPos.y = 50;
-        Attack(startPos, AOECircle, 0,st, 1, 0, 10, st);
+        Attack(startPos, AOECircle, 0,st, 1, 0, 10, st-0.8f);
     }
     //外から内　内から外--------------------------------------------------------------------------------------------------
     private IEnumerator AttackThin(float st)
@@ -1934,7 +1934,7 @@ public class BossNormal : MonoBehaviour
         int rand=Random.Range(1, 17);
         Vector3 startPos = Field[rand - 1].transform.position;
         startPos.y = 50f;
-        Attack(startPos, AOE1Field, 0,st, 4,0, 9, st);
+        Attack(startPos, AOE1Field, 0,st, 4,0, 9, st-0.8f);
         yield return new WaitForSeconds(st);
         if (fi[rand-1].fiSc != null)
         {

@@ -34,16 +34,18 @@ public class BattleMana : MonoBehaviour
     private bool diesp=false;
     private GameObject die;
     private GameObject[] bullet;
+    private escape Esc;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        maxHp = ScoreManager.Score;
         Maxtext.text = maxHp.ToString();
         Hp = maxHp;
         slider.minValue = 0;
         slider.maxValue = maxHp;
         slider.value = Hp;
         bullet = new GameObject[] { bullet1,bullet1, bullet1, bullet1, bullet1, bullet2, bullet2, bullet2, bullet3, bullet3, };
-        //ここにスコアをまっくすHPにする処理を入れる
+        
     }
 
     // Update is called once per frame

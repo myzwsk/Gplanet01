@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3005581896905022112}
   - component: {fileID: 4177034911044143511}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: CanonEFf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
