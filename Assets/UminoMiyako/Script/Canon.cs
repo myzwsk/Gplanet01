@@ -2,11 +2,13 @@
 
 public class Canon : MonoBehaviour
 {
+ 
     public void ObjectTrue()
     {
         if (gameObject.activeSelf == false)
         {
             gameObject.SetActive(true);
+            
         }
     }
     public void ObjectFalse()
@@ -14,6 +16,7 @@ public class Canon : MonoBehaviour
         if (gameObject.activeSelf == true)
         {
             gameObject.SetActive(false);
+      
         }
     }
 }
