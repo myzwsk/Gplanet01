@@ -25,6 +25,7 @@ public class Boss : MonoBehaviour
     public GameObject AOEThinHalf;
     public GameObject AOEPush;
     public GameObject AOEDonut;
+    public GameObject AOEAll;
     public GameObject BLOCKBar;
     public GameObject BLOCKBarLong;
     public GameObject Nail;
@@ -829,7 +830,7 @@ public class Boss : MonoBehaviour
         {
             startPos = Field[i].transform.position;
             startPos.y = 50;
-            Attack(startPos, AOE1Field, 0, st, 0, 0, 0, 0);
+            Attack(startPos, AOEAll, 0, st, 0, 0, 0, 0);
         }
         yield return new WaitForSeconds(st - SEDelay);
         SE[8].PlayDelayed(0);
@@ -1905,7 +1906,7 @@ public class Boss : MonoBehaviour
             yield return null;
         }
         slider.value = 0f;
-        text.text = "のん";
+        text.text = " ";
 
     }
     private void StopAllAttackCoroutines()

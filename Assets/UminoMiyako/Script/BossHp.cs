@@ -1,4 +1,5 @@
 ﻿using TMPro;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,8 @@ public class BossHp : MonoBehaviour
         gear3,
         gear4
     }
-    public string[] name;
+    public string[] 
+        name;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -64,4 +66,6 @@ public class BossHp : MonoBehaviour
         }
     }
 
+
+   
 }
