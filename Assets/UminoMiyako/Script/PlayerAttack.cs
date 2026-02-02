@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -6,8 +7,12 @@ public class PlayerAttack : MonoBehaviour
     public int bullet = 0;
     public float cooldown = 1;
     public BossHp bosshp;
+    public GameObject Eff;
+    public Vector3 EffPos;
     private float count=0;
     private bool go = true;
+
+    public AudioSource caso;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,6 +30,8 @@ public class PlayerAttack : MonoBehaviour
                 bullet--;
                 go = false;
                 count = cooldown;
+                Instantiate(Eff, EffPos, Quaternion.identity);
+                caso.PlayDelayed(0);
             }
         }
         else
@@ -39,6 +46,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Object01"))
