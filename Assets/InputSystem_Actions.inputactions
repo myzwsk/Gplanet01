@@ -96,22 +96,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Up",
-                    "type": "Button",
+                    "name": "Select",
+                    "type": "Value",
                     "id": "98e71f01-f53e-4842-adf2-ee8440558fb6",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Down",
-                    "type": "Button",
-                    "id": "d58b5333-1a0e-468a-9051-7cfeece19621",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -502,7 +493,7 @@
                 },
                 {
                     "name": "",
-                    "id": "f86bc16d-cb70-4b76-b399-7793e81e2735",
+                    "id": "e396cb9b-894f-4bd4-98cd-6a0312b6cd81",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
@@ -513,23 +504,12 @@
                 },
                 {
                     "name": "",
-                    "id": "4de7f841-807a-427e-b70b-d5c6c5b08a5e",
-                    "path": "<Gamepad>/dpad/up",
+                    "id": "1aedc15d-8815-4b3c-a3f2-43b73452321d",
+                    "path": "<Gamepad>/dpad",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Up",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b33d44dc-2cc6-4716-85a1-733a31d206ab",
-                    "path": "<Gamepad>/dpad/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Down",
+                    "groups": ";Gamepad",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -17,6 +17,8 @@ public class BathroomEventController : MonoBehaviour
     [Header("Shower Sound")]
     public AudioClip showerLoopSE;
 
+    public Canon lite;
+
     bool isPlayed = false;
     bool pathShown = false;
 
@@ -44,6 +46,7 @@ public class BathroomEventController : MonoBehaviour
         // ★ シャワー音スタート
         if (showerLoopSE != null && SEManager.Instance != null)
             SEManager.Instance.PlayLoopSE(showerLoopSE, 0.6f);
+        lite.ObjectTrue();
         cameraSc.EnableFixedCamera();
         StartCoroutine(FillBath());
     }
@@ -72,7 +75,7 @@ public class BathroomEventController : MonoBehaviour
             
             yield return null;
         }
-        cameraSc.DisableFixedCamera();
+        Invoke("CameraDeray", 2);
         // ★ 満タン処理
         bathWater.transform.localScale = targetWaterScale;
 
@@ -84,5 +87,9 @@ public class BathroomEventController : MonoBehaviour
             SEManager.Instance.StopLoopSE();
 
         Debug.Log("水が満タン → シャワー停止");
+    }
+    void CameraDeray()
+    {
+        cameraSc.DisableFixedCamera();
     }
 }
