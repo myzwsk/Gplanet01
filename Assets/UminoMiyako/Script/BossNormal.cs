@@ -240,7 +240,7 @@ public class BossNormal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*switch (bosshp.state)
+        switch (bosshp.state)
         {
             case BossHp.State.normal:
                 if (go)
@@ -370,7 +370,7 @@ public class BossNormal : MonoBehaviour
                     go = false;
                 }
                 break;
-        }*/
+        }
         if (Input.GetKey(KeyCode.LeftShift))
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -2114,6 +2114,4 @@ public class BossNormal : MonoBehaviour
         objList.Clear();
         ReField();
     }
-
-  
 }

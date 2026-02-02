@@ -20,6 +20,7 @@ public class BathroomEventController : MonoBehaviour
     bool isPlayed = false;
     bool pathShown = false;
 
+    public SimpleFollowCamera cameraSc;
     public void PlayBathroomEvent()
     {
         if (isPlayed) return;
@@ -43,7 +44,7 @@ public class BathroomEventController : MonoBehaviour
         // ★ シャワー音スタート
         if (showerLoopSE != null && SEManager.Instance != null)
             SEManager.Instance.PlayLoopSE(showerLoopSE, 0.6f);
-
+        cameraSc.EnableFixedCamera();
         StartCoroutine(FillBath());
     }
 
@@ -68,10 +69,10 @@ public class BathroomEventController : MonoBehaviour
                 path.SetActive(true);
                 Debug.Log("水がたまった → 道を表示");
             }
-
+            
             yield return null;
         }
-
+        cameraSc.DisableFixedCamera();
         // ★ 満タン処理
         bathWater.transform.localScale = targetWaterScale;
 

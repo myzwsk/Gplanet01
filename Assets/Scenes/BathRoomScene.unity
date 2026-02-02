@@ -3428,6 +3428,7 @@ MonoBehaviour:
   targetWaterScale: {x: 55, y: 32, z: 25}
   showerController: {fileID: 306287162}
   showerLoopSE: {fileID: 8300000, guid: 7df90489c153c2a4598c2af1e45039e5, type: 3}
+  cameraSc: {fileID: 946185302}
 --- !u!1 &487227184
 GameObject:
   m_ObjectHideFlags: 0
@@ -6747,7 +6748,7 @@ MonoBehaviour:
   maxPitch: 60
   follow: 1
   isFixedCamera: 0
-  fixedPoint: {fileID: 0}
+  fixedPoint: {fileID: 1333575712}
 --- !u!1 &956765647 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 51a43b017ae448b45bb4029e56285fcd, type: 3}
@@ -8086,9 +8087,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5251174017043394092, guid: 365e36a05e80c0b43811cc2db140c7ab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251174017043394092, guid: 365e36a05e80c0b43811cc2db140c7ab, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 16.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8538952775747437565, guid: 365e36a05e80c0b43811cc2db140c7ab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 43.38
+      value: 43.4
       objectReference: {fileID: 0}
     - target: {fileID: 8538952775747437565, guid: 365e36a05e80c0b43811cc2db140c7ab, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8096,7 +8105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8538952775747437565, guid: 365e36a05e80c0b43811cc2db140c7ab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.56
+      value: 6.69
       objectReference: {fileID: 0}
     - target: {fileID: 8538952775747437565, guid: 365e36a05e80c0b43811cc2db140c7ab, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8134,6 +8143,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9108808217530669131, guid: 365e36a05e80c0b43811cc2db140c7ab, type: 3}
+      propertyPath: collisionText
+      value: 
+      objectReference: {fileID: 247405111}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

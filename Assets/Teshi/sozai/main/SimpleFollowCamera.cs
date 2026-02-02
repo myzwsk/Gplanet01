@@ -37,7 +37,7 @@ public class SimpleFollowCamera : MonoBehaviour
     void LateUpdate()
     {
         if (!follow || target == null) return;
-
+        Debug.Log("固定カメラ" + isFixedCamera);
         // ============================
         // ★ 固定カメラモード
         // ============================
