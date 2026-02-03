@@ -12,7 +12,7 @@ public class BossSceneGo : MonoBehaviour
     private string[] name;
     void Start()
     {
-        name=new string[] { BossSceneName , BossSceneName , BossSceneName , BossSceneName , BossSceneName2 };
+        name=new string[] { BossSceneName , BossSceneName , BossSceneName , BossSceneName2 };
     }
     private void OnTriggerEnter(Collider other)
     {

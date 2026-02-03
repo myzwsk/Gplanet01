@@ -15,6 +15,9 @@ public class TimeText : MonoBehaviour
     [TextArea(3, 10)] // インスペクターの入力欄を広くして入力しやすくする
     [SerializeField] private List<string> Sentences;
 
+    public GameObject osimai;
+    public GameObject end;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,6 +42,12 @@ public class TimeText : MonoBehaviour
 
         // 全てのリストが終わったらテキストを空にする
         Text.text = "";
+        if (osimai != null & end != null)
+        {
+            yield return new WaitForSeconds(1);
+            osimai.SetActive(true);
+            end.SetActive(true);
+        }
     }
 
     // 実際に「1文字ずつ」表示する処理
