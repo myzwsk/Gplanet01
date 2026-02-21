@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class FinalDecisionMiniGame : MonoBehaviour
 {
@@ -64,7 +65,7 @@ public class FinalDecisionMiniGame : MonoBehaviour
 
         // ★ これを必ず呼ぶ
         miniGameTrigger.EndMiniGame();
-
+        EventSystem.current.SetSelectedGameObject(null);
         gameObject.SetActive(false);
     }
 

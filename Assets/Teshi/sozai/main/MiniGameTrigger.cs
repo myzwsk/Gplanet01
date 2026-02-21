@@ -3,11 +3,13 @@
 public class MiniGameTrigger : MonoBehaviour
 {
     public GameObject miniGameCanvas;
+    public GameObject pressGameCanvas;
     public SmoothFollowCamera cameraFollow;
     public PlayerRotateToCamera playerRotate;
     public MiniGameManager manager;
 
     bool isTriggered = false;
+    
 
     void OnTriggerEnter(Collider other)
     {
@@ -43,8 +45,10 @@ public class MiniGameTrigger : MonoBehaviour
     // ★ 必ず呼ばれる「終了処理」
     public void EndMiniGame()
     {
+        PressureMiniGame miniGame = pressGameCanvas.GetComponent<PressureMiniGame>();
         isTriggered = false; // ← これが命
-
+        miniGame.ResetGame();
+        pressGameCanvas.SetActive(true);
         miniGameCanvas.SetActive(false);
 
         if (cameraFollow != null)
@@ -55,7 +59,6 @@ public class MiniGameTrigger : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
         Debug.Log("MiniGame End");
     }
 }

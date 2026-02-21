@@ -9,7 +9,6 @@ public class MiniGameSimple : MonoBehaviour
     {
         // カウント加算
         manager.OnMiniGameCleared();
-
         // ミニゲーム終了
         trigger.EndMiniGame();
     }

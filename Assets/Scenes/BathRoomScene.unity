@@ -3784,7 +3784,7 @@ MonoBehaviour:
   yesSE2: {fileID: 8300000, guid: 99cd1ee8498bc2c49b33465bc1cdfa93, type: 3}
   finalYesSE: {fileID: 8300000, guid: 012c3540c494e13409def6b53dc89136, type: 3}
   noSE: {fileID: 8300000, guid: 2175e0d00af85b348ab02c5b1e73af49, type: 3}
-  miniGameTrigger: {fileID: 0}
+  miniGameTrigger: {fileID: 1842423790}
 --- !u!114 &402357708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18854,6 +18854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniGameCanvas: {fileID: 926748033}
+  pressGameCanvas: {fileID: 911143452}
   cameraFollow: {fileID: 0}
   playerRotate: {fileID: 1542037782}
   manager: {fileID: 471656371}

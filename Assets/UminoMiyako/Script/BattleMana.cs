@@ -51,6 +51,17 @@ public class BattleMana : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.H))
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Com(500);
+            }
+            else if (Input.GetKeyDown(KeyCode.B))
+            {
+                Com(9999);
+            }
+        }
         if (Hp <= 0)
         {
             Hp = 0;
@@ -176,5 +187,13 @@ public class BattleMana : MonoBehaviour
             Random.Range(center.z - size.z / 2, center.z + size.z / 2)
         );
     }
-
+    void Com(int value)
+    {
+        maxHp = value;
+        Maxtext.text = maxHp.ToString();
+        Hp = maxHp;
+        slider.minValue = 0;
+        slider.maxValue = maxHp;
+        slider.value = Hp;
+    }
 }

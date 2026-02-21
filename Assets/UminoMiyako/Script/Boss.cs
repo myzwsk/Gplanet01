@@ -112,7 +112,7 @@ public class Boss : MonoBehaviour
             flag = false,
             func = () => ComboH()
         });
-        func.Add(new AttackCoro
+        /*func.Add(new AttackCoro
         {
             flag = false,
             func = () => ComboI()
@@ -121,7 +121,7 @@ public class Boss : MonoBehaviour
         {
             flag = false,
             func = () => ComboJ()
-        });
+        });*/
         Debug.Log("左シフト：\n1.外内,2.エリア破壊,3.半面破壊,4.円,5.縦爪,6.横爪");
         Debug.Log("右シフト：\n1.外側破壊,2.内側破壊,3.星,4.星内破壊,5.剣,6.剣交差,7.剣交差内破壊");
         Debug.Log("左オルト：\n1.押し出し,2.引き寄せ,3.ドーナツ,4.バー,5.回転バー,6.ステルス,7.全消し");
@@ -352,7 +352,7 @@ public class Boss : MonoBehaviour
         runcoro.Add(c7);
         yield return new WaitForSeconds(5f);
 
-        StartCoroutine(Cast("スタープラチナ", 1f));
+        StartCoroutine(Cast("スター", 1f));
         yield return new WaitForSeconds(1f);
         Coroutine c8 = StartCoroutine(AttackStar2(0, 0, 1, 500));
         runcoro.Add(c8);
@@ -423,7 +423,7 @@ public class Boss : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
-        StartCoroutine(Cast("おきにです", 2));
+        StartCoroutine(Cast("そとみて", 2));
         yield return new WaitForSeconds(2);
         Coroutine c4 = StartCoroutine(AttackSword3(2, 0.5f, 2, 0, 5));
         runcoro.Add(c4);
@@ -435,34 +435,69 @@ public class Boss : MonoBehaviour
     }
     private IEnumerator ComboC()
     {
-        StartCoroutine(Cast("レフトサイド", 3));
-        yield return new WaitForSeconds(3);
-        Coroutine c1 = StartCoroutine(Attack8Field(0.5f, 7, 3));
-        runcoro.Add(c1);
-        yield return new WaitForSeconds(1);
+        int rand= Random.Range(0, 2);
+        if (rand == 0)
+        {
+            StartCoroutine(Cast("レフトサイド", 3));
+            yield return new WaitForSeconds(3);
+            Coroutine c1 = StartCoroutine(Attack8Field(0.5f, 7, 3));
+            runcoro.Add(c1);
+            yield return new WaitForSeconds(1);
 
-        StartCoroutine(Cast("バーバー", 1));
-        yield return new WaitForSeconds(1);
-        Coroutine c2 = StartCoroutine(AttackBar(1));
-        runcoro.Add(c2);
-        Coroutine c3 = StartCoroutine(AttackBar(4));
-        runcoro.Add(c3);
-        yield return new WaitForSeconds(2);
-        Coroutine c4 = StartCoroutine(AttackStick(1, 10));
-        runcoro.Add(c4);
+            StartCoroutine(Cast("バーバー", 1));
+            yield return new WaitForSeconds(1);
+            Coroutine c2 = StartCoroutine(AttackBar(1));
+            runcoro.Add(c2);
+            Coroutine c3 = StartCoroutine(AttackBar(4));
+            runcoro.Add(c3);
+            yield return new WaitForSeconds(2);
+            Coroutine c4 = StartCoroutine(AttackStick(1, 10));
+            runcoro.Add(c4);
 
-        StartCoroutine(Cast("ライトサイド", 3));
-        yield return new WaitForSeconds(3);
-        Coroutine c5 = StartCoroutine(Attack8Field(0.5f, 7, 2));
-        runcoro.Add(c5);
-        yield return new WaitForSeconds(1);
+            StartCoroutine(Cast("ライトサイド", 3));
+            yield return new WaitForSeconds(3);
+            Coroutine c5 = StartCoroutine(Attack8Field(0.5f, 7, 2));
+            runcoro.Add(c5);
+            yield return new WaitForSeconds(1);
 
-        StartCoroutine(Cast("バーバー", 1));
-        yield return new WaitForSeconds(1);
-        Coroutine c6 = StartCoroutine(AttackBar(1));
-        runcoro.Add(c6);
-        Coroutine c7 = StartCoroutine(AttackBar(4));
-        runcoro.Add(c7);
+            StartCoroutine(Cast("バーバー", 1));
+            yield return new WaitForSeconds(1);
+            Coroutine c6 = StartCoroutine(AttackBar(1));
+            runcoro.Add(c6);
+            Coroutine c7 = StartCoroutine(AttackBar(4));
+            runcoro.Add(c7);
+        }
+        else
+        {
+            StartCoroutine(Cast("ライトサイド", 3));
+            yield return new WaitForSeconds(3);
+            Coroutine c1 = StartCoroutine(Attack8Field(0.5f, 7, 2));
+            runcoro.Add(c1);
+            yield return new WaitForSeconds(1);
+
+            StartCoroutine(Cast("バーバー", 1));
+            yield return new WaitForSeconds(1);
+            Coroutine c2 = StartCoroutine(AttackBar(1));
+            runcoro.Add(c2);
+            Coroutine c3 = StartCoroutine(AttackBar(4));
+            runcoro.Add(c3);
+            yield return new WaitForSeconds(2);
+            Coroutine c4 = StartCoroutine(AttackStick(1, 10));
+            runcoro.Add(c4);
+
+            StartCoroutine(Cast("レフトサイド", 3));
+            yield return new WaitForSeconds(3);
+            Coroutine c5 = StartCoroutine(Attack8Field(0.5f, 7, 3));
+            runcoro.Add(c5);
+            yield return new WaitForSeconds(1);
+
+            StartCoroutine(Cast("バーバー", 1));
+            yield return new WaitForSeconds(1);
+            Coroutine c6 = StartCoroutine(AttackBar(1));
+            runcoro.Add(c6);
+            Coroutine c7 = StartCoroutine(AttackBar(4));
+            runcoro.Add(c7);
+        }
 
         yield return new WaitForSeconds(6);
         StopAllAttackCoroutines();
@@ -470,7 +505,7 @@ public class Boss : MonoBehaviour
     }
     private IEnumerator ComboD()
     {
-        StartCoroutine(Cast("おっぱお", 3));
+        StartCoroutine(Cast("たまいっぱい", 3));
         yield return new WaitForSeconds(3);
         Coroutine c1 = StartCoroutine(AttackShot2(20));
         runcoro.Add(c1);
@@ -547,7 +582,7 @@ public class Boss : MonoBehaviour
     }
     private IEnumerator ComboG()
     {
-        StartCoroutine(Cast("これもおきに", 3));
+        StartCoroutine(Cast("そとから", 3));
         yield return new WaitForSeconds(3);
         Coroutine c1 = StartCoroutine(AttackThin(1.5f));
         runcoro.Add(c1);
@@ -620,7 +655,7 @@ public class Boss : MonoBehaviour
         StopAllAttackCoroutines();
         go = true;
     }
-    private IEnumerator ComboI()
+   /* private IEnumerator ComboI()
     {
         StartCoroutine(Cast("みやざわ", 2));
         yield return new WaitForSeconds(2);
@@ -691,7 +726,7 @@ public class Boss : MonoBehaviour
         ReField();
         StopAllAttackCoroutines();
         go = true;
-    }
+    }*/
 
     //ReField()
     //Coroutine c = ;
